@@ -1,0 +1,3588 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#08070b">
+  <meta name="description" content="Lila Studios component library and interactive UI inventory.">
+  <title>Lila Studios — Components</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --black: #08070b;
+      --ink: #0e0c12;
+      --panel: #151219;
+      --panel-2: #1b1721;
+      --white: #f7f4f8;
+      --grey-100: #ded9e1;
+      --grey-300: #aaa3b0;
+      --grey-500: #746d79;
+      --grey-700: #332e38;
+      --purple-700: #7026b8;
+      --purple-500: #a653e6;
+      --purple-300: #c184ff;
+      --green: #64d6a3;
+      --red: #ff787f;
+      --yellow: #e8c66a;
+      --line: rgba(255, 255, 255, .1);
+      --line-strong: rgba(255, 255, 255, .2);
+      --gradient: linear-gradient(105deg, var(--purple-700), var(--purple-500) 55%, var(--purple-300));
+      --radius-sm: 12px;
+      --radius-md: 18px;
+      --radius-lg: 28px;
+      --radius-xl: 42px;
+      --shadow: 0 24px 80px rgba(0, 0, 0, .45);
+      --font: Inter, "Avenir Next", Avenir, "Helvetica Neue", Arial, sans-serif;
+      --content: min(1180px, calc(100vw - 80px));
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      color: var(--white);
+      background: radial-gradient(circle at 85% 4%, rgba(112, 38, 184, .12), transparent 28rem), var(--black);
+      font-family: var(--font);
+      line-height: 1.5;
+    }
+
+    body.locked {
+      overflow: hidden;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button,
+    a,
+    input,
+    select,
+    textarea {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--purple-300);
+      outline-offset: 4px;
+    }
+
+    ::selection {
+      background: var(--purple-500);
+      color: white;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    .skip {
+      position: fixed;
+      left: 12px;
+      top: 12px;
+      z-index: 300;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: white;
+      color: #111;
+      transform: translateY(-160%);
+    }
+
+    .skip:focus {
+      transform: none;
+    }
+
+    /* Library shell */
+    .library-header {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 80;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 0 28px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(8, 7, 11, .86);
+      backdrop-filter: blur(18px);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      flex: 0 0 auto;
+      text-decoration: none;
+    }
+
+    .brand-logo {
+      display: block;
+      width: 88px;
+      height: auto;
+    }
+
+    .library-header .brand-logo {
+      width: 82px;
+    }
+
+    .library-name {
+      margin-left: 18px;
+      padding-left: 18px;
+      border-left: 1px solid var(--line-strong);
+      color: var(--grey-300);
+      font-size: .75rem;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+    }
+
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--grey-300);
+      font-size: .72rem;
+    }
+
+    .status::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 12px rgba(100, 214, 163, .65);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .docs-menu {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: transparent;
+      color: white;
+    }
+
+    .docs-menu::before {
+      content: "☰";
+    }
+
+    .side-nav {
+      position: fixed;
+      z-index: 60;
+      inset: 68px auto 0 0;
+      width: 250px;
+      overflow: auto;
+      padding: 28px 20px 40px 28px;
+      border-right: 1px solid var(--line);
+      background: rgba(8, 7, 11, .7);
+    }
+
+    .nav-group {
+      margin: 0 0 27px;
+    }
+
+    .nav-group h2 {
+      margin: 0 0 10px;
+      color: var(--grey-500);
+      font-size: .62rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .nav-group a {
+      display: block;
+      padding: 7px 10px;
+      border-radius: 8px;
+      color: var(--grey-300);
+      text-decoration: none;
+      font-size: .8rem;
+    }
+
+    .nav-group a:hover,
+    .nav-group a.active {
+      color: white;
+      background: rgba(255, 255, 255, .055);
+    }
+
+    .nav-group a.active {
+      box-shadow: inset 2px 0 var(--purple-500);
+    }
+
+    .nav-section-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 4px;
+      align-items: center;
+    }
+
+    .nav-section-row a {
+      min-width: 0;
+    }
+
+    .section-visibility-toggle {
+      min-width: 48px;
+      min-height: 44px;
+      padding: 6px;
+      border: 0;
+      border-radius: 9px;
+      color: var(--grey-500);
+      background: transparent;
+      font-size: .57rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .section-visibility-toggle:hover {
+      color: white;
+      background: rgba(255, 255, 255, .07);
+    }
+
+    .nav-section-row.section-is-hidden a {
+      opacity: .34;
+      text-decoration: line-through;
+      text-decoration-thickness: 1px;
+    }
+
+    .nav-section-row.section-is-hidden .section-visibility-toggle {
+      color: var(--purple-300);
+      background: rgba(166, 83, 230, .08);
+    }
+
+    main {
+      margin-left: 250px;
+      padding-top: 68px;
+    }
+
+    .hero {
+      padding: 104px 0 74px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .wrap {
+      width: var(--content);
+      margin: auto;
+    }
+
+    .kicker {
+      margin: 0 0 17px;
+      color: var(--purple-300);
+      font-size: .68rem;
+      font-weight: 720;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1,
+    h2,
+    h3 {
+      line-height: 1;
+      letter-spacing: -.045em;
+    }
+
+    h1 {
+      max-width: 920px;
+      margin-bottom: 28px;
+      font-size: clamp(3.5rem, 8vw, 7.4rem);
+      font-weight: 490;
+    }
+
+    h2 {
+      margin-bottom: 16px;
+      font-size: clamp(2rem, 4.5vw, 3.8rem);
+      font-weight: 500;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      font-weight: 580;
+    }
+
+    .gradient {
+      color: transparent;
+      background: var(--gradient);
+      background-clip: text;
+      -webkit-background-clip: text;
+    }
+
+    .hero p {
+      max-width: 700px;
+      color: var(--grey-300);
+      font-size: clamp(1rem, 1.7vw, 1.2rem);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 34px;
+    }
+
+    .meta-pill {
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--grey-300);
+      font-size: .7rem;
+    }
+
+    .component-section {
+      padding: 92px 0;
+      border-bottom: 1px solid var(--line);
+      scroll-margin-top: 68px;
+    }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: 1fr .72fr;
+      gap: 70px;
+      align-items: end;
+      margin-bottom: 40px;
+    }
+
+    .section-heading p {
+      max-width: 480px;
+      margin-bottom: 3px;
+      color: var(--grey-300);
+    }
+
+    .specimen {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: rgba(255, 255, 255, .02);
+    }
+
+    .specimen+.specimen {
+      margin-top: 18px;
+    }
+
+    .specimen-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      min-height: 51px;
+      padding: 12px 18px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, .018);
+    }
+
+    .specimen-bar h3 {
+      margin: 0;
+      font-size: .78rem;
+      letter-spacing: -.01em;
+    }
+
+    .specimen-bar span {
+      color: var(--grey-500);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: .65rem;
+    }
+
+    .specimen-canvas {
+      padding: clamp(22px, 4vw, 42px);
+    }
+
+    .dark-canvas {
+      background: var(--ink);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .grid-2 > .specimen,
+    .grid-3 > .specimen {
+      margin-top: 0 !important;
+    }
+
+    .note {
+      padding: 14px 16px;
+      border-left: 2px solid var(--purple-500);
+      color: var(--grey-300);
+      background: rgba(166, 83, 230, .055);
+      font-size: .78rem;
+    }
+
+    /* Foundations */
+    .type-row {
+      display: grid;
+      grid-template-columns: 145px 1fr auto;
+      gap: 28px;
+      align-items: baseline;
+      padding: 25px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .type-row:last-child {
+      border-bottom: 0;
+    }
+
+    .type-label,
+    .type-token {
+      color: var(--grey-500);
+      font-size: .68rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    .display-xl {
+      font-size: clamp(3.2rem, 7vw, 6.2rem);
+      line-height: .92;
+      letter-spacing: -.06em;
+      font-weight: 480;
+    }
+
+    .display-lg {
+      font-size: clamp(2.4rem, 5vw, 4.4rem);
+      line-height: .95;
+      letter-spacing: -.055em;
+      font-weight: 490;
+    }
+
+    .heading-md {
+      font-size: 1.75rem;
+      line-height: 1.08;
+      letter-spacing: -.04em;
+      font-weight: 560;
+    }
+
+    .body-lg {
+      color: var(--grey-100);
+      font-size: 1.18rem;
+      line-height: 1.55;
+    }
+
+    .body-md {
+      color: var(--grey-300);
+      font-size: .95rem;
+    }
+
+    .label-sm {
+      font-size: .68rem;
+      font-weight: 720;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .swatches {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .swatch {
+      min-height: 150px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      border-radius: 20px;
+      border: 1px solid var(--line);
+    }
+
+    .swatch strong {
+      font-size: .82rem;
+    }
+
+    .swatch code {
+      color: rgba(255, 255, 255, .68);
+      font-size: .68rem;
+    }
+
+    .space-scale {
+      display: grid;
+      gap: 15px;
+    }
+
+    .space-row {
+      display: grid;
+      grid-template-columns: 65px 1fr 50px;
+      gap: 15px;
+      align-items: center;
+      color: var(--grey-300);
+      font-size: .72rem;
+    }
+
+    .space-bar {
+      height: 13px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--purple-700), var(--purple-300));
+    }
+
+    /* Logo and nav */
+    .logo-stage {
+      min-height: 360px;
+      display: grid;
+      place-items: center;
+      padding: clamp(28px, 6vw, 64px);
+      border-radius: 22px;
+      background: #f2eff4;
+      color: #111;
+    }
+
+    .logo-lockup {
+      display: block;
+      width: min(560px, 78%);
+      height: auto;
+    }
+
+    .logo-library-group+.logo-library-group {
+      margin-top: 30px;
+    }
+
+    .logo-library-heading {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: end;
+      margin-bottom: 12px;
+    }
+
+    .logo-library-heading h3 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .logo-library-heading p {
+      max-width: 560px;
+      margin: 0;
+      color: var(--grey-500);
+      font-size: .72rem;
+      text-align: right;
+    }
+
+    .logo-treatment-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .logo-swatch {
+      min-width: 0;
+      margin: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+    }
+
+    .logo-swatch.light {
+      color: #17131b;
+      background: #f2eff4;
+      border-color: rgba(17, 17, 17, .12);
+    }
+
+    .logo-swatch.dark {
+      color: var(--white);
+      background: #08070b;
+    }
+
+    .logo-swatch-visual {
+      min-height: 230px;
+      display: grid;
+      place-items: center;
+      padding: 28px 20px;
+    }
+
+    .logo-swatch.compact .logo-swatch-visual {
+      min-height: 180px;
+    }
+
+    .logo-swatch img {
+      display: block;
+      width: 100%;
+      max-height: 180px;
+    }
+
+    .logo-swatch.compact img {
+      max-height: 112px;
+    }
+
+    .logo-swatch figcaption {
+      padding: 13px 15px;
+      border-top: 1px solid currentColor;
+      border-color: rgba(127, 118, 132, .2);
+      font-size: .66rem;
+    }
+
+    .logo-swatch figcaption strong {
+      display: block;
+      margin-bottom: 3px;
+      font-size: .72rem;
+    }
+
+    .logo-swatch figcaption code {
+      color: inherit;
+      opacity: .6;
+      font-size: .58rem;
+      overflow-wrap: anywhere;
+    }
+
+    .desktop-nav-preview {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 15px 18px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #0b090e;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      margin-left: auto;
+    }
+
+    .nav-links a {
+      color: var(--grey-100);
+      text-decoration: none;
+      font-size: .8rem;
+    }
+
+    /* Top-hanging Notch / Dynamic Island Nav */
+    .notch-stage {
+      position: relative;
+      min-height: 320px;
+      border-radius: 24px;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 10%, #7026b8, #3b1064 45%, #0d0614 90%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 0;
+      box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .notch-nav-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      position: relative;
+      z-index: 5;
+    }
+
+    .notch-nav {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 32px;
+      background: #000000;
+      padding: 10px 18px 12px 18px;
+      border-radius: 0 0 24px 24px;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, .55), 0 4px 12px rgba(0, 0, 0, .4);
+    }
+
+    .notch-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: .95rem;
+      letter-spacing: -.02em;
+    }
+
+    .notch-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #4da4ff, #0066fe);
+      display: grid;
+      place-items: center;
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, .6), 0 2px 6px rgba(0, 0, 0, .3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .notch-icon::after {
+      content: "";
+      position: absolute;
+      top: 1px;
+      left: 2px;
+      right: 2px;
+      height: 42%;
+      border-radius: 6px 6px 10px 10px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, .7), rgba(255, 255, 255, .05));
+    }
+
+    .notch-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .notch-links a {
+      color: #a1a1a6;
+      text-decoration: none;
+      font-size: .84rem;
+      font-weight: 500;
+      transition: color .2s;
+    }
+
+    .notch-links a:hover {
+      color: #ffffff;
+    }
+
+    .notch-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: #ffffff;
+      color: #000000;
+      font-size: .82rem;
+      font-weight: 650;
+      padding: 8px 16px;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: transform .18s, background .18s, box-shadow .18s;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, .25);
+    }
+
+    .notch-btn:hover {
+      background: #f0f0f0;
+      transform: translateY(-1px);
+    }
+
+    .notch-hero-preview {
+      margin-top: 50px;
+      text-align: center;
+      color: #ffffff;
+      padding: 0 20px 48px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .notch-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .85rem;
+      color: rgba(255, 255, 255, .9);
+      margin-bottom: 16px;
+    }
+
+    .notch-hero-preview h2 {
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      line-height: 1.05;
+      margin: 0;
+      font-weight: 700;
+      letter-spacing: -.04em;
+    }
+
+    .notch-hero-preview em {
+      font-style: italic;
+      font-family: "New York", "Times New Roman", Georgia, serif;
+      font-weight: 400;
+    }
+
+    .phone-frame {
+      width: min(390px, 100%);
+      margin-inline: auto;
+      padding: 10px;
+      border: 1px solid var(--line-strong);
+      border-radius: 38px;
+      background: #050407;
+      box-shadow: var(--shadow);
+    }
+
+    .phone-screen {
+      position: relative;
+      min-height: 620px;
+      overflow: hidden;
+      border-radius: 29px;
+      background: radial-gradient(circle at 80% 12%, rgba(112, 38, 184, .18), transparent 15rem), #0c0a0f;
+    }
+
+    .phone-bar {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px;
+    }
+
+    .phone-bar .brand-logo {
+      width: 78px;
+    }
+
+    .phone-notch-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      display: flex;
+      justify-content: center;
+      padding: 0;
+    }
+
+    .phone-notch-bar {
+      width: calc(100% - 24px);
+      max-width: 320px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px 9px 16px;
+      background: #000000;
+      border-radius: 0 0 20px 20px;
+      box-shadow: 0 14px 32px rgba(0, 0, 0, .75), 0 0 0 1px rgba(255, 255, 255, .12);
+    }
+
+    .phone-notch-bar .brand-logo {
+      width: 62px;
+      height: auto;
+    }
+
+    .phone-notch-toggle {
+      width: 34px;
+      height: 34px;
+      border: 1px solid rgba(255, 255, 255, .2);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .05);
+      color: white;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3.5px;
+      padding: 0;
+    }
+
+    .phone-notch-toggle span,
+    .phone-notch-toggle::before,
+    .phone-notch-toggle::after {
+      content: "";
+      display: block;
+      width: 14px;
+      height: 1.5px;
+      background: currentColor;
+      border-radius: 1px;
+      transition: transform .25s, opacity .25s;
+    }
+
+    .phone-notch-toggle.open span {
+      opacity: 0;
+    }
+
+    .phone-notch-toggle.open::before {
+      transform: translateY(5px) rotate(45deg);
+    }
+
+    .phone-notch-toggle.open::after {
+      transform: translateY(-5px) rotate(-45deg);
+    }
+
+    .mobile-toggle {
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--line-strong);
+      border-radius: 50%;
+      background: transparent;
+      color: white;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 0;
+    }
+
+    .mobile-toggle span,
+    .mobile-toggle::before,
+    .mobile-toggle::after {
+      content: "";
+      display: block;
+      width: 16px;
+      height: 1.5px;
+      background: currentColor;
+      border-radius: 1px;
+      transition: transform .25s, opacity .25s;
+    }
+
+    .mobile-toggle.open span {
+      opacity: 0;
+    }
+
+    .mobile-toggle.open::before {
+      transform: translateY(5.5px) rotate(45deg);
+    }
+
+    .mobile-toggle.open::after {
+      transform: translateY(-5.5px) rotate(-45deg);
+    }
+
+    .phone-content {
+      padding: 100px 24px 24px;
+    }
+
+    .phone-content p {
+      color: var(--grey-500);
+      font-size: .65rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .phone-content strong {
+      display: block;
+      max-width: 280px;
+      font-size: 2.8rem;
+      line-height: .94;
+      letter-spacing: -.055em;
+      font-weight: 500;
+    }
+
+    .mobile-sheet {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 84px 28px 30px;
+      background: rgba(8, 7, 11, .98);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-12px);
+      transition: .25s;
+    }
+
+    .mobile-sheet.open {
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+    }
+
+    .mobile-sheet a:not(.button) {
+      padding: 6px 0;
+      color: white;
+      text-decoration: none;
+      font-size: 2.5rem;
+      line-height: 1.08;
+      letter-spacing: -.05em;
+    }
+
+    .mobile-sheet .button {
+      margin-top: 28px;
+      width: fit-content;
+    }
+
+    /* Buttons */
+    .button {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 19px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      color: white;
+      background: transparent;
+      text-decoration: none;
+      font-size: .86rem;
+      font-weight: 680;
+      cursor: pointer;
+      transition: transform .18s, box-shadow .18s, background .18s, border-color .18s;
+    }
+
+    .button:hover:not(:disabled) {
+      transform: translateY(-2px);
+    }
+
+    .button-primary {
+      background: linear-gradient(105deg, var(--purple-700), var(--purple-500));
+      box-shadow: 0 10px 28px rgba(112, 38, 184, .24);
+    }
+
+    .button-primary:hover:not(:disabled),
+    .button-primary.state-hover {
+      box-shadow: 0 14px 36px rgba(166, 83, 230, .42);
+      background: linear-gradient(105deg, #7c2ec5, #b05cef);
+    }
+
+    .button-primary.state-pressed {
+      transform: translateY(1px);
+      box-shadow: 0 4px 14px rgba(112, 38, 184, .25);
+    }
+
+    .button-secondary {
+      color: #161219;
+      background: var(--white);
+    }
+
+    .button-secondary:hover:not(:disabled) {
+      background: white;
+    }
+
+    .button-ghost {
+      border-color: var(--line-strong);
+      background: rgba(255, 255, 255, .035);
+    }
+
+    .button-ghost:hover:not(:disabled) {
+      border-color: rgba(255, 255, 255, .35);
+      background: rgba(255, 255, 255, .09);
+    }
+
+    .button-icon {
+      width: 48px;
+      padding: 0;
+      border-color: var(--line-strong);
+      background: rgba(255, 255, 255, .035);
+    }
+
+    .button:disabled {
+      opacity: .33;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .state-focus {
+      outline: 3px solid var(--purple-300);
+      outline-offset: 4px;
+    }
+
+    .button-loading {
+      pointer-events: none;
+    }
+
+    .mini-spinner {
+      width: 15px;
+      height: 15px;
+      border: 2px solid rgba(255, 255, 255, .28);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .state-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(120px, 1fr));
+      gap: 18px;
+    }
+
+    .state-cell {
+      min-height: 110px;
+      display: grid;
+      place-items: center;
+      padding: 16px;
+      border: 1px dashed var(--line);
+      border-radius: 16px;
+      text-align: center;
+    }
+
+    .state-cell small {
+      display: block;
+      margin-bottom: 13px;
+      color: var(--grey-500);
+      font-size: .63rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .text-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--grey-100);
+      text-decoration: underline;
+      text-decoration-color: rgba(193, 132, 255, .55);
+      text-underline-offset: 6px;
+      transition: color .2s;
+    }
+
+    .text-link:hover {
+      color: var(--purple-300);
+    }
+
+    .arrow {
+      transition: transform .2s;
+    }
+
+    .text-link:hover .arrow,
+    .button:hover .arrow {
+      transform: translateX(4px);
+    }
+
+    .play {
+      width: 0;
+      height: 0;
+      border-block: 6px solid transparent;
+      border-left: 9px solid currentColor;
+      margin-left: 2px;
+    }
+
+    /* Inputs */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 19px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    .field label,
+    .legend {
+      color: var(--grey-100);
+      font-size: .77rem;
+      font-weight: 620;
+    }
+
+    .input,
+    .select,
+    .textarea {
+      width: 100%;
+      border: 1px solid var(--line-strong);
+      border-radius: 14px;
+      background: #100d14;
+      color: white;
+      padding: 14px 15px;
+      transition: border-color .2s, box-shadow .2s, background .2s;
+    }
+
+    .textarea {
+      min-height: 116px;
+      resize: vertical;
+    }
+
+    .input::placeholder,
+    .textarea::placeholder {
+      color: #6f6874;
+    }
+
+    .input:hover,
+    .select:hover,
+    .textarea:hover {
+      border-color: rgba(255, 255, 255, .34);
+    }
+
+    .input:focus,
+    .select:focus,
+    .textarea:focus,
+    .input.state-focus {
+      outline: none;
+      border-color: var(--purple-300);
+      box-shadow: 0 0 0 4px rgba(166, 83, 230, .14);
+      background: #141018;
+    }
+
+    .input:disabled,
+    .select:disabled {
+      opacity: .42;
+      cursor: not-allowed;
+    }
+
+    .field.error .input {
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px rgba(255, 120, 127, .08);
+    }
+
+    .field.success .input {
+      border-color: var(--green);
+    }
+
+    .help {
+      color: var(--grey-500);
+      font-size: .7rem;
+    }
+
+    .field.error .help {
+      color: var(--red);
+    }
+
+    .field.success .help {
+      color: var(--green);
+    }
+
+    .choice-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .choice {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--grey-300);
+      font-size: .82rem;
+      cursor: pointer;
+    }
+
+    .choice input {
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      margin: 0;
+      border: 1px solid var(--line-strong);
+      background: #100d14;
+    }
+
+    .choice.checkbox input {
+      border-radius: 6px;
+    }
+
+    .choice.radio input {
+      border-radius: 50%;
+    }
+
+    .choice input:checked {
+      border-color: var(--purple-500);
+      background: var(--purple-500);
+      box-shadow: inset 0 0 0 5px #100d14;
+    }
+
+    .switch {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      color: var(--grey-300);
+      font-size: .82rem;
+      cursor: pointer;
+    }
+
+    .switch input {
+      position: absolute;
+      opacity: 0;
+    }
+
+    .switch-track {
+      width: 43px;
+      height: 24px;
+      padding: 3px;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      background: #100d14;
+      transition: .2s;
+    }
+
+    .switch-track::after {
+      content: "";
+      display: block;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--grey-300);
+      transition: .2s;
+    }
+
+    .switch input:checked+.switch-track {
+      border-color: transparent;
+      background: var(--purple-500);
+    }
+
+    .switch input:checked+.switch-track::after {
+      transform: translateX(19px);
+      background: white;
+    }
+
+    /* Tags, cards, media */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 29px;
+      padding: 6px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: #cbc4cf;
+      background: rgba(255, 255, 255, .035);
+      font-size: .68rem;
+    }
+
+    .tag-brand {
+      border-color: rgba(166, 83, 230, .35);
+      color: #d9baf3;
+      background: rgba(112, 38, 184, .12);
+    }
+
+    .tag-time::before {
+      content: "";
+      width: 5px;
+      height: 5px;
+      margin-right: 7px;
+      border-radius: 50%;
+      background: var(--purple-300);
+    }
+
+    .poster {
+      position: relative;
+      display: block;
+      width: 100%;
+      min-height: 380px;
+      aspect-ratio: 2 / 3;
+      overflow: hidden;
+      padding: 0;
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-radius: 26px;
+      color: white;
+      background: #1b1022;
+      text-align: left;
+      cursor: pointer;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, .4);
+      transition: transform .4s cubic-bezier(.2, .8, .2, 1), box-shadow .4s, border-color .4s;
+    }
+
+    .poster::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(20, 9, 27, .04), rgba(9, 7, 12, .22)),
+        url("assets/images/the-last-voice-poster.png") center / cover no-repeat;
+      transform: scale(1.001);
+      transition: transform .45s;
+    }
+
+    .poster:hover {
+      transform: translateY(-8px) scale(1.015);
+      border-color: rgba(193, 132, 255, .45);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, .75), 0 0 35px rgba(112, 38, 184, .35);
+    }
+
+    .poster:hover::before {
+      transform: scale(1.08);
+    }
+
+    .poster::after {
+      content: "";
+      position: absolute;
+      inset: 30% 0 0;
+      background: linear-gradient(to top, rgba(8, 7, 11, .98) 0%, rgba(8, 7, 11, .75) 45%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .poster-top,
+    .poster-bottom {
+      position: absolute;
+      z-index: 2;
+      left: 18px;
+      right: 18px;
+      display: flex;
+    }
+
+    .poster-top {
+      top: 16px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .poster-index {
+      font-size: .68rem;
+      font-weight: 700;
+      color: rgba(255, 255, 255, .8);
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, .45);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, .1);
+    }
+
+    .poster-bottom {
+      bottom: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .poster-bottom h3 {
+      margin: 10px 0 6px;
+      font-size: 1.55rem;
+      font-weight: 700;
+      letter-spacing: -.02em;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, .6);
+    }
+
+    .poster-bottom p {
+      margin: 0;
+      color: #cac3ce;
+      font-size: .8rem;
+    }
+
+    .circle-control {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, .25);
+      border-radius: 50%;
+      background: rgba(10, 8, 14, .6);
+      backdrop-filter: blur(8px);
+      color: white;
+      transition: background .3s, transform .3s, box-shadow .3s, border-color .3s;
+    }
+
+    .poster:hover .circle-control {
+      background: linear-gradient(135deg, var(--violet-1), var(--violet-3));
+      transform: scale(1.12);
+      border-color: transparent;
+      box-shadow: 0 0 20px rgba(193, 132, 255, .7);
+    }
+
+    .service-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 340px;
+      padding: 32px 28px;
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: 28px;
+      background: linear-gradient(160deg, rgba(255, 255, 255, .04), rgba(255, 255, 255, .01));
+      box-shadow: 0 16px 36px rgba(0, 0, 0, .3);
+      transition: transform .35s cubic-bezier(.2, .8, .2, 1), border-color .35s, background .35s, box-shadow .35s;
+    }
+
+    .service-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--violet-2), var(--violet-3), transparent);
+      opacity: 0;
+      transition: opacity .35s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(193, 132, 255, .35);
+      background: linear-gradient(160deg, rgba(112, 38, 184, .12), rgba(255, 255, 255, .02));
+      box-shadow: 0 24px 50px rgba(0, 0, 0, .6), 0 0 30px rgba(112, 38, 184, .2);
+    }
+
+    .service-card:hover::before {
+      opacity: 1;
+    }
+
+    .service-card small {
+      color: var(--violet-3);
+      font-weight: 700;
+      font-size: .72rem;
+      letter-spacing: .15em;
+    }
+
+    .service-mark {
+      width: 56px;
+      height: 56px;
+      margin: 46px 0 32px;
+      border: 1px solid rgba(193, 132, 255, .4);
+      border-radius: 18px;
+      background: radial-gradient(circle at 40% 40%, rgba(193, 132, 255, .3), rgba(112, 38, 184, .15));
+      box-shadow: 0 0 24px rgba(166, 83, 230, .25), inset 0 0 15px rgba(255, 255, 255, .1);
+      display: grid;
+      place-items: center;
+      transition: transform .3s, box-shadow .3s;
+    }
+
+    .service-card:hover .service-mark {
+      transform: scale(1.08) rotate(4deg);
+      box-shadow: 0 0 30px rgba(193, 132, 255, .5), inset 0 0 18px rgba(255, 255, 255, .2);
+    }
+
+    .service-card h3 {
+      font-size: 1.45rem;
+      margin: 0 0 12px;
+      font-weight: 700;
+      letter-spacing: -.02em;
+    }
+
+    .service-card p {
+      color: #b8b1bd;
+      font-size: .92rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .service-card-highlight {
+      border-color: rgba(193, 132, 255, .4);
+      background: linear-gradient(160deg, rgba(112, 38, 184, .18), rgba(255, 255, 255, .03));
+      box-shadow: 0 20px 48px rgba(0, 0, 0, .6), 0 0 35px rgba(112, 38, 184, .25);
+    }
+
+    .service-card-highlight::before {
+      opacity: 1;
+    }
+
+    .service-card-highlight .service-mark {
+      transform: scale(1.08) rotate(4deg);
+      box-shadow: 0 0 30px rgba(193, 132, 255, .5), inset 0 0 18px rgba(255, 255, 255, .2);
+    }
+
+    .service-pill-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: .66rem;
+      font-weight: 600;
+      color: #e5cdff;
+      background: rgba(166, 83, 230, .2);
+      border: 1px solid rgba(193, 132, 255, .4);
+      margin-top: 14px;
+    }
+
+    .service-pill-tag::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--violet-3);
+      box-shadow: 0 0 8px var(--violet-3);
+    }
+
+    .card-meta-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 16px;
+    }
+
+    .card-meta-item {
+      font-size: .7rem;
+      padding: 3px 9px;
+      border-radius: 6px;
+      color: #c9c2ce;
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid rgba(255, 255, 255, .08);
+    }
+
+    /* Cards Specimen Showcase Grid & Gaps */
+    .cards-specimen-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      align-items: stretch;
+      margin-bottom: 18px;
+    }
+
+    .cards-specimen-grid .specimen {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      margin: 0 !important;
+    }
+
+    .cards-specimen-grid .specimen+.specimen {
+      margin-top: 0 !important;
+    }
+
+    .cards-specimen-grid .specimen-canvas {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: stretch;
+      padding: 16px;
+    }
+
+    .cards-specimen-grid .poster {
+      aspect-ratio: unset;
+      width: 100%;
+      height: 100%;
+      min-height: 480px;
+      flex: 1;
+      display: block;
+      margin: 0;
+    }
+
+    .cards-specimen-grid .service-card {
+      width: 100%;
+      height: 100%;
+      min-height: 480px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin: 0;
+    }
+
+    .featured {
+      position: relative;
+      min-height: 440px;
+      overflow: hidden;
+      padding: clamp(28px, 5vw, 55px);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      border: 1px solid rgba(255, 255, 255, .14);
+      border-radius: 36px;
+      background: #0f0a14;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, .5);
+      transition: transform .35s, box-shadow .35s, border-color .35s;
+    }
+
+    .featured:hover {
+      transform: translateY(-6px);
+      border-color: rgba(193, 132, 255, .45);
+      box-shadow: 0 28px 60px rgba(0, 0, 0, .7), 0 0 35px rgba(112, 38, 184, .25);
+    }
+
+    .featured::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(8, 6, 12, .94) 0%, rgba(8, 6, 12, .8) 42%, rgba(8, 6, 12, .25) 100%),
+        linear-gradient(180deg, rgba(8, 6, 12, .25) 0%, rgba(8, 6, 12, .85) 100%),
+        url("assets/images/featured-project-bg.jpg") center right / cover no-repeat;
+      transform: scale(1.001);
+      transition: transform .6s cubic-bezier(.2, .8, .2, 1);
+      z-index: 1;
+    }
+
+    .featured:hover::before {
+      transform: scale(1.035);
+    }
+
+    .featured>* {
+      position: relative;
+      z-index: 2;
+    }
+
+    .featured h3 {
+      max-width: 600px;
+      margin: 12px 0;
+      font-size: clamp(2.4rem, 5vw, 4.8rem);
+    }
+
+    .featured p {
+      max-width: 460px;
+      color: var(--grey-300);
+    }
+
+    .video {
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: #0a080c;
+    }
+
+    .video-stage {
+      position: relative;
+      min-height: 330px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      border-radius: 20px;
+      background: radial-gradient(circle, rgba(193, 132, 255, .38), transparent 8%), radial-gradient(circle, rgba(112, 38, 184, .38), transparent 27%), linear-gradient(135deg, #151019, #392042 55%, #111015);
+    }
+
+    .video-stage::before {
+      content: "";
+      width: 270px;
+      height: 270px;
+      border: 1px solid rgba(255, 255, 255, .16);
+      border-radius: 50% 36% 55% 42%;
+    }
+
+    .big-play {
+      position: absolute;
+      width: 72px;
+      height: 72px;
+      display: grid;
+      place-items: center;
+      border: 0;
+      border-radius: 50%;
+      background: white;
+      color: #161219;
+      cursor: pointer;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: auto 1fr auto auto;
+      gap: 12px;
+      align-items: center;
+      padding: 15px 5px 2px;
+    }
+
+    .plain-control {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border: 0;
+      border-radius: 50%;
+      color: white;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .plain-control:hover {
+      background: rgba(255, 255, 255, .08);
+    }
+
+    .timeline {
+      height: 4px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .14);
+    }
+
+    .timeline span {
+      display: block;
+      width: 36%;
+      height: 100%;
+      background: var(--gradient);
+    }
+
+    .time {
+      color: var(--grey-500);
+      font-size: .68rem;
+    }
+
+    /* Specimen Carousel Styles */
+    .specimen-carousel-wrapper {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .specimen-carousel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .specimen-carousel-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .carousel-counter {
+      color: var(--grey-500);
+      font-size: .78rem;
+      letter-spacing: .12em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .carousel-counter strong {
+      color: #fff;
+      font-size: .92rem;
+    }
+
+    .carousel-dots {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .carousel-dot {
+      width: 8px;
+      height: 8px;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .2);
+      cursor: pointer;
+      transition: width .35s cubic-bezier(.2, .8, .2, 1), background .3s, border-radius .3s;
+    }
+
+    .carousel-dot.active {
+      width: 26px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--violet-2), var(--violet-3));
+      box-shadow: 0 0 10px rgba(193, 132, 255, .4);
+    }
+
+    .specimen-carousel-viewport {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      border-radius: 24px;
+      cursor: grab;
+      touch-action: pan-y;
+    }
+
+    .specimen-carousel-viewport:active {
+      cursor: grabbing;
+    }
+
+    .specimen-carousel-track {
+      display: flex;
+      gap: 18px;
+      transition: transform .5s cubic-bezier(.2, .8, .2, 1);
+      will-change: transform;
+    }
+
+    .carousel-slide {
+      flex: 0 0 calc((100% - 18px) / 2);
+      min-width: 260px;
+    }
+
+    @media (max-width: 640px) {
+      .carousel-slide {
+        flex: 0 0 100%;
+      }
+    }
+
+    .carousel-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid rgba(255, 255, 255, .1);
+      border-radius: 22px;
+      overflow: hidden;
+      background: #0f0b15;
+      transition: transform .35s, border-color .35s, box-shadow .35s;
+    }
+
+    .carousel-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(193, 132, 255, .4);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, .6), 0 0 25px rgba(112, 38, 184, .2);
+    }
+
+    .carousel-card-art {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      min-height: 160px;
+      overflow: hidden;
+      padding: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .carousel-card-art::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, #0f0b15 0%, rgba(15, 11, 21, .2) 60%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .carousel-card-top {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .slide-art-1 {
+      background-image: linear-gradient(180deg, rgba(20, 9, 27, .04), rgba(9, 7, 12, .3)), url("assets/images/the-last-voice-poster.png");
+      background-position: center 25%;
+    }
+
+    .slide-art-2 {
+      background: radial-gradient(circle at 65% 35%, rgba(245, 214, 255, .7) 0 2%, transparent 14%), radial-gradient(ellipse at 50% 50%, #8a2be2 0 20%, transparent 55%), linear-gradient(145deg, #100a1c 0%, #3e165b 50%, #0c0714 100%);
+    }
+
+    .slide-art-3 {
+      background-image: linear-gradient(180deg, rgba(20, 9, 27, .1), rgba(9, 7, 12, .4)), url("assets/images/featured-project-bg.jpg");
+    }
+
+    .slide-art-4 {
+      background: radial-gradient(circle at 45% 35%, rgba(210, 160, 255, .75) 0 2%, transparent 15%), radial-gradient(ellipse at 50% 50%, #4a1f80 0 25%, transparent 60%), linear-gradient(145deg, #0b1219 0%, #201338 50%, #07050e 100%);
+    }
+
+    .carousel-card-body {
+      padding: 16px 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .carousel-card-body h4 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -.01em;
+      margin: 0;
+      color: #fff;
+    }
+
+    .carousel-card-body p {
+      font-size: .8rem;
+      line-height: 1.5;
+      color: #b8b1bd;
+      margin: 0;
+    }
+
+    /* Feedback + CTA + footer */
+    .feedback-card {
+      min-height: 210px;
+      display: grid;
+      place-items: center;
+      padding: 25px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: #0c0a0f;
+      text-align: center;
+    }
+
+    .feedback-icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 14px;
+      display: grid;
+      place-items: center;
+      border: 1px solid currentColor;
+      border-radius: 50%;
+      color: var(--grey-300);
+    }
+
+    .feedback-card h3 {
+      margin-bottom: 8px;
+    }
+
+    .feedback-card p {
+      max-width: 300px;
+      margin: auto;
+      color: var(--grey-300);
+      font-size: .78rem;
+    }
+
+    .feedback-card.success .feedback-icon {
+      color: var(--green);
+    }
+
+    .feedback-card.error .feedback-icon {
+      color: var(--red);
+    }
+
+    .skeleton {
+      width: 100%;
+      max-width: 280px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .skeleton span {
+      display: block;
+      height: 12px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #211c25 25%, #312a37 45%, #211c25 65%);
+      background-size: 200% 100%;
+      animation: shine 1.3s linear infinite;
+    }
+
+    .skeleton span:nth-child(2) {
+      width: 74%;
+    }
+
+    .skeleton span:nth-child(3) {
+      width: 48%;
+    }
+
+    @keyframes shine {
+      to {
+        background-position: -200% 0;
+      }
+    }
+
+    .alert {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 15px 16px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      color: var(--grey-100);
+      background: var(--panel);
+      font-size: .8rem;
+    }
+
+    .alert.success {
+      border-color: rgba(100, 214, 163, .26);
+      background: rgba(100, 214, 163, .07);
+    }
+
+    .alert.error {
+      border-color: rgba(255, 120, 127, .25);
+      background: rgba(255, 120, 127, .065);
+    }
+
+    .alert.info {
+      border-color: rgba(193, 132, 255, .25);
+      background: rgba(166, 83, 230, .07);
+    }
+
+    .cta {
+      min-height: 330px;
+      padding: 35px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 32px;
+      background: linear-gradient(145deg, #24122e, #110e15 72%);
+    }
+
+    .cta.creator {
+      background: linear-gradient(145deg, #1a161f, #0e0c11);
+    }
+
+    .cta h3 {
+      max-width: 370px;
+      margin-bottom: 12px;
+      font-size: 2.8rem;
+    }
+
+    .cta p {
+      max-width: 390px;
+      color: var(--grey-300);
+      font-size: .85rem;
+    }
+
+    .cta .button {
+      width: fit-content;
+    }
+
+    .footer-preview {
+      padding: 42px;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: #0b090e;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap: 40px;
+    }
+
+    .footer-grid h3 {
+      color: var(--grey-500);
+      font-size: .65rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .footer-grid a {
+      display: block;
+      margin: 9px 0;
+      color: var(--grey-100);
+      text-decoration: none;
+      font-size: .78rem;
+    }
+
+    .footer-grid p {
+      margin-top: 22px;
+      color: var(--grey-300);
+      font-size: .82rem;
+    }
+
+    .footer-grid .brand-logo {
+      width: 112px;
+    }
+
+    .footer-legal {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      margin-top: 45px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      color: var(--grey-500);
+      font-size: .67rem;
+    }
+
+    /* Modal and toast */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      display: grid;
+      place-items: center;
+      padding: 22px;
+      background: rgba(3, 2, 5, .8);
+      backdrop-filter: blur(14px);
+      opacity: 0;
+      visibility: hidden;
+      transition: .25s;
+    }
+
+    .overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal {
+      width: min(760px, 100%);
+      max-height: calc(100vh - 44px);
+      overflow: auto;
+      border: 1px solid var(--line-strong);
+      border-radius: 32px;
+      background: #100d14;
+      box-shadow: var(--shadow);
+      transform: translateY(18px) scale(.98);
+      transition: .25s;
+    }
+
+    .overlay.open .modal {
+      transform: none;
+    }
+
+    .modal-art {
+      min-height: 230px;
+      display: flex;
+      justify-content: flex-end;
+      padding: 23px;
+      background: radial-gradient(circle, rgba(193, 132, 255, .4), transparent 9%), radial-gradient(circle, rgba(112, 38, 184, .35), transparent 29%), linear-gradient(145deg, #1a1120, #392141, #111015);
+    }
+
+    .close {
+      width: 43px;
+      height: 43px;
+      border: 1px solid var(--line-strong);
+      border-radius: 50%;
+      background: rgba(0, 0, 0, .2);
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    .modal-body {
+      padding: 35px;
+    }
+
+    .modal-body h2 {
+      font-size: clamp(2.5rem, 6vw, 4.4rem);
+    }
+
+    .modal-body p {
+      color: var(--grey-300);
+    }
+
+    .toast {
+      position: fixed;
+      z-index: 240;
+      right: 20px;
+      bottom: 20px;
+      width: min(360px, calc(100vw - 40px));
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 18px;
+      border: 1px solid rgba(100, 214, 163, .28);
+      border-radius: 16px;
+      background: #121a17;
+      box-shadow: var(--shadow);
+      color: #dcf8eb;
+      transform: translateY(130%);
+      opacity: 0;
+      transition: .3s;
+    }
+
+    .toast.show {
+      transform: none;
+      opacity: 1;
+    }
+
+    .toast::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 14px rgba(100, 214, 163, .6);
+    }
+
+    @media (max-width: 1050px) {
+      :root {
+        --content: min(100% - 48px, 900px);
+      }
+
+      .side-nav {
+        width: 210px;
+      }
+
+      main {
+        margin-left: 210px;
+      }
+
+      .state-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .grid-3 {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .logo-treatment-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      :root {
+        --content: calc(100% - 28px);
+      }
+
+      .library-header {
+        padding: 0 16px;
+      }
+
+      .status,
+      .library-name {
+        display: none;
+      }
+
+      .docs-menu {
+        display: block;
+      }
+
+      .side-nav {
+        width: min(310px, 84vw);
+        transform: translateX(-105%);
+        transition: transform .25s;
+        background: #0b090e;
+        box-shadow: var(--shadow);
+      }
+
+      .side-nav.open {
+        transform: none;
+      }
+
+      main {
+        margin-left: 0;
+      }
+
+      .hero {
+        padding: 80px 0 58px;
+      }
+
+      .component-section {
+        padding: 70px 0;
+      }
+
+      .section-heading {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .grid-2,
+      .grid-3,
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .logo-treatment-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .logo-library-heading {
+        display: block;
+      }
+
+      .logo-library-heading p {
+        margin-top: 6px;
+        text-align: left;
+      }
+
+      .field.full {
+        grid-column: auto;
+      }
+
+      .swatches {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .type-row {
+        grid-template-columns: 1fr;
+        gap: 7px;
+      }
+
+      .type-token {
+        display: none;
+      }
+
+      .state-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .desktop-nav-preview {
+        align-items: flex-start;
+      }
+
+      .desktop-nav-preview .nav-links {
+        display: none;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .footer-grid> :first-child {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 480px) {
+
+      .state-grid,
+      .swatches {
+        grid-template-columns: 1fr;
+      }
+
+      .state-cell {
+        min-height: 95px;
+      }
+
+      .specimen-canvas {
+        padding: 20px;
+      }
+
+      .footer-preview {
+        padding: 24px;
+      }
+
+      .footer-legal {
+        display: block;
+      }
+
+      .footer-legal span {
+        display: block;
+        margin: 5px 0;
+      }
+
+      .controls {
+        grid-template-columns: auto 1fr auto;
+      }
+
+      .time {
+        display: none;
+      }
+
+      .notch-nav {
+        gap: 14px;
+        padding: 8px 12px 10px;
+      }
+
+      .notch-links {
+        gap: 12px;
+      }
+
+      .notch-links a {
+        font-size: .75rem;
+      }
+
+      .notch-btn {
+        padding: 6px 12px;
+        font-size: .75rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip" href="#content">Skip to components</a>
+  <header class="library-header">
+    <div class="header-left">
+      <a class="brand" href="#top" aria-label="Lila Studios component library home"><img class="brand-logo"
+          src="assets/SVG/variants/lila-wordmark-color.svg" alt="Lila"></a>
+      <span class="library-name">Component Library</span>
+    </div>
+    <div class="header-actions"><span class="status">Draft system · v0.1</span><button class="docs-menu" id="docsMenu"
+        type="button" aria-label="Open component navigation" aria-expanded="false"></button></div>
+  </header>
+
+  <aside class="side-nav" id="sideNav" aria-label="Component navigation">
+    <nav>
+      <div class="nav-group">
+        <h2>Foundations</h2><a href="#typography">Typography</a><a href="#colour">Colour</a><a href="#spacing">Spacing &
+          radius</a><a href="#identity">Identity</a>
+      </div>
+      <div class="nav-group">
+        <h2>Navigation</h2><a href="#navigation">Desktop navbar</a><a href="#mobile-navigation">Mobile navbar</a>
+      </div>
+      <div class="nav-group">
+        <h2>Controls</h2><a href="#buttons">Buttons & links</a><a href="#forms">Form fields</a><a
+          href="#choices">Choices</a><a href="#tags">Tags</a>
+      </div>
+      <div class="nav-group">
+        <h2>Content</h2><a href="#cards">Cards</a><a href="#media">Media controls</a><a href="#feedback">Feedback
+          states</a>
+      </div>
+      <div class="nav-group">
+        <h2>Patterns</h2><a href="#overlay">Overlay</a><a href="#ctas">CTA panels</a><a href="#footer">Footer</a>
+      </div>
+    </nav>
+  </aside>
+
+  <main id="content">
+    <section class="hero" id="top">
+      <div class="wrap">
+        <p class="kicker">Lila UI / Component inventory</p>
+        <h1>Cinematic controls.<br><span class="gradient">One visual language.</span></h1>
+        <p>This page isolates Lila’s reusable interface decisions before they are assembled into the final website.
+          Every specimen is responsive, keyboard accessible and designed for a premium entertainment experience.</p>
+        <div class="hero-meta"><span class="meta-pill">Near-black canvas</span><span class="meta-pill">Geometric
+            sans</span><span class="meta-pill">Fluid geometry</span><span class="meta-pill">44px+ touch
+            targets</span><span class="meta-pill">Reduced-motion aware</span></div>
+      </div>
+    </section>
+
+    <section class="component-section" id="typography">
+      <div class="wrap">
+        <div class="section-heading">
+          <div>
+            <p class="kicker">01 / Foundations</p>
+            <h2>Typography</h2>
+          </div>
+          <p>A modern geometric sans system with compact display leading, soft body contrast and purposeful labels.
+            Inter is preferred; Avenir Next and system sans are fallbacks.</p>
+        </div>
+        <div class="specimen">
+          <div class="specimen-bar">
+            <h3>Type scale</h3><span>--font</span>
+          </div>
+          <div class="specimen-canvas">
+            <div class="type-row"><span class="type-label">Display / XL</span><span class="display-xl">Drama,
+                generated.</span><span class="type-token">clamp(3.2—6.2rem)</span></div>
+            <div class="type-row"><span class="type-label">Display / LG</span><span class="display-lg">Stories without
+                limits.</span><span class="type-token">clamp(2.4—4.4rem)</span></div>
+            <div class="type-row"><span class="type-label">Heading / MD</span><span class="heading-md">Creative
+                independence</span><span class="type-token">1.75rem / 1.08</span></div>
+            <div class="type-row"><span class="type-label">Body / LG</span><span class="body-lg">Vertical, phone-first
+                stories made beyond traditional production limits.</span><span class="type-token">1.18rem / 1.55</span>
+            </div>
+            <div class="type-row"><span class="type-label">Body / MD</span><span class="body-md">AI removes the
+                apparatus. It keeps the storyteller at the centre.</span><span class="type-token">0.95rem / 1.5</span>
+            </div>
+            <div class="type-row"><span class="type-label">Label / SM</span><span class="label-sm">Lila Original ·
+                Episode 01</span><span class="type-token">0.68rem / +14%</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="component-section" id="colour">
+      <div class="wrap">
+        <div class="section-heading">
+          <div>
+            <p class="kicker">02 / Foundations</p>
+            <h2>Colour</h2>
+          </div>
+          <p>Purple is expressive, not ambient decoration. It signals key actions, selected states, branded metadata and
+            moments of narrative energy.</p>
+        </div>
+        <div class="specimen">
+          <div class="specimen-bar">
+            <h3>Core palette</h3><span>CSS custom properties</span>
+          </div>
+          <div class="specimen-canvas">
+            <div class="swatches">
+              <div class="swatch" style="background:#08070b"><strong>Cinematic black</strong><code>#08070B</code></div>
+              <div class="swatch" style="background:#7026b8"><strong>Purple 700</strong><code>#7026B8</code></div>
+              <div class="swatch" style="background:#a653e6"><strong>Purple 500</strong><code>#A653E6</code></div>
+              <div class="swatch" style="background:#c184ff;color:#150d1b"><strong>Purple 300</strong><code
+                  style="color:#4b2b58">#C184FF</code></div>
+              <div class="swatch" style="background:#f7f4f8;color:#151218"><strong>Soft white</strong><code
+                  style="color:#625a65">#F7F4F8</code></div>
+              <div class="swatch" style="background:#aaa3b0;color:#17131b"><strong>Grey 300</strong><code
+                  style="color:#4b4550">#AAA3B0</code></div>
+              <div class="swatch" style="background:#64d6a3;color:#10261c"><strong>Success</strong><code
+                  style="color:#264f3d">#64D6A3</code></div>
+              <div class="swatch" style="background:#ff787f;color:#2c1113"><strong>Error</strong><code
+                  style="color:#692c30">#FF787F</code></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="component-section" id="spacing">
+      <div class="wrap">
+        <div class="section-heading">
+          <div>
+            <p class="kicker">03 / Foundations</p>
+            <h2>Spacing & radius</h2>
+          </div>
+          <p>An 8px base rhythm with larger cinematic gaps. Rounded corners increase with the scale and narrative
+            importance of the component.</p>
+        </div>
+        <div class="grid-2">
+          <div class="specimen">
+            <div class="specimen-bar">
+              <h3>Spacing scale</h3><span>8px base</span>
+            </div>
+            <div class="specimen-canvas">
+              <div class="space-scale">
+                <div class="space-row"><span>space-1</span><span class="space-bar"
+                    style="width:8px"></span><span>8px</span></div>
+                <div class="space-row"><span>space-2</span><span class="space-bar"
+                    style="width:16px"></span><span>16px</span></div>
+                <div class="space-row"><span>space-3</span><span class="space-bar"
+                    style="width:24px"></span><span>24px</span></div>
+                <div class="space-row"><span>space-4</span><span class="space-bar"
+                    style="width:40px"></span><span>40px</span></div>
+                <div class="space-row"><span>space-5</span><span class="space-bar"
+                    style="width:72px"></span><span>72px</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="specimen">
+            <div class="specimen-bar">
+              <h3>Corner scale</h3><span>12—42px</span>
+            </div>
+            <div class="specimen-canvas">
+              <div class="grid-2">
+                <div
+                  style="height:90px;border:1px solid var(--line-strong);border-radius:12px;padding:14px;color:var(--grey-300);font-size:.72rem">
+                  Small · 12px</div>
+                <div
+                  style="height:90px;border:1px solid var(--line-strong);border-radius:18px;padding:14px;color:var(--grey-300);font-size:.72rem">
+                  Medium · 18px</div>
+                <div
+                  style="height:90px;border:1px solid var(--line-strong);border-radius:28px;padding:14px;color:var(--grey-300);font-size:.72rem">
+                  Large · 28px</div>
+                <div
+                  style="height:90px;border:1px solid var(--line-strong);border-radius:42px;padding:14px;color:var(--grey-300);font-size:.72rem">
+                  XL · 42px</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="component-section" id="identity">
+      <div class="wrap">
+        <div class="section-heading">
+          <div>
+            <p class="kicker">04 / Foundations</p>
+            <h2>Identity</h2>
+          </div>
+          <p>The logo’s purple movement and embedded play motif become the source for gradients, curved silhouettes and
+            media interactions.</p>
+        </div>
+        <div class="specimen">
+          <div class="specimen-bar">
+            <h3>Background-aware logo library</h3><span>11 production SVGs · transparent canvas</span>
+          </div>
+          <div class="specimen-canvas">
+            <div class="logo-library-group">
+              <div class="logo-library-heading">
+                <h3>Primary lockup</h3>
+                <p>Lila + Studios + tagline. Use for large identity moments where every line remains legible.</p>
+              </div>
+              <div class="logo-treatment-grid">
+                <figure class="logo-swatch light">
+                  <div class="logo-swatch-visual"><img src="assets/SVG/variants/lila-primary-color-on-light.svg"
+                      alt="Colour Lila Studios primary logo on a light background"></div>
+                  <figcaption><strong>Colour on light</strong><code>lila-primary-color-on-light.svg</code></figcaption>
+                </figure>
+                <figure class="logo-swatch dark">
+                  <div class="logo-swatch-visual"><img src="assets/SVG/variants/lila-primary-color-on-dark.svg"
+                      alt="Colour Lila Studios primary logo on a dark background"></div>
+                  <figcaption><strong>Colour on dark</strong><code>lila-primary-color-on-dark.svg</code></figcaption>
+                </figure>
+                <figure class="logo-swatch light">
+                  <div class="logo-swatch-visual"><img src="assets/SVG/variants/lila-primary-black-on-light.svg"
+                      alt="Black Lila Studios primary logo on a light background"></div>
+                  <figcaption><strong>Black on light</strong><code>lila-primary-black-on-light.svg</code></figcaption>
+                </figure>
+                <figure class="logo-swatch dark">
+                  <div class="logo-swatch-visual"><img src="assets/SVG/variants/lila-primary-white-on-dark.svg"
+                      alt="White Lila Studios primary logo on a dark background"></div>
+                  <figcaption><strong>White on dark</strong><code>lila-primary-white-on-dark.svg</code></figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="logo-library-group">
+              <div class="logo-library-heading">
+                <h3>Studios lockup</h3>
+                <p>Lila + Studios without the tagline. Use for credits, brand panels and medium-size placements.</p>
+              </div>
+              <div class="logo-treatment-grid">
+                <figure class="logo-swatch light">
+                  <div class="logo-swatch-visual"><img src="assets/SVG/variants/lila-studios-color-on-light.svg"
+                      alt="Colour Lila Studios logo on a light background"></div>
+                  <figcaption><strong>Colour on light</strong><code>lila-studios-color-on-light.svg</code></figcaption>
+                </figure>
+                <figure class="logo-swatch dark">
+                  <div class="logo-swatch-visual"><img src="assets/SVG/variants/lila-studios-color-on-dark.svg"
+                      alt="Colour Lila Studios logo on a dark background"></div>
+                  <figcaption><strong>Colour on dark</strong><code>lila-studios-color-on-dark.svg</code></figcaption>
+                </figure>
+                <figure class="logo-swatch light">
+                  <div class="logo-swatch-visual"><img src="assets/SVG/variants/lila-studios-black-on-light.svg"
+                      alt="Black Lila Studios logo on a light background"></div>
+                  <figcaption><strong>Black on light</strong><code>lila-studios-black-on-light.svg</code></figcaption>
+                </figure>
+                <figure class="logo-swatch dark">
+                  <div class="logo-swatch-visual"><img src="assets/SVG/variants/lila-studios-white-on-dark.svg"
+                      alt="White Lila Studios logo on a dark background"></div>
+                  <figcaption><strong>White on dark</strong><code>lila-studios-white-on-dark.svg</code></figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="logo-library-group">
+              <div class="logo-library-heading">
+                <h3>Lila wordmark / compact logo</h3>
+                <p>The stylised Lila artwork only. Use for navigation, footers, watermarks and compact controls.</p>
+              </div>
+              <div class="logo-treatment-grid">
+                <figure class="logo-swatch light compact">
+                  <div class="logo-swatch-visual"><img src="assets/SVG/variants/lila-wordmark-color.svg"
+                      alt="Colour Lila wordmark on a light background"></div>
+                  <figcaption><strong>Colour</strong><code>lila-wordmark-color.svg</code></figcaption>
+                </figure>
+                <figure class="logo-swatch light compact">
+                  <div class="logo-swatch-visual"><img src="assets/SVG/variants/lila-wordmark-black-on-light.svg"
+                      alt="Black Lila wordmark on a light background"></div>
+                  <figcaption><strong>Black on light</strong><code>lila-wordmark-black-on-light.svg</code></figcaption>
+                </figure>
+                <figure class="logo-swatch dark compact">
+                  <div class="logo-swatch-visual"><img src="assets/SVG/variants/lila-wordmark-white-on-dark.svg"
+                      alt="White Lila wordmark on a dark background"></div>
+                  <figcaption><strong>White on dark</strong><code>lila-wordmark-white-on-dark.svg</code></figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="note" style="margin-top:22px">Use explicit background-aware files in production. Do not invert a
+              light-background logo with CSS filters, and do not extract the embedded play triangle as a standalone
+              mark.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="component-section" id="navigation">
+      <div class="wrap">
+        <div class="section-heading">
+          <div>
+            <p class="kicker">05 / Navigation</p>
+            <h2>Desktop navbar</h2>
+          </div>
+          <p>Minimal, transparent and content-first. The connect action is visually distinct while the logo remains the
+            home control.</p>
+        </div>
+        <div class="specimen">
+          <div class="specimen-bar">
+            <h3>Option A: Top-hanging notch / Dynamic Island</h3><span>Cinematic purple · Pure top-hanging pod</span>
+          </div>
+          <div class="specimen-canvas dark-canvas" style="padding:0;overflow:hidden">
+            <div class="notch-stage">
+              <div class="notch-nav-container">
+                <nav class="notch-nav" aria-label="Lila notch navigation example"><a class="notch-brand" href="#"><img
+                      src="assets/SVG/variants/lila-wordmark-color.svg" alt="Lila" style="width:58px;height:auto"></a>
+                  <div class="notch-links"><a href="#services">Our Services</a><a href="#work">Our Work</a><a
+                      href="#why">Why Lila</a>
+                  </div><a class="button button-primary" href="#"
+                    style="min-height:36px;padding:8px 16px;font-size:.8rem">Connect <span class="arrow">↗</span></a>
+                </nav>
+              </div>
+              <div class="notch-hero-preview">
+                <div class="notch-badge" style="color:#d7b8f2">AI-Native Micro-Drama Studio</div>
+                <h2>Drama, generated.<br><em
+                    style="font-style:normal;background:var(--gradient);-webkit-background-clip:text;color:transparent">Stories
+                    without limits.</em></h2>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="specimen">
+          <div class="specimen-bar">
+            <h3>Option B: Classic inline navbar</h3><span>Full width container · Logo left · Links + CTA right</span>
+          </div>
+          <div class="specimen-canvas">
+            <div class="desktop-nav-preview">
+              <a class="brand" href="#" aria-label="Lila Studios home">
+                <img class="brand-logo" src="assets/SVG/variants/lila-wordmark-color.svg" alt="Lila"
+                  style="width:80px;height:auto">
+              </a>
+              <nav class="nav-links" aria-label="Classic navbar example">
+                <a href="#services">Our Services</a>
+                <a href="#work">Our Work</a>
+                <a href="#why">Why Lila</a>
+                <a class="button button-primary" href="#connect">Connect <span class="arrow">↗</span></a>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="component-section" id="mobile-navigation">
+      <div class="wrap">
+        <div class="section-heading">
+          <div>
+            <p class="kicker">06 / Navigation</p>
+            <h2>Mobile navbar</h2>
+          </div>
+          <p>Both mobile navigation treatments feature responsive touch targets, accessible ARIA state toggles, and
+            immersive dark drawer sheets.</p>
+        </div>
+        <div class="grid-2">
+          <div class="specimen">
+            <div class="specimen-bar">
+              <h3>Option A: Mobile Top-hanging notch</h3><span>Dynamic Island pod · Tap toggle</span>
+            </div>
+            <div class="specimen-canvas dark-canvas">
+              <div class="phone-frame">
+                <div class="phone-screen">
+                  <div class="phone-notch-container">
+                    <div class="phone-notch-bar">
+                      <a class="brand" href="#" aria-label="Lila Studios home"><img class="brand-logo"
+                          src="assets/SVG/variants/lila-wordmark-color.svg" alt="Lila"></a>
+                      <button class="phone-notch-toggle" id="phoneToggleNotch" type="button"
+                        aria-label="Open mobile navigation" aria-expanded="false"><span></span></button>
+                    </div>
+                  </div>
+                  <div class="phone-content" style="padding-top:108px">
+                    <p>AI-native micro-drama studio</p><strong>Drama,<br><span
+                        class="gradient">generated.</span></strong>
+                  </div>
+                  <nav class="mobile-sheet" id="phoneSheetNotch" aria-label="Mobile notch menu specimen">
+                    <a href="#services">Our Services</a>
+                    <a href="#work">Our Work</a>
+                    <a href="#why">Why Lila</a>
+                    <a href="#connect">Connect</a>
+                    <button class="button button-primary" type="button" style="margin-top:24px">Talk to Lila <span
+                        class="arrow">↗</span></button>
+                  </nav>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="specimen">
+            <div class="specimen-bar">
+              <h3>Option B: Mobile Classic Top Bar</h3><span>Edge-to-edge header · Tap toggle</span>
+            </div>
+            <div class="specimen-canvas dark-canvas">
+              <div class="phone-frame">
+                <div class="phone-screen">
+                  <div class="phone-bar">
+                    <a class="brand" href="#" aria-label="Lila Studios home"><img class="brand-logo"
+                        src="assets/SVG/variants/lila-wordmark-color.svg" alt="Lila"></a>
+                    <button class="mobile-toggle" id="phoneToggleClassic" type="button"
+                      aria-label="Open mobile navigation" aria-expanded="false"><span></span></button>
+                  </div>
+                  <div class="phone-content">
+                    <p>AI-native micro-drama studio</p><strong>Drama,<br><span
+                        class="gradient">generated.</span></strong>
+                  </div>
+                  <nav class="mobile-sheet" id="phoneSheetClassic" aria-label="Mobile classic menu specimen">
+                    <a href="#services">Our Services</a>
+                    <a href="#work">Our Work</a>
+                    <a href="#why">Why Lila</a>
+                    <a href="#connect">Connect</a>
+                    <button class="button button-primary" type="button" style="margin-top:24px">Talk to Lila <span
+                        class="arrow">↗</span></button>
+                  </nav>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="component-section" id="buttons">
+      <div class="wrap">
+        <div class="section-heading">
+          <div>
+            <p class="kicker">07 / Controls</p>
+            <h2>Buttons & links</h2>
+          </div>
+          <p>Every action has a minimum 48px height. Primary is reserved for decisive conversion; secondary for
+            high-contrast navigation; ghost for supporting actions.</p>
+        </div>
+        <div class="specimen">
+          <div class="specimen-bar">
+            <h3>Variants</h3><span>Default</span>
+          </div>
+          <div class="specimen-canvas">
+            <div class="button-row"><button class="button button-primary js-toast" type="button">Talk to Lila <span
+                  class="arrow">↗</span></button><button class="button button-secondary js-toast" type="button">Explore
+                Our Work</button><button class="button button-ghost js-toast" type="button">View episode</button><button
+                class="button button-icon js-toast" type="button" aria-label="Save story">♡</button><a class="text-link"
+                href="#cards">See all stories <span class="arrow">→</span></a></div>
+          </div>
+        </div>
+        <div class="specimen">
+          <div class="specimen-bar">
+            <h3>Primary button states</h3><span>Interaction matrix</span>
+          </div>
+          <div class="specimen-canvas">
+            <div class="state-grid">
+              <div class="state-cell">
+                <div><small>Default</small><button class="button button-primary" type="button">Action</button></div>
+              </div>
+              <div class="state-cell">
+                <div><small>Hover</small><button class="button button-primary state-hover" type="button">Action</button>
+                </div>
+              </div>
+              <div class="state-cell">
+                <div><small>Focus</small><button class="button button-primary state-focus" type="button">Action</button>
+                </div>
+              </div>
+              <div class="state-cell">
+                <div><small>Pressed</small><button class="button button-primary state-pressed"
+                    type="button">Action</button></div>
+              </div>
+              <div class="state-cell">
+                <div><small>Disabled</small><button class="button button-primary" type="button" disabled>Action</button>
+                </div>
+              </div>
+              <div class="state-cell">
+                <div><small>Loading</small><button class="button button-primary button-loading" type="button"><span
+                      class="mini-spinner"></span> Sending</button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="component-section" id="forms">
+      <div class="wrap">
+        <div class="section-heading">
+          <div>
+            <p class="kicker">08 / Controls</p>
+            <h2>Form fields</h2>
+          </div>
+          <p>Fields use high-contrast labels, persistent help or error copy and a visible purple focus ring. Placeholder
+            text never replaces a label.</p>
+        </div>
+        <div class="specimen">
+          <div class="specimen-bar">
+            <h3>Inputs, select and textarea</h3><span>Default + states</span>
+          </div>
+          <div class="specimen-canvas">
+            <form class="form-grid" id="componentForm" novalidate>
+              <div class="field"><label for="fullName">Name / default</label><input class="input" id="fullName"
+                  name="fullName" placeholder="Nisha Kapoor" required><span class="help">Your full name.</span></div>
+              <div class="field"><label for="focusField">Project / focus</label><input class="input state-focus"
+                  id="focusField" value="A six-part brand drama"><span class="help">Visible keyboard focus.</span></div>
+              <div class="field error"><label for="emailField">Email / error</label><input class="input" id="emailField"
+                  type="email" value="hello@"><span class="help">Enter a complete email address.</span></div>
+              <div class="field success"><label for="successField">Studio / success</label><input class="input"
+                  id="successField" value="Moonhouse Films"><span class="help">Looks good.</span></div>
+              <div class="field"><label for="role">I’m here as</label><select class="select" id="role">
+                  <option>A brand</option>
+                  <option>A creator</option>
+                  <option>A partner</option>
+                </select></div>
+              <div class="field"><label for="disabledField">Referral / disabled</label><input class="input"
+                  id="disabledField" value="Invite only" disabled></div>
+              <div class="field full"><label for="storyField">Story idea</label><textarea class="textarea"
+                  id="storyField" placeholder="A few lines about the world, audience or spark…"></textarea></div>
+              <div class="field full"><button class="button button-primary" type="submit">Test validation <span
+                    class="arrow">↗</span></button></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="component-section" id="choices">
+      <div class="wrap">
+        <div class="section-heading">
+          <div>
+            <p class="kicker">09 / Controls</p>
+            <h2>Choices</h2>
+          </div>
+          <p>Checkboxes, radio controls and toggles remain recognisable while adopting Lila’s compact rounded geometry
+            and purple selected state.</p>
+        </div>
+        <div class="specimen">
+          <div class="specimen-bar">
+            <h3>Selection controls</h3><span>Unchecked + checked</span>
+          </div>
+          <div class="specimen-canvas">
+            <div class="choice-grid"><label class="choice checkbox"><input type="checkbox"><span>Email
+                  updates</span></label><label class="choice checkbox"><input type="checkbox" checked><span>Contact
+                  permission</span></label><label class="choice radio"><input type="radio" name="format"><span>Single
+                  film</span></label><label class="choice radio"><input type="radio" name="format" checked><span>Episode
+                  series</span></label><label class="switch"><input type="checkbox"><span
+                  class="switch-track"></span><span>Autoplay</span></label><label class="switch"><input type="checkbox"
+                  checked><span class="switch-track"></span><span>Captions</span></label></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="component-section" id="tags">
+      <div class="wrap">
+        <div class="section-heading">
+          <div>
+            <p class="kicker">10 / Controls</p>
+            <h2>Tags</h2>
+          </div>
+          <p>Compact metadata improves scanning without competing with project titles. Brand tags carry a subtle purple
+            tint; duration uses a small signal dot.</p>
+        </div>
+        <div class="grid-3">
+          <div class="specimen">
+            <div class="specimen-bar">
+              <h3>Genre</h3><span>Neutral</span>
+            </div>
+            <div class="specimen-canvas">
+              <div class="tags"><span class="tag">Drama</span><span class="tag">Romance</span><span
+                  class="tag">Thriller</span><span class="tag">Sci-fi</span></div>
+            </div>
+          </div>
+          <div class="specimen">
+            <div class="specimen-bar">
+              <h3>Brand</h3><span>Purple tint</span>
+            </div>
+            <div class="specimen-canvas">
+              <div class="tags"><span class="tag tag-brand">Lila Original</span><span
+                  class="tag tag-brand">Aether</span><span class="tag tag-brand">Nadi</span></div>
+            </div>
+          </div>
+          <div class="specimen">
+            <div class="specimen-bar">
+              <h3>Duration</h3><span>Signal dot</span>
+            </div>
+            <div class="specimen-canvas">
+              <div class="tags"><span class="tag tag-time">01:48</span><span class="tag tag-time">6 episodes</span><span
+                  class="tag tag-time">12 min</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="component-section" id="cards">
+      <div class="wrap">
+        <div class="section-heading">
+          <div>
+            <p class="kicker">11 / Content</p>
+            <h2>Cards</h2>
+          </div>
+          <p>Three card families cover browsing, storytelling and business explanation while sharing fluid corners,
+            restrained borders and focused metadata.</p>
+        </div>
+        <div class="cards-specimen-grid">
+          <div class="specimen">
+            <div class="specimen-bar">
+              <h3>Vertical poster</h3><span>2:3 media · Interactive</span>
+            </div>
+            <div class="specimen-canvas"><button class="poster js-modal" type="button"
+                aria-label="Open The Last Voice project"><span class="poster-top"><span class="poster-index">LILA /
+                    001</span><span class="circle-control"><span class="play"></span></span></span><span
+                  class="poster-bottom"><span class="tags"><span class="tag">Romance</span><span
+                      class="tag tag-brand">Original</span></span>
+                  <h3>The Last Voice</h3>
+                  <p>8 episodes · 02:14 each</p>
+                </span></button></div>
+          </div>
+          <div class="specimen">
+            <div class="specimen-bar">
+              <h3>Service card</h3><span>Step 01 · Baseline</span>
+            </div>
+            <div class="specimen-canvas">
+              <article class="service-card">
+                <div>
+                  <small>01 / STORY</small>
+                  <div class="service-mark"></div>
+                  <h3>Branded Micro-Dramas</h3>
+                  <p>Vertical, episodic stories that place the brand inside something audiences choose to watch.</p>
+                </div>
+                <div class="card-meta-list">
+                  <span class="card-meta-item">Narrative Design</span>
+                  <span class="card-meta-item">Episodic Scripts</span>
+                  <span class="card-meta-item">Character IP</span>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="specimen">
+            <div class="specimen-bar">
+              <h3>Secondary service</h3><span>Step 02 · Active Highlight</span>
+            </div>
+            <div class="specimen-canvas">
+              <article class="service-card service-card-highlight">
+                <div>
+                  <div style="display:flex;justify-content:space-between;align-items:center">
+                    <small>02 / MAKE</small>
+                    <span class="service-pill-tag">Active Engine</span>
+                  </div>
+                  <div class="service-mark"></div>
+                  <h3>AI-Native Production</h3>
+                  <p>End-to-end generative production designed around imagination instead of physical limits.</p>
+                </div>
+                <div class="card-meta-list">
+                  <span class="card-meta-item">Virtual Sets</span>
+                  <span class="card-meta-item">Consistency Engine</span>
+                  <span class="card-meta-item">4K Master</span>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+        <div class="specimen" style="margin-top: 18px;">
+          <div class="specimen-bar">
+            <h3>Featured project</h3><span>Wide editorial card</span>
+          </div>
+          <div class="specimen-canvas" style="padding: 16px;">
+            <article class="featured"><span class="tags"><span class="tag tag-brand">Lila Original</span><span
+                  class="tag tag-time">12 min</span></span>
+              <h3>One room.<br><span class="gradient">Infinite lives.</span></h3>
+              <p>A six-part micro-drama about a woman who wakes up to a different version of her life every morning.</p>
+              <button class="button button-secondary js-modal" type="button">View project <span
+                  class="arrow">↗</span></button>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="component-section" id="media">
+      <div class="wrap">
+        <div class="section-heading">
+          <div>
+            <p class="kicker">12 / Content</p>
+            <h2>Media controls</h2>
+          </div>
+          <p>Video and carousel controls are high contrast, round and easy to reach. Play remains the dominant
+            entertainment motif across the system.</p>
+        </div>
+        <div class="specimen">
+          <div class="specimen-bar">
+            <h3>Video player</h3><span>Interactive play state</span>
+          </div>
+          <div class="specimen-canvas">
+            <div class="video">
+              <div class="video-stage"><button class="big-play" id="bigPlay" type="button" aria-label="Play video"><span
+                    class="play"></span></button></div>
+              <div class="controls"><button class="plain-control" id="playPause" type="button"
+                  aria-label="Play">▶</button>
+                <div class="timeline" role="progressbar" aria-label="Video progress" aria-valuemin="0"
+                  aria-valuemax="100" aria-valuenow="36"><span id="timelineFill"></span></div><span class="time"
+                  id="videoTime">00:33 / 01:32</span><button class="plain-control" type="button"
+                  aria-label="Fullscreen">⛶</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="specimen">
+          <div class="specimen-bar">
+            <h3>Interactive Carousel</h3><span>Live slider & controls</span>
+          </div>
+          <div class="specimen-canvas">
+            <div class="specimen-carousel-wrapper">
+              <div class="specimen-carousel-header">
+                <div class="specimen-carousel-meta">
+                  <span class="carousel-counter"><strong id="carouselCount">01</strong> / 04</span>
+                  <div class="carousel-dots" id="carouselDots">
+                    <button class="carousel-dot active" data-slide="0" aria-label="Go to slide 1"></button>
+                    <button class="carousel-dot" data-slide="1" aria-label="Go to slide 2"></button>
+                    <button class="carousel-dot" data-slide="2" aria-label="Go to slide 3"></button>
+                    <button class="carousel-dot" data-slide="3" aria-label="Go to slide 4"></button>
+                  </div>
+                </div>
+                <div class="button-row">
+                  <button class="button button-icon" id="prev" type="button" aria-label="Previous item">←</button>
+                  <button class="button button-icon" id="next" type="button" aria-label="Next item">→</button>
+                </div>
+              </div>
+
+              <div class="specimen-carousel-viewport" id="carouselViewport">
+                <div class="specimen-carousel-track" id="carouselTrack">
+                  <!-- Slide 1 -->
+                  <div class="carousel-slide">
+                    <article class="carousel-card">
+                      <div class="carousel-card-art slide-art-1">
+                        <div class="carousel-card-top">
+                          <span class="poster-index">LILA / 001</span>
+                          <span class="circle-control"><span class="play"></span></span>
+                        </div>
+                      </div>
+                      <div class="carousel-card-body">
+                        <div class="tags"><span class="tag">Romance</span><span class="tag tag-brand">Original</span><span class="tag tag-time">02:14</span></div>
+                        <h4>The Last Voice</h4>
+                        <p>8 episodes · A sound engineer captures an impossible broadcast across frequencies.</p>
+                      </div>
+                    </article>
+                  </div>
+
+                  <!-- Slide 2 -->
+                  <div class="carousel-slide">
+                    <article class="carousel-card">
+                      <div class="carousel-card-art slide-art-2">
+                        <div class="carousel-card-top">
+                          <span class="poster-index">LILA / 002</span>
+                          <span class="circle-control"><span class="play"></span></span>
+                        </div>
+                      </div>
+                      <div class="carousel-card-body">
+                        <div class="tags"><span class="tag">Sci-Fi</span><span class="tag tag-brand">Original</span><span class="tag tag-time">01:50</span></div>
+                        <h4>Neon Noir: Protocol</h4>
+                        <p>6 episodes · In a rain-soaked metropolis, memories are traded on the black market.</p>
+                      </div>
+                    </article>
+                  </div>
+
+                  <!-- Slide 3 -->
+                  <div class="carousel-slide">
+                    <article class="carousel-card">
+                      <div class="carousel-card-art slide-art-3">
+                        <div class="carousel-card-top">
+                          <span class="poster-index">LILA / 003</span>
+                          <span class="circle-control"><span class="play"></span></span>
+                        </div>
+                      </div>
+                      <div class="carousel-card-body">
+                        <div class="tags"><span class="tag">Drama</span><span class="tag tag-brand">Original</span><span class="tag tag-time">02:30</span></div>
+                        <h4>One Room: Infinite Lives</h4>
+                        <p>6 episodes · A woman awakens to an alternate version of her reality each dawn.</p>
+                      </div>
+                    </article>
+                  </div>
+
+                  <!-- Slide 4 -->
+                  <div class="carousel-slide">
+                    <article class="carousel-card">
+                      <div class="carousel-card-art slide-art-4">
+                        <div class="carousel-card-top">
+                          <span class="poster-index">LILA / 004</span>
+                          <span class="circle-control"><span class="play"></span></span>
+                        </div>
+                      </div>
+                      <div class="carousel-card-body">
+                        <div class="tags"><span class="tag">Thriller</span><span class="tag tag-brand">Original</span><span class="tag tag-time">01:45</span></div>
+                        <h4>Echoes of Midnight</h4>
+                        <p>5 episodes · Generative psychological mystery unfolding through surveillance feeds.</p>
+                      </div>
+                    </article>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="component-section" id="feedback">
+      <div class="wrap">
+        <div class="section-heading">
+          <div>
+            <p class="kicker">13 / Content</p>
+            <h2>Feedback states</h2>
+          </div>
+          <p>Every asynchronous surface needs a purposeful loading, empty, error, success and disabled state written in
+            Lila’s calm, human voice.</p>
+        </div>
+        <div class="grid-3">
+          <div class="feedback-card">
+            <div class="skeleton" aria-label="Loading"><span></span><span></span><span></span></div>
+          </div>
+          <div class="feedback-card">
+            <div>
+              <div class="feedback-icon">○</div>
+              <h3>No saved stories</h3>
+              <p>When a world pulls you in, save it to keep it close.</p>
+            </div>
+          </div>
+          <div class="feedback-card error">
+            <div>
+              <div class="feedback-icon">!</div>
+              <h3>The frame slipped</h3>
+              <p>We couldn’t load this episode. Try again in a moment.</p>
+            </div>
+          </div>
+          <div class="feedback-card success">
+            <div>
+              <div class="feedback-icon">✓</div>
+              <h3>Story received</h3>
+              <p>Someone from Lila will write back shortly.</p>
+            </div>
+          </div>
+          <div class="feedback-card">
+            <div><button class="button button-primary" type="button" disabled>Episode unavailable</button>
+              <p style="margin-top:16px">Visible but clearly inactive.</p>
+            </div>
+          </div>
+          <div class="feedback-card">
+            <div class="mini-spinner" style="width:38px;height:38px;margin:0 auto 16px;border-width:3px"></div>
+            <h3>Finding the next scene…</h3>
+            <p>Preparing this episode for its first frame.</p>
+          </div>
+        </div>
+      </div>
+      <div class="specimen">
+        <div class="specimen-bar">
+          <h3>Inline alerts</h3><span>Info + success + error</span>
+        </div>
+        <div class="specimen-canvas">
+          <div style="display:grid;gap:12px">
+            <div class="alert info"><strong>i</strong><span>This episode includes flashing imagery and stylised
+                violence.</span></div>
+            <div class="alert success"><strong>✓</strong><span>Your enquiry has been sent to Lila.</span></div>
+            <div class="alert error"><strong>!</strong><span>We couldn’t save your changes. Try once more.</span></div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </section>
+
+    <section class="component-section" id="overlay">
+      <div class="wrap">
+        <div class="section-heading">
+          <div>
+            <p class="kicker">14 / Patterns</p>
+            <h2>Project overlay</h2>
+          </div>
+          <p>The overlay keeps visitors in the browsing context while revealing a richer synopsis, metadata and an
+            immediate watch action. Escape and backdrop click close it.</p>
+        </div>
+        <div class="specimen">
+          <div class="specimen-bar">
+            <h3>Modal trigger</h3><span>Focus trapped</span>
+          </div>
+          <div class="specimen-canvas"><button class="button button-primary js-modal" type="button">Open project detail
+              <span class="arrow">↗</span></button></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="component-section" id="ctas">
+      <div class="wrap">
+        <div class="section-heading">
+          <div>
+            <p class="kicker">15 / Patterns</p>
+            <h2>CTA panels</h2>
+          </div>
+          <p>Two equal pathways distinguish commercial enquiries from creator applications without turning the site into
+            a corporate lead-generation surface.</p>
+        </div>
+        <div class="grid-2">
+          <article class="cta">
+            <div>
+              <p class="kicker">For brands</p>
+              <h3>Make them watch.</h3>
+              <p>Turn your brand into a world audiences want to enter — one episode at a time.</p>
+            </div><button class="button button-secondary js-toast" type="button">Talk to Lila <span
+                class="arrow">↗</span></button>
+          </article>
+          <article class="cta creator">
+            <div>
+              <p class="kicker">For creators</p>
+              <h3>Set the story free.</h3>
+              <p>For AI filmmakers, writers and visual storytellers looking for a national stage.</p>
+            </div><button class="button button-ghost js-toast" type="button">Join Lila <span
+                class="arrow">↗</span></button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="component-section" id="footer">
+      <div class="wrap">
+        <div class="section-heading">
+          <div>
+            <p class="kicker">16 / Patterns</p>
+            <h2>Footer</h2>
+          </div>
+          <p>A compact final frame for brand reinforcement, studio navigation, community links and quiet legal
+            information.</p>
+        </div>
+        <div class="footer-preview">
+          <div class="footer-grid">
+            <div><a class="brand" href="#top" aria-label="Lila Studios home"><img class="brand-logo"
+                  src="assets/SVG/variants/lila-wordmark-color.svg" alt="Lila"></a>
+              <p>Drama, generated.<br>Stories without limits.</p>
+            </div>
+            <nav>
+              <h3>Studio</h3><a href="#">Our Services</a><a href="#">Our Work</a><a href="#">Why Lila</a><a
+                href="#">Contact Us</a>
+            </nav>
+            <nav>
+              <h3>Community</h3><a href="#">Instagram ↗</a><a href="#">LinkedIn ↗</a><a href="#">YouTube ↗</a><a
+                href="#">Join Us</a>
+            </nav>
+          </div>
+          <div class="footer-legal"><span>© 2026 Lila Studios</span><span>Creative Independence ·
+              India</span><span>Privacy Policy</span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="overlay" id="projectOverlay" aria-hidden="true">
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-art"><button class="close" id="modalClose" type="button"
+          aria-label="Close project detail">×</button></div>
+      <div class="modal-body">
+        <p class="kicker">Project detail / Overlay</p>
+        <h2 id="modalTitle">The Last Voice</h2>
+        <p>A haunting phone-first romance about a voice note that arrives three years too late. Created end-to-end
+          through Lila’s AI-native production network.</p>
+        <div class="tags"><span class="tag">Drama</span><span class="tag tag-brand">Lila Original</span><span
+            class="tag tag-time">8 episodes</span></div>
+        <div class="button-row" style="margin-top:25px"><button class="button button-primary js-toast"
+            type="button">Watch episode 01 <span class="play"></span></button><button class="button button-ghost"
+            id="modalBack" type="button">Back to library</button></div>
+      </div>
+    </section>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite">Component interaction confirmed.</div>
+
+  <script>
+    (() => {
+      const body = document.body;
+      const docsMenu = document.getElementById('docsMenu');
+      const sideNav = document.getElementById('sideNav');
+      const visibilityStorageKey = 'lila-components-hidden';
+      let savedHidden = [];
+      try { savedHidden = JSON.parse(localStorage.getItem(visibilityStorageKey) || '[]'); } catch (error) { savedHidden = []; }
+      const hiddenSections = new Set(Array.isArray(savedHidden) ? savedHidden : []);
+
+      [...sideNav.querySelectorAll('a')].forEach(link => {
+        const section = document.querySelector(link.getAttribute('href'));
+        if (!section?.classList.contains('component-section')) return;
+
+        const row = document.createElement('div');
+        row.className = 'nav-section-row';
+        link.parentNode.insertBefore(row, link);
+        row.appendChild(link);
+
+        const toggle = document.createElement('button');
+        toggle.className = 'section-visibility-toggle';
+        toggle.type = 'button';
+        row.appendChild(toggle);
+
+        const title = link.textContent.trim();
+        const renderVisibility = hidden => {
+          section.hidden = hidden;
+          row.classList.toggle('section-is-hidden', hidden);
+          link.setAttribute('aria-disabled', String(hidden));
+          if (hidden) link.setAttribute('tabindex', '-1'); else link.removeAttribute('tabindex');
+          toggle.textContent = hidden ? 'Show' : 'Hide';
+          toggle.setAttribute('aria-pressed', String(hidden));
+          toggle.setAttribute('aria-label', `${hidden ? 'Show' : 'Hide'} ${title} section`);
+        };
+
+        renderVisibility(hiddenSections.has(section.id));
+        toggle.addEventListener('click', () => {
+          const hidden = !section.hidden;
+          if (hidden) hiddenSections.add(section.id); else hiddenSections.delete(section.id);
+          renderVisibility(hidden);
+          try { localStorage.setItem(visibilityStorageKey, JSON.stringify([...hiddenSections])); } catch (error) { /* Local persistence is optional. */ }
+        });
+        link.addEventListener('click', event => { if (section.hidden) event.preventDefault(); });
+      });
+
+      docsMenu.addEventListener('click', () => {
+        const open = docsMenu.getAttribute('aria-expanded') !== 'true';
+        docsMenu.setAttribute('aria-expanded', String(open));
+        docsMenu.setAttribute('aria-label', open ? 'Close component navigation' : 'Open component navigation');
+        sideNav.classList.toggle('open', open);
+      });
+      sideNav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+        sideNav.classList.remove('open');
+        docsMenu.setAttribute('aria-expanded', 'false');
+      }));
+
+      const bindPhoneSpecimen = (toggleId, sheetId) => {
+        const toggle = document.getElementById(toggleId);
+        const sheet = document.getElementById(sheetId);
+        if (!toggle || !sheet) return;
+        toggle.addEventListener('click', () => {
+          const open = toggle.getAttribute('aria-expanded') !== 'true';
+          toggle.setAttribute('aria-expanded', String(open));
+          toggle.setAttribute('aria-label', open ? 'Close mobile navigation' : 'Open mobile navigation');
+          toggle.classList.toggle('open', open);
+          sheet.classList.toggle('open', open);
+        });
+        sheet.querySelectorAll('a, button').forEach(el => el.addEventListener('click', () => {
+          toggle.setAttribute('aria-expanded', 'false');
+          toggle.classList.remove('open');
+          sheet.classList.remove('open');
+        }));
+      };
+      bindPhoneSpecimen('phoneToggleNotch', 'phoneSheetNotch');
+      bindPhoneSpecimen('phoneToggleClassic', 'phoneSheetClassic');
+
+      const overlay = document.getElementById('projectOverlay');
+      const modal = overlay.querySelector('.modal');
+      let lastFocus = null;
+      const openModal = trigger => {
+        lastFocus = trigger; overlay.classList.add('open'); overlay.setAttribute('aria-hidden', 'false'); body.classList.add('locked'); document.getElementById('modalClose').focus();
+      };
+      const closeModal = () => {
+        overlay.classList.remove('open'); overlay.setAttribute('aria-hidden', 'true'); body.classList.remove('locked'); if (lastFocus) lastFocus.focus();
+      };
+      document.querySelectorAll('.js-modal').forEach(button => button.addEventListener('click', () => openModal(button)));
+      document.getElementById('modalClose').addEventListener('click', closeModal);
+      document.getElementById('modalBack').addEventListener('click', closeModal);
+      overlay.addEventListener('mousedown', event => { if (event.target === overlay) closeModal(); });
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape') { if (overlay.classList.contains('open')) closeModal(); else { sideNav.classList.remove('open'); docsMenu.setAttribute('aria-expanded', 'false'); } }
+        if (event.key === 'Tab' && overlay.classList.contains('open')) {
+          const items = [...modal.querySelectorAll('button, a, input, select, textarea')];
+          const first = items[0], last = items[items.length - 1];
+          if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+          if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+        }
+      });
+
+      const toast = document.getElementById('toast');
+      let toastTimer;
+      const showToast = text => {
+        toast.textContent = text; toast.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => toast.classList.remove('show'), 2800);
+      };
+      document.querySelectorAll('.js-toast').forEach(button => button.addEventListener('click', () => showToast('Success. This interaction is working.')));
+
+      document.getElementById('componentForm').addEventListener('submit', event => {
+        event.preventDefault();
+        if (!event.currentTarget.checkValidity()) { event.currentTarget.reportValidity(); return; }
+        showToast('Form validation passed.');
+      });
+
+      let playing = false, progress = 36, videoTimer;
+      const playPause = document.getElementById('playPause');
+      const bigPlay = document.getElementById('bigPlay');
+      const fill = document.getElementById('timelineFill');
+      const time = document.getElementById('videoTime');
+      const renderVideo = () => {
+        playPause.textContent = playing ? '❚❚' : '▶'; playPause.setAttribute('aria-label', playing ? 'Pause' : 'Play'); bigPlay.hidden = playing; fill.style.width = progress + '%';
+        const seconds = Math.round(progress * .92); time.textContent = `00:${String(seconds).padStart(2, '0')} / 01:32`;
+      };
+      const toggleVideo = () => {
+        playing = !playing; clearInterval(videoTimer); if (playing) videoTimer = setInterval(() => { progress = progress >= 100 ? 0 : progress + 1; renderVideo(); }, 920); renderVideo();
+      };
+      playPause.addEventListener('click', toggleVideo); bigPlay.addEventListener('click', toggleVideo);
+
+      let currentSlide = 0;
+      const totalSlides = 4;
+      const carouselTrack = document.getElementById('carouselTrack');
+      const carouselViewport = document.getElementById('carouselViewport');
+      const carouselCount = document.getElementById('carouselCount');
+      const carouselDots = document.querySelectorAll('.carousel-dot');
+
+      const updateCarousel = (index) => {
+        currentSlide = (index + totalSlides) % totalSlides;
+        if (carouselCount) carouselCount.textContent = String(currentSlide + 1).padStart(2, '0');
+        
+        if (carouselTrack && carouselViewport) {
+          const slideItem = carouselTrack.querySelector('.carousel-slide');
+          if (slideItem) {
+            const slideWidth = slideItem.offsetWidth + 18;
+            const maxScroll = Math.max(0, carouselTrack.scrollWidth - carouselViewport.offsetWidth);
+            const targetOffset = Math.min(currentSlide * slideWidth, maxScroll);
+            carouselTrack.style.transform = `translateX(-${targetOffset}px)`;
+          }
+        }
+
+        carouselDots.forEach((dot, idx) => {
+          dot.classList.toggle('active', idx === currentSlide);
+        });
+      };
+
+      const prevBtn = document.getElementById('prev');
+      const nextBtn = document.getElementById('next');
+      if (prevBtn) prevBtn.addEventListener('click', () => updateCarousel(currentSlide - 1));
+      if (nextBtn) nextBtn.addEventListener('click', () => updateCarousel(currentSlide + 1));
+      
+      carouselDots.forEach((dot, idx) => {
+        dot.addEventListener('click', () => updateCarousel(idx));
+      });
+
+      window.addEventListener('resize', () => updateCarousel(currentSlide));
+
+      const links = [...sideNav.querySelectorAll('a')];
+      const sections = links.map(link => document.querySelector(link.getAttribute('href'))).filter(Boolean);
+      const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+        if (entry.isIntersecting) { links.forEach(link => link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id)); }
+      }), { rootMargin: '-20% 0px -70% 0px' });
+      sections.forEach(section => observer.observe(section));
+    })();
+  </script>
+</body>
+
+</html>
