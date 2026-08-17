@@ -424,13 +424,13 @@
   </style>
 </head>
 <body id="top">
+  <nav class="navbar" aria-label="Primary navigation">
+    <a class="brand" href="#home" aria-label="Lila Studios home"><img src="assets/SVG/variants/lila-wordmark-color.svg" alt="Lila"></a>
+    <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false"><span class="nav-toggle-icon"><span></span><span></span><span></span></span></button>
+    <div class="nav-links"><a href="#services">Our Services</a><a href="#work">Our Work</a><a href="#why">Why Lila</a><a class="button button-primary" href="#connect">Connect <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7m0 0H8m9 0v9"/></svg></span></a></div>
+  </nav>
   <main>
     <section class="hero" id="home">
-      <nav class="navbar" aria-label="Primary navigation">
-        <a class="brand" href="#home" aria-label="Lila Studios home"><img src="assets/SVG/variants/lila-wordmark-color.svg" alt="Lila"></a>
-        <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false"><span class="nav-toggle-icon"><span></span><span></span><span></span></span></button>
-        <div class="nav-links"><a href="#services">Our Services</a><a href="#work">Our Work</a><a href="#why">Why Lila</a><a class="button button-primary" href="#connect">Connect <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7m0 0H8m9 0v9"/></svg></span></a></div>
-      </nav>
       <div class="feature-art" id="featureArt" aria-hidden="true"></div>
       <button class="marquee-peek marquee-prev" id="featurePeekPrev" type="button" aria-label="Show previous story"><span><small>Previous</small><strong id="featurePrevTitle">Borrowed Time</strong></span></button>
       <button class="marquee-peek marquee-next" id="featurePeekNext" type="button" aria-label="Show next story"><span><small>Up next</small><strong id="featureNextTitle">One Room</strong></span></button>
@@ -539,18 +539,29 @@
     (() => {
       const toggle = document.querySelector('.nav-toggle');
       const navLinks = document.querySelector('.nav-links');
-      toggle.addEventListener('click', () => {
+      
+      const closeMenu = () => {
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Open navigation');
+        navLinks.classList.remove('open');
+        document.body.classList.remove('menu-open');
+      };
+
+      toggle.addEventListener('click', (e) => {
+        e.stopPropagation();
         const open = toggle.getAttribute('aria-expanded') !== 'true';
         toggle.setAttribute('aria-expanded', String(open));
         toggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
         navLinks.classList.toggle('open', open);
         document.body.classList.toggle('menu-open', open);
       });
-      navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
-        toggle.setAttribute('aria-expanded', 'false');
-        navLinks.classList.remove('open');
-        document.body.classList.remove('menu-open');
-      }));
+
+      navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+      document.addEventListener('click', (e) => {
+        if (!toggle.contains(e.target) && !navLinks.contains(e.target)) {
+          closeMenu();
+        }
+      });
 
       const slides = [
         { title: 'Coastline Run', art: 'assets/images/coastline-run-hero.png', position: 'center' },
