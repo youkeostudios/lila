@@ -1862,11 +1862,19 @@
       }
       .how-network-diagram {
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 12px;
       }
       .network-connector {
-        transform: rotate(90deg);
-        margin: 10px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        margin: 6px 0;
+      }
+      .network-connector .connector-line {
+        width: 2px;
+        height: 32px;
+        background: linear-gradient(180deg, var(--purple), var(--violet));
       }
     }
 
