@@ -1797,46 +1797,162 @@
       margin-bottom: 24px;
     }
 
-    /* Footer */
+    /* =========================================================
+       PREMIUM STUDIO FOOTER
+       ========================================================= */
     .site-footer {
-      background: #040306;
+      background: #050407;
       border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 60px 0 35px;
+      padding: 70px 0 36px;
+      position: relative;
+      overflow: hidden;
     }
-    .footer-top-grid {
+    .site-footer::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 15%;
+      right: 15%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(213, 165, 255, 0.35), transparent);
+    }
+    .footer-main-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1.2fr auto;
+      gap: 48px;
+      align-items: start;
+      margin-bottom: 48px;
+    }
+    .footer-brand-col {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 24px;
-      margin-bottom: 40px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
     }
-    .footer-links-row {
+    .footer-brand-logo {
+      height: 32px;
+      width: auto;
+      display: block;
+    }
+    .footer-tagline {
+      color: #ded8e2;
+      font-size: 0.92rem;
+      line-height: 1.62;
+      max-width: 320px;
+      margin: 0;
+    }
+    .footer-launch-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(166, 83, 230, 0.1);
+      border: 1px solid rgba(213, 165, 255, 0.22);
+      color: var(--lilac);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .footer-launch-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--lilac);
+    }
+    .footer-col-title {
+      display: block;
+      color: #ffffff;
+      font-size: 0.76rem;
+      font-weight: 750;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .footer-nav-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
       display: flex;
-      align-items: center;
-      gap: 28px;
-      flex-wrap: wrap;
+      flex-direction: column;
+      gap: 12px;
     }
-    .footer-link {
+    .footer-nav-link {
+      color: #ded8e2;
+      font-size: 0.92rem;
+      font-weight: 550;
+      text-decoration: none;
+      transition: color 0.2s, transform 0.2s;
+      display: inline-block;
+    }
+    .footer-nav-link:hover {
+      color: var(--lilac);
+      transform: translateX(3px);
+    }
+    .footer-contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .footer-contact-item {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .footer-contact-label {
+      font-size: 0.66rem;
+      font-weight: 700;
       color: var(--muted);
-      font-size: 0.88rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .footer-contact-link {
+      color: #ffffff;
+      font-size: 0.9rem;
       font-weight: 600;
       text-decoration: none;
       transition: color 0.2s;
     }
-    .footer-link:hover {
-      color: #ffffff;
+    .footer-contact-link:hover {
+      color: var(--lilac);
     }
-    .footer-bottom-row {
+    .footer-back-top-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: #ded8e2;
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+      white-space: nowrap;
+    }
+    .footer-back-top-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+      border-color: rgba(213, 165, 255, 0.4);
+    }
+    .footer-bottom-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 16px;
-      padding-top: 24px;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-      color: rgba(255, 255, 255, 0.4);
-      font-size: 0.78rem;
+      padding-top: 26px;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      color: rgba(255, 255, 255, 0.45);
+      font-size: 0.8rem;
+    }
+    .footer-bottom-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
     }
 
     /* =========================================================
@@ -1874,6 +1990,10 @@
         width: 2px;
         height: 32px;
         background: linear-gradient(180deg, var(--purple), var(--violet));
+      }
+      .footer-main-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 36px;
       }
     }
 
@@ -1970,6 +2090,23 @@
       .connect-split-layout {
         grid-template-columns: 1fr;
         gap: 24px;
+      }
+      .site-footer {
+        padding: 50px 0 30px;
+      }
+      .footer-main-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .footer-nav-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px 20px;
+      }
+      .footer-bottom-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
       }
       .hero-badges-row {
         grid-template-columns: repeat(3, 1fr);
@@ -2857,22 +2994,70 @@
        ========================================================= -->
   <footer class="site-footer">
     <div class="page">
-      <div class="footer-top-grid">
-        <a href="#hero" class="brand" aria-label="Lila Studios Home">
-          <img src="assets/lila-logo-lockup.png" alt="Lila Studios" class="brand-logo" style="height: 28px; width: auto;">
-        </a>
-        <div class="footer-links-row">
-          <a href="#what" class="footer-link">What We Do</a>
-          <a href="#how" class="footer-link">How We Do It</a>
-          <a href="#why" class="footer-link">Why Lila</a>
-          <a href="#work" class="footer-link">Our Work</a>
-          <a href="#team" class="footer-link">Team</a>
-          <a href="#connect" class="footer-link">Connect</a>
+      <div class="footer-main-grid">
+        <!-- Brand & Mission -->
+        <div class="footer-brand-col">
+          <a href="#top" class="brand" aria-label="Lila Studios Home">
+            <img src="assets/SVG/variants/lila-wordmark-color.svg" alt="Lila Studios" class="footer-brand-logo">
+          </a>
+          <p class="footer-tagline">
+            India's AI-native micro-drama studio and creator ecosystem. Stories crafted for the vertical screen.
+          </p>
+          <div class="footer-launch-badge">
+            <span class="footer-launch-dot"></span>
+            Launch · 15 August 2026
+          </div>
+        </div>
+
+        <!-- Navigation Links -->
+        <div class="footer-nav-col">
+          <span class="footer-col-title">Navigation</span>
+          <ul class="footer-nav-list">
+            <li><a href="#what" class="footer-nav-link">What We Do</a></li>
+            <li><a href="#how" class="footer-nav-link">How We Do It</a></li>
+            <li><a href="#why" class="footer-nav-link">Why Lila</a></li>
+            <li><a href="#work" class="footer-nav-link">Our Work</a></li>
+            <li><a href="#team" class="footer-nav-link">Team & Spokes</a></li>
+            <li><a href="#connect" class="footer-nav-link">Get in Touch</a></li>
+          </ul>
+        </div>
+
+        <!-- Direct Contacts -->
+        <div class="footer-contact-col">
+          <span class="footer-col-title">Connect</span>
+          <div class="footer-contact-list">
+            <div class="footer-contact-item">
+              <span class="footer-contact-label">Brands & Studio</span>
+              <a href="mailto:hello@lilastudios.in" class="footer-contact-link">hello@lilastudios.in</a>
+            </div>
+            <div class="footer-contact-item">
+              <span class="footer-contact-label">Creators & Storytellers</span>
+              <a href="mailto:creators@lilastudios.in" class="footer-contact-link">creators@lilastudios.in</a>
+            </div>
+            <div class="footer-contact-item">
+              <span class="footer-contact-label">Hub Location</span>
+              <span style="color: #ded8e2; font-size: 0.88rem; font-weight: 550;">Mumbai, India · Pan-India Hub</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Back to Top Action -->
+        <div class="footer-action-col">
+          <a href="#top" class="footer-back-top-btn" aria-label="Scroll back to top">
+            <span>Back to top</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+          </a>
         </div>
       </div>
-      <div class="footer-bottom-row">
+
+      <!-- Bottom Meta Bar -->
+      <div class="footer-bottom-bar">
         <span>© 2026 Lila Studios. All rights reserved. Drama, generated.</span>
-        <span>India's AI-Native Micro-Drama Production Network</span>
+        <div class="footer-bottom-meta">
+          <span>Creative Independence</span>
+          <span>•</span>
+          <span>Mumbai · Pan-India Network</span>
+        </div>
       </div>
     </div>
   </footer>
