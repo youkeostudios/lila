@@ -1,0 +1,3184 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#08070b">
+  <meta name="description" content="Lila Studios — Drama, generated. An AI-native studio that produces micro-dramas — vertical, phone-first, cliffhanger-driven short films, created entirely with generative AI.">
+  <title>Lila Studios — Drama, generated.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #07070a;
+      --ink-surface: #0e0d14;
+      --ink-card: rgba(18, 15, 24, 0.72);
+      --paper: #f7f4f8;
+      --muted: #a79fb0;
+      --line: rgba(255, 255, 255, 0.12);
+      --line-bright: rgba(255, 255, 255, 0.22);
+      --purple: #7026b8;
+      --violet: #a653e6;
+      --lilac: #d5a5ff;
+      --page: min(1240px, calc(100vw - 48px));
+      --ease: cubic-bezier(.2, .8, .2, 1);
+      --font-main: "Plus Jakarta Sans", Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 104px;
+    }
+    body {
+      margin: 0;
+      min-width: 320px;
+      overflow-x: hidden;
+      color: var(--paper);
+      background: var(--ink);
+      font-family: var(--font-main);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+    body.menu-open { overflow: hidden; }
+
+    a { color: inherit; text-decoration: none; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button, input, select, textarea { font: inherit; }
+    img { display: block; max-width: 100%; }
+    h1, h2, h3, p { margin-top: 0; }
+
+    :focus-visible {
+      outline: 3px solid var(--lilac);
+      outline-offset: 4px;
+    }
+    ::selection {
+      color: white;
+      background: var(--violet);
+    }
+
+    .page {
+      width: var(--page);
+      margin-inline: auto;
+    }
+
+    .eyebrow {
+      margin: 0 0 14px 0;
+      color: var(--lilac);
+      font-size: .74rem;
+      font-weight: 750;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--lilac);
+      opacity: 0.85;
+    }
+
+    .gradient {
+      color: transparent;
+      background: linear-gradient(105deg, #8f39d6, #c46eff 55%, #efd4ff);
+      background-clip: text;
+      -webkit-background-clip: text;
+    }
+
+    .section-title {
+      font-size: 3.4rem;
+      font-weight: 800;
+      letter-spacing: -0.045em;
+      line-height: 1.02;
+      margin: 0;
+      color: #ffffff;
+    }
+
+    /* Buttons */
+    .button {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 24px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      color: white;
+      background: transparent;
+      font-size: .88rem;
+      font-weight: 600;
+      letter-spacing: -.01em;
+      line-height: 1;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform .25s var(--ease), box-shadow .25s, background .25s, border-color .25s;
+    }
+    .button:hover { transform: none; }
+    .button:active { transform: translateY(0); }
+
+    .button-primary {
+      background: linear-gradient(105deg, var(--purple), var(--violet));
+      box-shadow: none;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+    }
+    .button-primary:hover {
+      transform: none;
+      box-shadow: none;
+      background: linear-gradient(105deg, #6219a8, #9243d4);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .button-light {
+      color: #171219;
+      background: white;
+      box-shadow: none;
+    }
+    .button-light:hover {
+      transform: none;
+      background: #f7efff;
+      box-shadow: none;
+    }
+
+    .button-secondary {
+      color: #f7f4f8;
+      background: rgba(255, 255, 255, .06);
+      border: 1px solid rgba(255, 255, 255, .18);
+      backdrop-filter: blur(10px);
+      box-shadow: none;
+    }
+    .button-secondary:hover {
+      transform: none;
+      box-shadow: none;
+      background: rgba(255, 255, 255, .12);
+      border-color: rgba(255, 255, 255, .32);
+    }
+
+    .arrow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      transition: transform .22s var(--ease);
+    }
+    .arrow svg { width: 100%; height: 100%; display: block; }
+    .button:hover .arrow { transform: none; }
+    .button:hover .arrow.arrow-right { transform: none; }
+    .button:hover .arrow.arrow-down { transform: none; }
+
+    /* =========================================================
+       NAVBAR (Preserved from existing website)
+       ========================================================= */
+    .navbar {
+      position: fixed;
+      z-index: 100;
+      top: 22px;
+      left: 50%;
+      width: var(--page);
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 10px 14px 10px 18px;
+      border: 1px solid rgba(255, 255, 255, .14);
+      border-radius: 18px;
+      background: rgba(10, 8, 13, .82);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, .45);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      transform: translateX(-50%);
+      transition: background .3s, border-color .3s, box-shadow .3s;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      flex: 0 0 auto;
+      text-decoration: none;
+    }
+    .brand img {
+      width: 82px;
+      height: auto;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      margin-left: auto;
+    }
+    .nav-links > a:not(.button) {
+      color: #ded9e1;
+      font-size: .82rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .nav-links > a:not(.button):hover {
+      color: white;
+    }
+    .nav-toggle {
+      display: none;
+      width: 42px;
+      height: 42px;
+      padding: 0;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      color: white;
+      background: rgba(255, 255, 255, .05);
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      transition: background .25s var(--ease), border-color .25s, transform .2s var(--ease);
+    }
+    .nav-toggle:hover {
+      background: rgba(255, 255, 255, .1);
+      border-color: rgba(255, 255, 255, .25);
+    }
+    .nav-toggle:active { transform: scale(.93); }
+    .nav-toggle-icon {
+      position: relative;
+      width: 17px;
+      height: 13px;
+      display: block;
+      margin: auto;
+    }
+    .nav-toggle-icon span {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      border-radius: 2px;
+      background: #ffffff;
+      transition: transform .32s cubic-bezier(0.16, 1, 0.3, 1), opacity .22s ease, top .32s cubic-bezier(0.16, 1, 0.3, 1), background .25s;
+    }
+    .nav-toggle-icon span:nth-child(1) { top: 0; }
+    .nav-toggle-icon span:nth-child(2) { top: 5.5px; }
+    .nav-toggle-icon span:nth-child(3) { top: 11px; }
+    .nav-toggle[aria-expanded="true"] .nav-toggle-icon span:nth-child(1) { top: 5.5px; transform: rotate(45deg); }
+    .nav-toggle[aria-expanded="true"] .nav-toggle-icon span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-toggle[aria-expanded="true"] .nav-toggle-icon span:nth-child(3) { top: 5.5px; transform: rotate(-45deg); }
+
+    /* =========================================================
+       HERO SECTION (Eloelo.in style layout + iPhone video mockup)
+       ========================================================= */
+    .hero-v2 {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      padding: 130px 0 80px;
+      background: #07070a;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .hero-ambient-glow {
+      position: absolute;
+      z-index: 1;
+      width: 650px;
+      height: 650px;
+      border-radius: 50%;
+      filter: blur(150px);
+      pointer-events: none;
+    }
+    .hero-ambient-right {
+      top: 50%;
+      right: 8%;
+      transform: translateY(-50%);
+      background: radial-gradient(circle, rgba(166, 83, 230, 0.38) 0%, rgba(112, 38, 184, 0.2) 50%, transparent 70%);
+      animation: pulse-aura 8s ease-in-out infinite alternate;
+    }
+    .hero-ambient-left {
+      bottom: 10%;
+      left: -10%;
+      background: radial-gradient(circle, rgba(112, 38, 184, 0.22) 0%, transparent 65%);
+    }
+    @keyframes pulse-aura {
+      0% { transform: translateY(-50%) scale(0.95); opacity: 0.8; }
+      100% { transform: translateY(-50%) scale(1.1); opacity: 1; }
+    }
+
+    .hero-v2::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      opacity: 0.4;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: center;
+      gap: clamp(40px, 6vw, 80px);
+    }
+
+    .hero-copy-col {
+      max-width: 620px;
+    }
+    .hero-copy-col h1 {
+      margin-bottom: 20px;
+      font-size: 4.8rem;
+      font-weight: 800;
+      line-height: 0.98;
+      letter-spacing: -0.05em;
+      text-transform: uppercase;
+    }
+    .hero-copy-col .hero-subheading {
+      color: #ded8e2;
+      font-size: 1.15rem;
+      line-height: 1.62;
+      margin-bottom: 28px;
+      max-width: 540px;
+    }
+
+    .hero-badges-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 28px;
+      margin-bottom: 34px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .hero-stat-item strong {
+      display: block;
+      font-size: 1.65rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #ffffff;
+      line-height: 1.1;
+    }
+    .hero-stat-item span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 3px;
+    }
+
+    .hero-actions-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .hero-mockup-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .iphone-device {
+      position: relative;
+      width: clamp(280px, 26vw, 340px);
+      aspect-ratio: 9 / 18.5;
+      border-radius: 46px;
+      background: #020204;
+      box-shadow: 
+        0 0 0 4px #26242c,
+        0 0 0 6px #121016,
+        0 35px 80px rgba(0, 0, 0, 0.8),
+        0 0 60px rgba(166, 83, 230, 0.28);
+      padding: 10px;
+      overflow: hidden;
+      isolation: isolate;
+      transition: box-shadow 0.4s var(--ease);
+    }
+    .iphone-device:hover {
+      box-shadow: 
+        0 0 0 4px #33303d,
+        0 0 0 6px #1a1722,
+        0 42px 95px rgba(0, 0, 0, 0.85),
+        0 0 75px rgba(166, 83, 230, 0.4);
+    }
+
+    .iphone-notch {
+      position: absolute;
+      z-index: 10;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90px;
+      height: 24px;
+      border-radius: 20px;
+      background: #000000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    }
+    .notch-camera {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #0c1424;
+      border: 1px solid #1a2234;
+    }
+    .notch-sensor {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #08070d;
+    }
+
+    .iphone-screen {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 38px;
+      overflow: hidden;
+      background: #000000;
+    }
+
+    .iphone-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      background: #000000;
+    }
+
+    .iphone-overlay-top {
+      position: absolute;
+      z-index: 5;
+      top: 48px;
+      left: 14px;
+      right: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      pointer-events: none;
+    }
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(10, 8, 13, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(8px);
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #ffffff;
+    }
+    .live-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #e53e3e;
+      animation: live-blink 1.4s infinite alternate;
+    }
+    @keyframes live-blink {
+      0% { opacity: 0.3; }
+      100% { opacity: 1; box-shadow: 0 0 8px #e53e3e; }
+    }
+
+    .video-sound-toggle {
+      pointer-events: auto;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: rgba(10, 8, 13, 0.75);
+      color: #ffffff;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: background 0.2s, transform 0.2s;
+    }
+    .video-sound-toggle:hover {
+      background: rgba(112, 38, 184, 0.85);
+      transform: scale(1.06);
+    }
+    .video-sound-toggle svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .iphone-overlay-bottom {
+      position: absolute;
+      z-index: 5;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 40px 16px 18px;
+      background: linear-gradient(0deg, rgba(4, 4, 7, 0.95) 0%, rgba(4, 4, 7, 0.6) 60%, transparent 100%);
+      pointer-events: none;
+    }
+    .video-now-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 3px;
+      letter-spacing: -0.02em;
+    }
+    .video-now-meta {
+      font-size: 0.62rem;
+      font-weight: 600;
+      color: var(--lilac);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+    }
+
+    .mockup-playlist-nav {
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(18, 15, 24, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 6px 10px;
+      border-radius: 999px;
+      backdrop-filter: blur(16px);
+      max-width: 100%;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .mockup-playlist-nav::-webkit-scrollbar { display: none; }
+
+    .playlist-pill {
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--muted);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .playlist-pill:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .playlist-pill.active {
+      background: linear-gradient(105deg, var(--purple), var(--violet));
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 12px rgba(112, 38, 184, 0.4);
+    }
+
+    /* Section Top Bar */
+    .what-section-container {
+      position: relative;
+      padding: clamp(70px, 8vw, 110px) 0;
+      background: #09080c;
+      overflow: hidden;
+    }
+    .what-page-wrapper {
+      position: relative;
+    }
+    .what-head-bar {
+      margin-bottom: 0;
+      padding-right: 0;
+    }
+    .what-head-left {
+      max-width: 680px;
+    }
+    .what-head-left .eyebrow {
+      margin-bottom: 14px;
+    }
+
+    /* Minimal Top-Right [1 | 2] Selector */
+    .minimal-selector {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 10;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      background: rgba(16, 13, 22, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      padding: 3px 6px;
+      border-radius: 999px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    }
+    .minimal-btn {
+      width: 24px;
+      height: 24px;
+      display: grid;
+      place-items: center;
+      padding: 0;
+      border-radius: 50%;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s;
+    }
+    .minimal-btn:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.08);
+    }
+    .minimal-btn.active {
+      background: linear-gradient(105deg, var(--purple), var(--violet));
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.25);
+      box-shadow: 0 2px 8px rgba(112, 38, 184, 0.4);
+    }
+    .minimal-sep {
+      color: rgba(255, 255, 255, 0.2);
+      font-size: 0.65rem;
+      font-weight: 300;
+      user-select: none;
+    }
+
+    /* Option Containers */
+    .what-variant {
+      display: none;
+      animation: fadeIn 0.35s var(--ease);
+    }
+    .what-variant.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* --- Section Statements & Cards --- */
+    .opt1-container {
+      max-width: 980px;
+    }
+    .opt1-statement {
+      font-size: 2.85rem;
+      font-weight: 750;
+      line-height: 1.1;
+      letter-spacing: -0.045em;
+      margin-bottom: 32px;
+      color: #ffffff;
+    }
+    .opt1-body {
+      font-size: 1.15rem;
+      color: #ded8e2;
+      line-height: 1.7;
+      max-width: 880px;
+      border-left: 2px solid var(--violet);
+      padding-left: 24px;
+    }
+
+    /* --- OPTION 2: 3 Cards Architecture --- */
+    .opt2-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+    .what-card {
+      position: relative;
+      background: rgba(16, 14, 22, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.11);
+      border-radius: 24px;
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      backdrop-filter: blur(16px);
+      transition: transform 0.3s var(--ease), border-color 0.3s, box-shadow 0.3s, background 0.3s;
+      overflow: hidden;
+    }
+    .what-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(213, 165, 255, 0.35);
+      background: rgba(22, 18, 30, 0.85);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.55), 0 0 35px rgba(166, 83, 230, 0.15);
+    }
+    .what-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 15%;
+      right: 15%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(213, 165, 255, 0.5), transparent);
+      opacity: 0.6;
+    }
+    .card-kicker {
+      display: block;
+      color: var(--lilac);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .card-heading {
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.22;
+      margin-bottom: 14px;
+      color: #ffffff;
+    }
+    .card-text {
+      color: #ded8e2;
+      font-size: 0.94rem;
+      line-height: 1.62;
+      margin: 0;
+      flex-grow: 1;
+    }
+
+    /* =========================================================
+       SECTION 3: HOW WE DO IT?
+       ========================================================= */
+    .how-section-container {
+      position: relative;
+      padding: clamp(70px, 8vw, 110px) 0;
+      background: #07070a;
+      overflow: hidden;
+    }
+    .how-page-wrapper {
+      position: relative;
+    }
+    .how-variant {
+      display: none;
+      animation: fadeIn 0.35s var(--ease);
+    }
+    .how-variant.active {
+      display: block;
+    }
+
+    /* Option 2: 2-Card Dual Grid */
+    .how-cards-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(20px, 3vw, 32px);
+      align-items: stretch;
+    }
+
+    /* Option 3: Visual Network Architecture Box */
+    .how-network-box {
+      background: rgba(14, 12, 19, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 28px;
+      padding: clamp(28px, 4vw, 44px);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5);
+    }
+    .how-network-diagram {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: clamp(20px, 3vw, 36px);
+      margin-bottom: 28px;
+    }
+    .network-node {
+      background: rgba(22, 18, 28, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 20px;
+      padding: 24px;
+      position: relative;
+    }
+    .network-node-hub {
+      border-color: rgba(166, 83, 230, 0.4);
+      box-shadow: 0 10px 30px rgba(112, 38, 184, 0.25);
+    }
+    .network-node-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+    .network-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 12px;
+    }
+    .network-tag {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--lilac);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .network-connector {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .connector-line {
+      width: 48px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--purple), var(--violet));
+      position: relative;
+    }
+    .connector-badge {
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .how-network-summary {
+      font-size: 1.05rem;
+      color: #ded8e2;
+      line-height: 1.68;
+      margin: 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 22px;
+    }
+
+    /* =========================================================
+       SECTION 4: OUR WHY. OUR PURPOSE?
+       ========================================================= */
+    .why-section-container {
+      position: relative;
+      padding: clamp(70px, 8vw, 110px) 0;
+      background: #09080c;
+      overflow: hidden;
+    }
+    .why-page-wrapper {
+      position: relative;
+    }
+    .why-variant {
+      display: none;
+      animation: fadeIn 0.35s var(--ease);
+    }
+    .why-variant.active {
+      display: block;
+    }
+
+    /* Option 1: Contrast Grid + Manifesto Card */
+    .why-contrast-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin: 34px 0 28px;
+    }
+    .why-contrast-card {
+      background: rgba(16, 14, 22, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 32px 28px;
+      backdrop-filter: blur(16px);
+      display: flex;
+      flex-direction: column;
+    }
+    .why-contrast-highlight {
+      border-color: rgba(166, 83, 230, 0.35);
+      background: rgba(22, 18, 30, 0.8);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(112, 38, 184, 0.15);
+    }
+    .why-contrast-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 12px;
+      letter-spacing: -0.025em;
+    }
+    .why-manifesto-card {
+      background: linear-gradient(135deg, rgba(20, 16, 28, 0.9), rgba(12, 10, 16, 0.95));
+      border: 1px solid rgba(213, 165, 255, 0.25);
+      border-radius: 26px;
+      padding: 36px 32px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      position: relative;
+      overflow: hidden;
+    }
+    .why-manifesto-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(180deg, var(--purple), var(--violet));
+    }
+    .manifesto-quote {
+      font-size: 1.35rem;
+      font-weight: 700;
+      line-height: 1.4;
+      letter-spacing: -0.025em;
+      color: #ffffff;
+      margin-bottom: 16px;
+    }
+    .manifesto-body {
+      font-size: 1rem;
+      color: #ded8e2;
+      line-height: 1.68;
+      margin: 0;
+    }
+
+    /* Option 2: 3-Pillar Grid */
+    .why-pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(18px, 2.5vw, 28px);
+      margin-top: 34px;
+    }
+
+    /* =========================================================
+       SECTION 5: OUR WORK (OTT POSTER GRID + CINEMA LIGHTBOX)
+       ========================================================= */
+    .work-section-container {
+      position: relative;
+      padding: clamp(70px, 8vw, 110px) 0;
+      background: #07070a;
+      overflow: hidden;
+    }
+    .work-header-wrap {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: clamp(32px, 4vw, 48px);
+      flex-wrap: wrap;
+    }
+    .work-controls-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .work-filter-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(16, 13, 22, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 4px;
+      border-radius: 999px;
+      backdrop-filter: blur(14px);
+    }
+    .work-filter-btn {
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--muted);
+      font-size: 0.74rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .work-filter-btn:hover {
+      color: #ffffff;
+    }
+    .work-filter-btn.active {
+      background: linear-gradient(105deg, var(--purple), var(--violet));
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 2px 10px rgba(112, 38, 184, 0.35);
+    }
+
+    /* Slider Navigation Arrow Buttons */
+    .slider-nav-group {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .slider-arrow-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(16, 13, 22, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #ded8e2;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s;
+    }
+    .slider-arrow-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+      border-color: rgba(213, 165, 255, 0.3);
+      transform: scale(1.05);
+    }
+
+    /* Single-Row Slideable Carousel Track */
+    .work-slider-track {
+      display: flex;
+      gap: clamp(16px, 2vw, 24px);
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      padding: 10px 4px 28px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(166, 83, 230, 0.3) transparent;
+    }
+    .work-slider-track::-webkit-scrollbar {
+      height: 6px;
+    }
+    .work-slider-track::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 999px;
+    }
+    .work-slider-track::-webkit-scrollbar-thumb {
+      background: linear-gradient(90deg, var(--purple), var(--violet));
+      border-radius: 999px;
+    }
+
+    .poster-card {
+      flex: 0 0 clamp(240px, 22vw, 280px);
+      width: clamp(240px, 22vw, 280px);
+      scroll-snap-align: start;
+      position: relative;
+      aspect-ratio: 9 / 16;
+      border-radius: 20px;
+      overflow: hidden;
+      background: #120f18;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      cursor: pointer;
+      transition: border-color 0.3s, box-shadow 0.35s;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 20px;
+      text-decoration: none;
+    }
+    .poster-card:hover {
+      border-color: rgba(213, 165, 255, 0.45);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7), 0 0 35px rgba(166, 83, 230, 0.22);
+    }
+    .poster-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity 0.35s ease;
+      z-index: 1;
+    }
+    .poster-hover-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .poster-card.is-playing .poster-hover-video {
+      opacity: 1;
+    }
+    .poster-gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(7, 7, 10, 0.2) 0%, rgba(7, 7, 10, 0.1) 40%, rgba(7, 7, 10, 0.85) 75%, rgba(7, 7, 10, 0.98) 100%);
+      z-index: 2;
+    }
+    .poster-badge {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      z-index: 3;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(10, 8, 14, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      font-size: 0.62rem;
+      font-weight: 700;
+      color: var(--lilac);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .poster-play-icon {
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.85);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(12px);
+      display: grid;
+      place-items: center;
+      color: #ffffff;
+      z-index: 3;
+      opacity: 0;
+      transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), background 0.2s;
+    }
+    .poster-card:hover .poster-play-icon {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+      background: linear-gradient(135deg, var(--purple), var(--violet));
+    }
+    .poster-content {
+      position: relative;
+      z-index: 3;
+    }
+    .poster-kicker {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.62rem;
+      font-weight: 700;
+      color: var(--lilac);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 4px;
+    }
+    .poster-title {
+      font-size: 1.18rem;
+      font-weight: 750;
+      color: #ffffff;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+    .poster-synopsis {
+      font-size: 0.78rem;
+      color: #ded8e2;
+      line-height: 1.45;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin: 0;
+    }
+
+    /* =========================================================
+       CINEMA LIGHTBOX DIALOG (VIDEO + BOTTOM DETAILS)
+       ========================================================= */
+    .cinema-dialog {
+      border: none;
+      background: rgba(4, 3, 7, 0.94);
+      backdrop-filter: blur(28px);
+      padding: 24px 16px;
+      width: 100vw;
+      height: 100vh;
+      max-width: 100vw;
+      max-height: 100vh;
+      margin: 0;
+      outline: none;
+      z-index: 3000;
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      overflow-y: auto;
+    }
+    .cinema-dialog[open] {
+      display: flex;
+    }
+    .cinema-dialog::backdrop {
+      background: transparent;
+    }
+    .cinema-overlay-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: min(340px, 86vw);
+      max-width: 100%;
+      margin: auto;
+      position: relative;
+    }
+
+    /* Video Player Phone Frame */
+    .cinema-phone-stage {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      border-radius: 32px;
+      background: #000000;
+      border: 3px solid #282436;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.95), 0 0 50px rgba(112, 38, 184, 0.35);
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+    .cinema-phone-stage video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      cursor: pointer;
+    }
+
+    /* Top Floating Controls on Video (Sound + Close) */
+    .cinema-stage-top-controls {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .cinema-icon-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(16, 13, 22, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      transition: background 0.2s, transform 0.15s, border-color 0.2s;
+    }
+    .cinema-icon-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: rgba(213, 165, 255, 0.4);
+      transform: scale(1.06);
+    }
+
+    /* Info & Texts Underneath Video */
+    .cinema-bottom-info {
+      width: 100%;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .cinema-bottom-kicker {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.64rem;
+      font-weight: 700;
+      color: var(--lilac);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 4px;
+    }
+    .cinema-bottom-title {
+      font-size: clamp(1.25rem, 1.8vw, 1.45rem);
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.035em;
+      line-height: 1.15;
+      margin: 0 0 6px;
+    }
+    .cinema-bottom-synopsis {
+      font-size: 0.82rem;
+      color: #ded8e2;
+      line-height: 1.5;
+      margin: 0 0 12px;
+      max-width: 320px;
+    }
+    .cinema-ep-bar-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .cinema-ep-pill {
+      padding: 5px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: #ded8e2;
+      font-size: 0.74rem;
+      font-weight: 700;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .cinema-ep-pill:hover {
+      background: rgba(255, 255, 255, 0.18);
+      color: #ffffff;
+    }
+    .cinema-ep-pill.active {
+      background: linear-gradient(105deg, var(--purple), var(--violet));
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 2px 8px rgba(112, 38, 184, 0.45);
+    }
+
+    /* =========================================================
+       SECTION 6: THE TEAM (CORE LEADERSHIP & COLLECTIVE)
+       ========================================================= */
+    .team-section-container {
+      position: relative;
+      padding: clamp(90px, 9.5vw, 135px) 0;
+      background: #09080c;
+      overflow: hidden;
+    }
+    .team-page-wrapper {
+      position: relative;
+    }
+    .team-page-wrapper .what-head-bar {
+      margin-bottom: clamp(38px, 4.5vw, 54px);
+    }
+    .team-variant {
+      display: none;
+      animation: fadeIn 0.35s var(--ease);
+    }
+    .team-variant.active {
+      display: block;
+    }
+
+    /* --- Option 1: Cinematic Portrait Cards Grid --- */
+    .team-portrait-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: clamp(20px, 2.2vw, 30px);
+    }
+    .team-portrait-card {
+      background: rgba(16, 14, 22, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 26px;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      backdrop-filter: blur(16px);
+      transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s var(--ease);
+      position: relative;
+      overflow: hidden;
+    }
+    .team-portrait-card:hover {
+      border-color: rgba(213, 165, 255, 0.45);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.65), 0 0 30px rgba(112, 38, 184, 0.2);
+    }
+    .team-avatar-frame {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #181422, #0d0b12);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      margin-bottom: 22px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .team-avatar-initials {
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ffffff, var(--lilac));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.04em;
+    }
+    .team-avatar-badge {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(10, 8, 14, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      font-size: 0.6rem;
+      font-weight: 700;
+      color: var(--lilac);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .team-name {
+      font-size: 1.18rem;
+      font-weight: 750;
+      color: #ffffff;
+      margin-bottom: 6px;
+      letter-spacing: -0.025em;
+    }
+    .team-role {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--lilac);
+      margin-bottom: 14px;
+      line-height: 1.35;
+    }
+    .team-bio {
+      font-size: 0.84rem;
+      color: #ded8e2;
+      line-height: 1.6;
+      margin: 0;
+      flex-grow: 1;
+    }
+
+    /* --- Option 2: Expansive Focus Cards Grid --- */
+    .team-focus-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: clamp(20px, 2.2vw, 30px);
+    }
+    .team-focus-card {
+      background: rgba(16, 14, 22, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.11);
+      border-radius: 26px;
+      padding: 34px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 330px;
+      backdrop-filter: blur(18px);
+      transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s var(--ease);
+      position: relative;
+    }
+    .team-focus-card:hover {
+      border-color: rgba(213, 165, 255, 0.45);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.65), 0 0 30px rgba(112, 38, 184, 0.2);
+    }
+    .team-focus-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 24px;
+    }
+    .team-focus-tag {
+      padding: 4px 10px;
+      border-radius: 7px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--lilac);
+      letter-spacing: 0.02em;
+    }
+
+    /* =========================================================
+       SECTION 7: CONNECT (BRAND COMMISSION & CREATOR PORTAL)
+       ========================================================= */
+    .connect-section-container {
+      position: relative;
+      padding: clamp(90px, 9.5vw, 140px) 0;
+      background: #08060b;
+      overflow: hidden;
+    }
+    .connect-page-wrapper {
+      position: relative;
+    }
+    .connect-page-wrapper .what-head-bar {
+      margin-bottom: clamp(38px, 4.5vw, 54px);
+    }
+    .connect-variant {
+      display: none;
+      animation: fadeIn 0.35s var(--ease);
+    }
+    .connect-variant.active {
+      display: block;
+    }
+
+    /* --- Option 1: Dual-Portal Action Cards --- */
+    .connect-portal-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(20px, 2.5vw, 32px);
+      margin-bottom: clamp(36px, 4vw, 48px);
+    }
+    .connect-portal-card {
+      background: linear-gradient(135deg, rgba(22, 18, 32, 0.75), rgba(12, 10, 18, 0.85));
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 28px;
+      padding: clamp(32px, 4vw, 44px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      backdrop-filter: blur(20px);
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, box-shadow 0.35s, transform 0.3s var(--ease);
+    }
+    .connect-portal-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(166, 83, 230, 0.12), transparent 70%);
+      pointer-events: none;
+    }
+    .connect-portal-card:hover {
+      border-color: rgba(213, 165, 255, 0.5);
+      transform: translateY(-6px);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 35px rgba(112, 38, 184, 0.25);
+    }
+    .portal-heading {
+      font-size: clamp(1.8rem, 2.4vw, 2.2rem);
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      margin: 8px 0 16px;
+    }
+    .portal-text {
+      color: #ded8e2;
+      font-size: 0.95rem;
+      line-height: 1.65;
+      margin-bottom: 28px;
+    }
+    .portal-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .portal-features li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      color: #ffffff;
+    }
+    .portal-features li svg {
+      color: var(--lilac);
+      flex-shrink: 0;
+    }
+    .portal-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 16px 24px;
+      border-radius: 14px;
+      font-size: 0.95rem;
+      font-weight: 750;
+      letter-spacing: -0.01em;
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      transition: background 0.25s, transform 0.2s, box-shadow 0.25s;
+    }
+    .portal-cta-btn.primary {
+      background: linear-gradient(105deg, var(--purple), var(--violet));
+      color: #ffffff;
+      box-shadow: 0 8px 24px rgba(112, 38, 184, 0.4);
+    }
+    .portal-cta-btn.primary:hover {
+      background: linear-gradient(105deg, #b35cf0, #7a2bd6);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(112, 38, 184, 0.6);
+    }
+    .portal-cta-btn.secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+    }
+    .portal-cta-btn.secondary:hover {
+      background: rgba(255, 255, 255, 0.16);
+      transform: translateY(-2px);
+      border-color: rgba(213, 165, 255, 0.4);
+    }
+
+    /* Direct Contact Strip */
+    .connect-direct-strip {
+      background: rgba(14, 11, 20, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 20px;
+      padding: 24px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .direct-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .direct-icon-box {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      display: grid;
+      place-items: center;
+      color: var(--lilac);
+    }
+    .direct-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 2px;
+    }
+    .direct-val {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #ffffff;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .direct-val:hover {
+      color: var(--lilac);
+    }
+
+    /* --- Option 2: Direct Tabbed Form --- */
+    .connect-split-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: clamp(28px, 4vw, 56px);
+      align-items: start;
+    }
+    .connect-editorial-col {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .connect-editorial-box {
+      background: rgba(16, 14, 22, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: clamp(28px, 3.5vw, 36px);
+    }
+    .connect-form-card {
+      background: rgba(16, 14, 22, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 28px;
+      padding: clamp(28px, 4vw, 40px);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+    }
+    .form-tabs-header {
+      display: flex;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 4px;
+      margin-bottom: 28px;
+      gap: 4px;
+    }
+    .form-tab-btn {
+      flex: 1;
+      padding: 10px;
+      border-radius: 8px;
+      background: transparent;
+      border: none;
+      color: #ded8e2;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .form-tab-btn.active {
+      background: linear-gradient(105deg, var(--purple), var(--violet));
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(112, 38, 184, 0.4);
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 18px;
+    }
+    .form-label {
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: #ded8e2;
+      letter-spacing: 0.02em;
+    }
+    .form-input,
+    .form-select,
+    .form-textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+    }
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      border-color: rgba(213, 165, 255, 0.6);
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 0 0 3px rgba(166, 83, 230, 0.2);
+    }
+    .form-textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    .form-submit-btn {
+      width: 100%;
+      padding: 15px 24px;
+      border-radius: 14px;
+      background: linear-gradient(105deg, var(--purple), var(--violet));
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      font-size: 0.95rem;
+      font-weight: 750;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: none;
+      transition: background 0.2s, border-color 0.2s;
+      margin-top: 8px;
+    }
+    .form-submit-btn:hover {
+      background: linear-gradient(105deg, #6219a8, #9243d4);
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* Modal Dialogs for Forms */
+    .form-dialog {
+      border: none;
+      background: rgba(4, 3, 7, 0.92);
+      backdrop-filter: blur(28px);
+      padding: 24px 16px;
+      width: 100vw;
+      height: 100vh;
+      max-width: 100vw;
+      max-height: 100vh;
+      margin: 0;
+      outline: none;
+      z-index: 3500;
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      overflow-y: auto;
+    }
+    .form-dialog[open] {
+      display: flex;
+    }
+    .form-dialog-box {
+      background: #0f0d16;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 28px;
+      padding: clamp(28px, 4vw, 40px);
+      max-width: 520px;
+      width: 100%;
+      box-shadow: 0 35px 80px rgba(0, 0, 0, 0.9), 0 0 50px rgba(112, 38, 184, 0.3);
+      position: relative;
+    }
+    .form-dialog-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    /* Footer */
+    .site-footer {
+      background: #040306;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 60px 0 35px;
+    }
+    .footer-top-grid {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+    .footer-links-row {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+    .footer-link {
+      color: var(--muted);
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-link:hover {
+      color: #ffffff;
+    }
+    .footer-bottom-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 0.78rem;
+    }
+
+    /* =========================================================
+       RESPONSIVE DESIGN (DISCRETE STEP BREAKPOINTS)
+       ========================================================= */
+    @media (max-width: 1024px) {
+      .hero-copy-col h1 {
+        font-size: 3.8rem;
+      }
+      .section-title {
+        font-size: 2.8rem;
+      }
+      .opt1-statement {
+        font-size: 2.35rem;
+      }
+      .opt1-body {
+        font-size: 1.05rem;
+      }
+      .team-portrait-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+      .how-network-diagram {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .network-connector {
+        transform: rotate(90deg);
+        margin: 10px 0;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 40px;
+      }
+      .hero-copy-col {
+        max-width: 100%;
+        margin-inline: auto;
+      }
+      .hero-copy-col h1 {
+        font-size: 2.9rem;
+        line-height: 1.02;
+      }
+      .hero-copy-col .hero-subheading {
+        font-size: 1rem;
+        margin-inline: auto;
+      }
+      .hero-stat-item strong {
+        font-size: 1.35rem;
+      }
+      .section-title {
+        font-size: 2.2rem;
+        line-height: 1.08;
+      }
+      .opt1-statement {
+        font-size: 1.95rem;
+        line-height: 1.15;
+      }
+      .opt1-body {
+        font-size: 0.98rem;
+        border-left: 0;
+        border-top: 2px solid var(--violet);
+        padding-left: 0;
+        padding-top: 16px;
+      }
+      .card-heading {
+        font-size: 1.22rem;
+      }
+      .card-text {
+        font-size: 0.9rem;
+      }
+      .why-contrast-title {
+        font-size: 1.18rem;
+      }
+      .manifesto-quote {
+        font-size: 1.18rem;
+      }
+      .manifesto-body {
+        font-size: 0.92rem;
+      }
+      .portal-heading {
+        font-size: 1.35rem;
+      }
+      .portal-text {
+        font-size: 0.9rem;
+      }
+      .opt2-cards-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .why-contrast-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .team-portrait-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .connect-split-layout {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .hero-badges-row,
+      .hero-actions-row {
+        justify-content: center;
+      }
+      .iphone-device {
+        width: min(300px, 75vw);
+      }
+      .nav-toggle {
+        display: block;
+      }
+      .nav-links {
+        position: fixed;
+        top: 94px;
+        right: 24px;
+        left: 24px;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        padding: 22px;
+        border: 1px solid rgba(255, 255, 255, .16);
+        border-radius: 20px;
+        background: rgba(12, 10, 16, .96);
+        backdrop-filter: blur(24px);
+        box-shadow: 0 24px 60px rgba(0, 0, 0, .75);
+        opacity: 0;
+        transform: translateY(-12px);
+        pointer-events: none;
+        transition: opacity .3s var(--ease), transform .3s var(--ease);
+      }
+      .nav-links.open {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+      .nav-links > a:not(.button) {
+        padding: 12px 16px;
+        font-size: .95rem;
+        border-radius: 12px;
+      }
+      .nav-links .button {
+        margin-top: 8px;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-v2 {
+        padding: 110px 0 50px;
+      }
+      .hero-copy-col h1 {
+        font-size: 2.35rem;
+      }
+      .section-title {
+        font-size: 1.8rem;
+      }
+      .opt1-statement {
+        font-size: 1.65rem;
+      }
+      .hero-actions-row {
+        flex-direction: column;
+        width: 100%;
+      }
+      .hero-actions-row .button {
+        width: 100%;
+      }
+      .what-head-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+    }
+  </style>
+</head>
+<body id="top">
+
+  <!-- =========================================================
+       NAVBAR (Preserved from existing site, updated with brief tabs)
+       ========================================================= -->
+  <nav class="navbar" aria-label="Primary navigation">
+    <a class="brand" href="#home" aria-label="Lila Studios home">
+      <img src="assets/SVG/variants/lila-wordmark-color.svg" alt="Lila Studios">
+    </a>
+
+    <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false">
+      <span class="nav-toggle-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+    </button>
+
+    <div class="nav-links">
+      <a href="#what">What</a>
+      <a href="#how">How</a>
+      <a href="#why">Why</a>
+      <a href="#work">Work</a>
+      <a href="#team">Team</a>
+      <a class="button button-primary" href="#connect">
+        Connect
+        <span class="arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M7 17L17 7m0 0H8m9 0v9"/>
+          </svg>
+        </span>
+      </a>
+    </div>
+  </nav>
+
+  <main>
+    <!-- =========================================================
+         HERO SECTION: Eloelo-style layout + iPhone mockup video
+         ========================================================= -->
+    <section class="hero-v2" id="home">
+      <div class="hero-ambient-glow hero-ambient-right" aria-hidden="true"></div>
+      <div class="hero-ambient-glow hero-ambient-left" aria-hidden="true"></div>
+
+      <div class="page hero-grid">
+        <!-- Left Column: Copy & Messaging from Brief -->
+        <div class="hero-copy-col">
+          <p class="eyebrow">AI-Native Micro-Drama Studio</p>
+          <h1>
+            Drama,<br>
+            <span class="gradient">Generated.</span>
+          </h1>
+          <p class="hero-subheading">
+            An AI-native studio that produces micro-dramas — vertical, phone-first, cliffhanger-driven short films, created entirely with generative AI.
+          </p>
+
+          <!-- Badges / Stats (Eloelo style) -->
+          <div class="hero-badges-row">
+            <div class="hero-stat-item">
+              <strong>100%</strong>
+              <span>AI-Generated</span>
+            </div>
+            <div class="hero-stat-item">
+              <strong>9:16</strong>
+              <span>Phone-Native</span>
+            </div>
+            <div class="hero-stat-item">
+              <strong>Pan-India</strong>
+              <span>Creator Spokes</span>
+            </div>
+          </div>
+
+          <!-- CTAs -->
+          <div class="hero-actions-row">
+            <a class="button button-primary" href="#work">
+              Explore Our Work
+              <span class="arrow arrow-right">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14m0 0l-7-7m7 7l-7 7"/>
+                </svg>
+              </span>
+            </a>
+            <a class="button button-secondary" href="#connect">
+              Talk to Lila
+              <span class="arrow">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M7 17L17 7m0 0H8m9 0v9"/>
+                </svg>
+              </span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Column: iPhone Mockup with Video Stream -->
+        <div class="hero-mockup-col">
+          <div class="iphone-device">
+            <!-- Dynamic Island -->
+            <div class="iphone-notch">
+              <div class="notch-sensor"></div>
+              <div class="notch-camera"></div>
+            </div>
+
+            <!-- Screen Area -->
+            <div class="iphone-screen">
+              <!-- Top Overlay -->
+              <div class="iphone-overlay-top">
+                <div class="live-badge">
+                  <span class="live-dot"></span>
+                  <span>Featured Micro-Drama</span>
+                </div>
+                <button class="video-sound-toggle" id="soundToggleBtn" type="button" aria-label="Toggle sound">
+                  <svg id="soundMutedIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="1" y1="1" x2="23" y2="23"></line>
+                    <path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"></path>
+                    <path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"></path>
+                    <line x1="12" y1="19" x2="12" y2="23"></line>
+                    <line x1="8" y1="23" x2="16" y2="23"></line>
+                  </svg>
+                  <svg id="soundUnmutedIcon" style="display:none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                  </svg>
+                </button>
+              </div>
+
+              <!-- Main Video Element -->
+              <video class="iphone-video" id="heroPhoneVideo" playsinline autoplay muted loop preload="auto">
+                <source src="BRIEF/LILA Videos/Journey to Bombay/Journey to Bombay Ep 1.mp4" type="video/mp4">
+                Your browser does not support HTML5 video.
+              </video>
+
+              <!-- Bottom Overlay -->
+              <div class="iphone-overlay-bottom">
+                <div class="video-now-title" id="phoneVideoTitle">Journey to Bombay</div>
+                <div class="video-now-meta" id="phoneVideoMeta">Ep 01 · Branded Micro-Drama</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 2: WHAT WE DO?
+         ========================================================= -->
+    <section class="what-section-container" id="what">
+      <div class="page what-page-wrapper">
+        <!-- Section Header -->
+        <div class="what-head-bar">
+          <div class="what-head-left">
+            <p class="eyebrow">What</p>
+          </div>
+        </div>
+
+        <div class="opt1-container" style="margin-bottom: 34px;">
+          <h3 class="opt1-statement" style="margin-bottom: 0;">
+            In our first phase we make<br>
+            <span class="gradient">branded micro-dramas.</span>
+          </h3>
+        </div>
+
+        <div class="opt2-cards-grid">
+          <!-- Card 1 -->
+          <article class="what-card">
+            <span class="card-kicker">01 / Story Series</span>
+            <h3 class="card-heading">Branded Micro-Dramas</h3>
+            <p class="card-text">
+              Short vertical story series that put a brand inside something people actually want to watch.
+            </p>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="what-card">
+            <span class="card-kicker">02 / Distribution</span>
+            <h3 class="card-heading">Brand Social Engine</h3>
+            <p class="card-text">
+              Strategized distribution and analytics engineered to slot seamlessly into your brand’s own social channels.
+            </p>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="what-card">
+            <span class="card-kicker">03 / Conversion & Funnel</span>
+            <h3 class="card-heading">View to Funnel Integration</h3>
+            <p class="card-text">
+              3rd-party OVP integration that turns micro-dramas from a view into a direct funnel — outreach and transaction on one screen.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 3: HOW WE DO IT?
+         ========================================================= -->
+    <section class="how-section-container" id="how">
+      <div class="page how-page-wrapper">
+        <!-- Section Header -->
+        <div class="what-head-bar">
+          <div class="what-head-left">
+            <p class="eyebrow">How</p>
+          </div>
+        </div>
+
+        <div class="opt1-container" style="margin-bottom: 30px;">
+          <h3 class="opt1-statement" style="margin-bottom: 0;">
+            Lila runs on a <span class="gradient">hub-and-spoke production network.</span>
+          </h3>
+        </div>
+
+        <div class="how-network-box">
+          <div class="how-network-diagram">
+            <!-- Node 1: Hub -->
+            <div class="network-node network-node-hub">
+              <span class="card-kicker">Central Studio</span>
+              <div class="network-node-title">The Hub</div>
+              <p class="card-text" style="font-size: 0.88rem;">Holds craft standards, brand relationships, and the proprietary AI production pipeline.</p>
+              <div class="network-tags">
+                <span class="network-tag">Craft Standards</span>
+                <span class="network-tag">Brand Relations</span>
+                <span class="network-tag">AI Pipeline</span>
+              </div>
+            </div>
+
+            <!-- Connector -->
+            <div class="network-connector">
+              <span class="connector-badge">National Standard</span>
+              <div class="connector-line"></div>
+              <span class="connector-badge">AI Pipeline</span>
+            </div>
+
+            <!-- Node 2: Spokes -->
+            <div class="network-node">
+              <span class="card-kicker">Regional Creators</span>
+              <div class="network-node-title">Pan-India Spokes</div>
+              <p class="card-text" style="font-size: 0.88rem;">Regional AI-video creator spokes across India, trained and equipped to produce at scale.</p>
+              <div class="network-tags">
+                <span class="network-tag">Trained Creators</span>
+                <span class="network-tag">Regional Stories</span>
+                <span class="network-tag">National Reach</span>
+              </div>
+            </div>
+          </div>
+
+          <p class="how-network-summary">
+            A central studio holds the craft standards, the brand relationships, and the AI production pipeline. Around it, regional AI-video spokes across India are trained and equipped to produce micro-dramas to a single national standard.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 4: OUR WHY. OUR PURPOSE?
+         ========================================================= -->
+    <section class="why-section-container" id="why">
+      <div class="page why-page-wrapper">
+        <!-- Section Header -->
+        <div class="what-head-bar">
+          <div class="what-head-left">
+            <p class="eyebrow">Why</p>
+          </div>
+        </div>
+
+        <div class="opt1-container">
+          <h3 class="opt1-statement">
+            We exist to set the<br>
+            <span class="gradient">storyteller free.</span>
+          </h3>
+          <p class="opt1-body">
+            That is creative independence: AI matters not because it is faster or cheaper, but because for the first time the only limit on a brand's story is the imagination behind it.
+          </p>
+        </div>
+
+        <!-- Contrast Grid: Traditional vs AI (Full Page Width) -->
+        <div class="why-contrast-grid">
+          <div class="why-contrast-card">
+            <span class="card-kicker">Traditional Production</span>
+            <div class="why-contrast-title">Magic Through Commitment</div>
+            <p class="card-text">
+              Traditional production earns its magic through commitment. Plans locked, crews assembled, a hundred people moving toward one shared vision on one shared day. That discipline is what makes it great, and it will always have its place.
+            </p>
+          </div>
+
+          <div class="why-contrast-card why-contrast-highlight">
+            <span class="card-kicker">AI-Native Production</span>
+            <div class="why-contrast-title">The Power of Flexibility</div>
+            <p class="card-text">
+              We work on the other side of that trade. With AI, there is flexibility. The storyteller can make any story, at any scale, in any language, the moment inspiration strikes.
+            </p>
+          </div>
+        </div>
+
+        <!-- Creator Ecosystem Manifesto Box (Full Page Width) -->
+        <div class="why-manifesto-card">
+          <div class="manifesto-quote">
+            AI removes the industrial apparatus of production; it does not remove the storyteller. It puts them at the centre.
+          </div>
+          <p class="manifesto-body">
+            But through the phases and right from day 1, we are building an AI-native eco-system that turns India's storytellers into working, credited, IP-owning filmmakers. An AI-native micro-drama studio built around its creators, not instead of them through a national network of AI-fluent storytellers whom we train, credit, pay through national brand work, and help to originate and own their own stories.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 5: OUR WORK (OTT POSTER GRID + CINEMA LIGHTBOX)
+         ========================================================= -->
+    <section class="work-section-container" id="work">
+      <div class="page">
+        <!-- Section Header with Genre Filters -->
+        <div class="work-header-wrap">
+          <div class="what-head-left">
+            <p class="eyebrow">Work</p>
+            <h2 class="section-title">
+              Stories crafted for the<br>
+              <span class="gradient">vertical screen.</span>
+            </h2>
+          </div>
+
+          <!-- Slider Arrow Controls -->
+          <div class="slider-nav-group" aria-label="Slide series">
+            <button class="slider-arrow-btn" id="workPrevBtn" type="button" aria-label="Previous series">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <button class="slider-arrow-btn" id="workNextBtn" type="button" aria-label="Next series">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- 8-Poster Single-Row Slideable Track -->
+        <div class="work-slider-track" id="workSliderTrack">
+          <!-- 1. Journey to Bombay -->
+          <article class="poster-card" data-genre="drama" data-series-id="journey-to-bombay" role="button" tabindex="0" aria-haspopup="dialog">
+            <img class="poster-bg" src="BRIEF/LILA Videos/Journey to Bombay/Journey to Bombay_Thumbnail/Journey to Bombay Ep 1/01.jpg" alt="Journey to Bombay Poster" loading="lazy">
+            <video class="poster-hover-video" playsinline loop muted preload="none" data-src="BRIEF/LILA Videos/Journey to Bombay/Journey to Bombay Ep 1.mp4"></video>
+            <div class="poster-gradient"></div>
+            <span class="poster-badge">2 Episodes</span>
+            <div class="poster-play-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div class="poster-content">
+              <span class="poster-kicker">Branded Drama</span>
+              <h3 class="poster-title">Journey to Bombay</h3>
+              <p class="poster-synopsis">A young dreamer navigates ambition, grit, and unexpected encounters in the city of dreams.</p>
+            </div>
+          </article>
+
+          <!-- 2. Raksha Bandhan -->
+          <article class="poster-card" data-genre="drama" data-series-id="raksha-bandhan" role="button" tabindex="0" aria-haspopup="dialog">
+            <img class="poster-bg" src="BRIEF/LILA Videos/Raksha Bandhan/Raksha Bandhan_Thumbnail/01.jpg" alt="Raksha Bandhan Poster" loading="lazy">
+            <video class="poster-hover-video" playsinline loop muted preload="none" data-src="BRIEF/LILA Videos/Raksha Bandhan/Raksha Bandhan.mp4"></video>
+            <div class="poster-gradient"></div>
+            <span class="poster-badge">Short Film</span>
+            <div class="poster-play-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div class="poster-content">
+              <span class="poster-kicker">Emotional Drama</span>
+              <h3 class="poster-title">Raksha Bandhan</h3>
+              <p class="poster-synopsis">An intimate celebration of sibling bonds tested by distance, sacrifice, and modern crossroads.</p>
+            </div>
+          </article>
+
+          <!-- 3. Meera -->
+          <article class="poster-card" data-genre="romance" data-series-id="meera" role="button" tabindex="0" aria-haspopup="dialog">
+            <img class="poster-bg" src="BRIEF/LILA Videos/Meera/Meera_Thumbnail/01.jpg" alt="Meera Poster" loading="lazy">
+            <video class="poster-hover-video" playsinline loop muted preload="none" data-src="BRIEF/LILA Videos/Meera/Meera.mp4"></video>
+            <div class="poster-gradient"></div>
+            <span class="poster-badge">Short Film</span>
+            <div class="poster-play-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div class="poster-content">
+              <span class="poster-kicker">Romance & Suspense</span>
+              <h3 class="poster-title">Meera</h3>
+              <p class="poster-synopsis">Beneath the calm exterior of a modern romance lies a hidden revelation ready to unfold.</p>
+            </div>
+          </article>
+
+          <!-- 4. One Stitch at a Time -->
+          <article class="poster-card" data-genre="inspiring" data-series-id="one-stitch" role="button" tabindex="0" aria-haspopup="dialog">
+            <img class="poster-bg" src="BRIEF/LILA Videos/One Stitch at a Time/One Stitch at a Time_Thumbnail/One Stitch at a Time EP 1/01.jpg" alt="One Stitch at a Time Poster" loading="lazy">
+            <video class="poster-hover-video" playsinline loop muted preload="none" data-src="BRIEF/LILA Videos/One Stitch at a Time/One Stitch at a Time Ep 1.mp4"></video>
+            <div class="poster-gradient"></div>
+            <span class="poster-badge">2 Episodes</span>
+            <div class="poster-play-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div class="poster-content">
+              <span class="poster-kicker">Inspiring Drama</span>
+              <h3 class="poster-title">One Stitch at a Time</h3>
+              <p class="poster-synopsis">A courageous artisan defies generational norms to craft her own destiny and craft empire.</p>
+            </div>
+          </article>
+
+          <!-- 5. Do Dhadkanein -->
+          <article class="poster-card" data-genre="thriller" data-series-id="do-dhadkanein" role="button" tabindex="0" aria-haspopup="dialog">
+            <img class="poster-bg" src="BRIEF/LILA Videos/Do Dhadkanein/Do Dhadkanein_Thumbnail/Do Dhadkanein EP 1/01.jpg" alt="Do Dhadkanein Poster" loading="lazy">
+            <video class="poster-hover-video" playsinline loop muted preload="none" data-src="BRIEF/LILA Videos/Do Dhadkanein/Do Dhadkanein Ep 1.mp4"></video>
+            <div class="poster-gradient"></div>
+            <span class="poster-badge">2 Episodes</span>
+            <div class="poster-play-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div class="poster-content">
+              <span class="poster-kicker">Romantic Thriller</span>
+              <h3 class="poster-title">Do Dhadkanein</h3>
+              <p class="poster-synopsis">Two intertwined hearts trapped in a high-stakes web of deception and intense passion.</p>
+            </div>
+          </article>
+
+          <!-- 6. Missed Call -->
+          <article class="poster-card" data-genre="thriller" data-series-id="missed-call" role="button" tabindex="0" aria-haspopup="dialog">
+            <img class="poster-bg" src="BRIEF/LILA Videos/Missed Call/Missed Call_Thumbnail/Missed Call EP 1/01.jpg" alt="Missed Call Poster" loading="lazy">
+            <video class="poster-hover-video" playsinline loop muted preload="none" data-src="BRIEF/LILA Videos/Missed Call/Missed Call Ep 1.mp4"></video>
+            <div class="poster-gradient"></div>
+            <span class="poster-badge">2 Episodes</span>
+            <div class="poster-play-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div class="poster-content">
+              <span class="poster-kicker">Suspense Mystery</span>
+              <h3 class="poster-title">Missed Call</h3>
+              <p class="poster-synopsis">A single midnight phone call triggers a domino effect of secrets, suspicion, and survival.</p>
+            </div>
+          </article>
+
+          <!-- 7. Char Deewari -->
+          <article class="poster-card" data-genre="drama" data-series-id="char-deewari" role="button" tabindex="0" aria-haspopup="dialog">
+            <img class="poster-bg" src="BRIEF/LILA Videos/Char Deewari/Char Deewari_Thumbnail/01.jpg" alt="Char Deewari Poster" loading="lazy">
+            <video class="poster-hover-video" playsinline loop muted preload="none" data-src="BRIEF/LILA Videos/Char Deewari/Char Deewari.mp4"></video>
+            <div class="poster-gradient"></div>
+            <span class="poster-badge">Short Film</span>
+            <div class="poster-play-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div class="poster-content">
+              <span class="poster-kicker">Social Drama</span>
+              <h3 class="poster-title">Char Deewari</h3>
+              <p class="poster-synopsis">Behind closed doors, a household confronts unspoken truths and the courage to break free.</p>
+            </div>
+          </article>
+
+          <!-- 8. The Powerful Tractor -->
+          <article class="poster-card" data-genre="drama" data-series-id="the-powerful-tractor" role="button" tabindex="0" aria-haspopup="dialog">
+            <img class="poster-bg" src="BRIEF/LILA Videos/The Powerful Tractor/The Powerful Tractor_Thumbnail/01.jpg" alt="The Powerful Tractor Poster" loading="lazy">
+            <video class="poster-hover-video" playsinline loop muted preload="none" data-src="BRIEF/LILA Videos/Journey to Bombay/Journey to Bombay Ep 1.mp4"></video>
+            <div class="poster-gradient"></div>
+            <span class="poster-badge">Original Series</span>
+            <div class="poster-play-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div class="poster-content">
+              <span class="poster-kicker">Rural Drama</span>
+              <h3 class="poster-title">The Powerful Tractor</h3>
+              <p class="poster-synopsis">An inspiring tale of grassroots ambition, agricultural heritage, and technological resilience.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         CINEMA LIGHTBOX MODAL DIALOG (VIDEO-FIRST OVERLAY)
+         ========================================================= -->
+    <!-- =========================================================
+         CINEMA LIGHTBOX MODAL DIALOG (VIDEO + BOTTOM DETAILS)
+         ========================================================= -->
+    <dialog class="cinema-dialog" id="cinemaDialog" aria-labelledby="modalSeriesTitle">
+      <div class="cinema-overlay-container">
+        <!-- Phone Video Stage -->
+        <div class="cinema-phone-stage">
+          <div class="mockup-island" style="top: 10px;" aria-hidden="true"></div>
+
+          <!-- Top Action Controls (Sound + Close) -->
+          <div class="cinema-stage-top-controls">
+            <button class="cinema-icon-btn" id="modalSoundBtn" type="button" aria-label="Toggle sound">
+              <svg id="modalMutedIcon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+              <svg id="modalUnmutedIcon" style="display: none;" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+            </button>
+            <button class="cinema-icon-btn" id="modalCloseBtn" type="button" aria-label="Close overlay">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+          </div>
+
+          <!-- Video Element -->
+          <video id="modalVideoPlayer" playsinline loop preload="metadata">
+            <source src="" type="video/mp4">
+          </video>
+        </div>
+
+        <!-- Details & Content Underneath Video -->
+        <div class="cinema-bottom-info">
+          <span class="cinema-bottom-kicker" id="modalSeriesKicker">Branded Micro-Drama</span>
+          <h3 class="cinema-bottom-title" id="modalSeriesTitle">Journey to Bombay</h3>
+          <p class="cinema-bottom-synopsis" id="modalSeriesSynopsis">A young dreamer navigates ambition, grit, and unexpected encounters in the city of dreams.</p>
+          <div class="cinema-ep-bar-bottom" id="modalEpButtons">
+            <!-- Dynamically populated episode pills -->
+          </div>
+        </div>
+      </div>
+    </dialog>
+
+    <!-- =========================================================
+         SECTION 6: THE TEAM (CORE LEADERSHIP & COLLECTIVE)
+         ========================================================= -->
+    <section class="team-section-container" id="team">
+      <div class="page team-page-wrapper">
+        <!-- Section Header -->
+        <div class="what-head-bar">
+          <div class="what-head-left">
+            <p class="eyebrow">Team</p>
+            <h2 class="section-title">
+              The minds behind the<br>
+              <span class="gradient">drama, generated.</span>
+            </h2>
+          </div>
+        </div>
+
+        <div class="team-portrait-grid">
+          <!-- Member 1 -->
+          <article class="team-portrait-card">
+            <div class="team-avatar-frame">
+              <span class="team-avatar-initials">VR</span>
+              <span class="team-avatar-badge">Founder</span>
+            </div>
+            <h3 class="team-name">Vikramaditya Roy</h3>
+            <p class="team-role">Founder & Creative Director</p>
+            <p class="team-bio">Directs overarching creative vision, brand storytelling philosophy, and the central studio craft standards.</p>
+          </article>
+
+          <!-- Member 2 -->
+          <article class="team-portrait-card">
+            <div class="team-avatar-frame">
+              <span class="team-avatar-initials">AS</span>
+              <span class="team-avatar-badge">AI Pipeline</span>
+            </div>
+            <h3 class="team-name">Ananya Sharma</h3>
+            <p class="team-role">Head of AI Production & Pipeline</p>
+            <p class="team-bio">Architects the proprietary generative video pipelines, prompt architectures, and technical quality controls.</p>
+          </article>
+
+          <!-- Member 3 -->
+          <article class="team-portrait-card">
+            <div class="team-avatar-frame">
+              <span class="team-avatar-initials">SM</span>
+              <span class="team-avatar-badge">Brands & Growth</span>
+            </div>
+            <h3 class="team-name">Siddharth Mehta</h3>
+            <p class="team-role">Head of Brand Partnerships</p>
+            <p class="team-bio">Leads brand relationships, content-to-commerce OVP integrations, and multi-channel distribution strategy.</p>
+          </article>
+
+          <!-- Member 4 -->
+          <article class="team-portrait-card">
+            <div class="team-avatar-frame">
+              <span class="team-avatar-initials">PN</span>
+              <span class="team-avatar-badge">Spokes Network</span>
+            </div>
+            <h3 class="team-name">Pooja Nambiar</h3>
+            <p class="team-role">Lead Story Architect & Network Director</p>
+            <p class="team-bio">Equips and guides regional AI-video creator spokes across India to produce regional stories to a national standard.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 7: CONNECT (BRAND BRIEF & CREATOR PORTAL)
+         ========================================================= -->
+    <section class="connect-section-container" id="connect">
+      <div class="page connect-page-wrapper">
+        <!-- Section Header -->
+        <div class="what-head-bar">
+          <div class="what-head-left">
+            <p class="eyebrow">Connect</p>
+            <h2 class="section-title">
+              Bring the brief.<br>
+              <span class="gradient">Or bring the voice.</span>
+            </h2>
+          </div>
+        </div>
+
+        <div class="connect-split-layout">
+          <!-- Left Info Column -->
+          <div class="connect-editorial-col">
+            <div class="connect-editorial-box">
+              <span class="card-kicker">Launch: 15 August 2026</span>
+              <h3 class="portal-heading" style="font-size: 1.6rem; margin: 8px 0 12px;">Creative Independence</h3>
+              <p class="portal-text" style="margin-bottom: 0;">
+                Not the borrowed weight of the freedom struggle, but its spirit carried into creation — the storyteller and the brand, finally free to imagine beyond the reach of a physical camera.
+              </p>
+            </div>
+
+            <div class="connect-direct-strip" style="flex-direction: column; align-items: flex-start;">
+              <div class="direct-item">
+                <div class="direct-icon-box">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                </div>
+                <div>
+                  <div class="direct-label">Studio Email</div>
+                  <a class="direct-val" href="mailto:hello@lilastudios.in">hello@lilastudios.in</a>
+                </div>
+              </div>
+
+              <div class="direct-item">
+                <div class="direct-icon-box">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+                <div>
+                  <div class="direct-label">Creator Admissions</div>
+                  <a class="direct-val" href="mailto:creators@lilastudios.in">creators@lilastudios.in</a>
+                </div>
+              </div>
+
+              <div class="direct-item">
+                <div class="direct-icon-box">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                </div>
+                <div>
+                  <div class="direct-label">Headquarters</div>
+                  <div class="direct-val" style="color: #ffffff;">Mumbai, India · Pan-India Hub</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Interactive Form Card -->
+          <div class="connect-form-card">
+            <!-- Form Tabs (Brand vs Creator) -->
+            <div class="form-tabs-header" role="tablist">
+              <button class="form-tab-btn active" id="formTabBrand" type="button">Brand Brief</button>
+              <button class="form-tab-btn" id="formTabCreator" type="button">Creator Application</button>
+            </div>
+
+            <!-- Brand Form -->
+            <form id="directBrandForm" onsubmit="event.preventDefault(); alert('Thank you! Your brand brief has been submitted to Lila Studios. We will get back to you within 24 hours.'); this.reset();">
+              <div class="form-group">
+                <label class="form-label" for="brandNameInput">Your Name & Role</label>
+                <input class="form-input" id="brandNameInput" type="text" placeholder="e.g. Vikramaditya Sharma, CMO" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="brandEmailInput">Work Email</label>
+                <input class="form-input" id="brandEmailInput" type="email" placeholder="name@company.com" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="brandTypeSelect">Project Scope</label>
+                <select class="form-select" id="brandTypeSelect">
+                  <option>Branded Micro-Drama Series (3-5 Episodes)</option>
+                  <option>Single Branded Short Film</option>
+                  <option>Content-to-Commerce OVP Integration</option>
+                  <option>Custom Pilot & Pitch</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="brandMessageInput">Brief Overview / Campaign Vision</label>
+                <textarea class="form-textarea" id="brandMessageInput" placeholder="Tell us about the narrative theme, target audience, or timeline..."></textarea>
+              </div>
+              <button class="form-submit-btn" type="submit">
+                <span>Send Brand Brief</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </form>
+
+            <!-- Creator Form (Hidden by Default) -->
+            <form id="directCreatorForm" style="display: none;" onsubmit="event.preventDefault(); alert('Welcome! Your creator application has been received. Our team will review your portfolio and reach out.'); this.reset();">
+              <div class="form-group">
+                <label class="form-label" for="creatorNameInput">Full Name</label>
+                <input class="form-input" id="creatorNameInput" type="text" placeholder="e.g. Ananya Rao" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="creatorEmailInput">Email Address</label>
+                <input class="form-input" id="creatorEmailInput" type="email" placeholder="ananya@gmail.com" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="creatorCityInput">Location / City in India</label>
+                <input class="form-input" id="creatorCityInput" type="text" placeholder="e.g. Bengaluru, Kochi, Jaipur, Delhi" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="creatorLinkInput">Portfolio / Instagram / YouTube Link</label>
+                <input class="form-input" id="creatorLinkInput" type="url" placeholder="https://..." required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="creatorToolsInput">Primary AI Tools & Creative Skills</label>
+                <textarea class="form-textarea" id="creatorToolsInput" placeholder="e.g. Midjourney, Runway, Kling, Veo, Premiere, Scriptwriting in Hindi/Tamil..."></textarea>
+              </div>
+              <button class="form-submit-btn" type="submit">
+                <span>Submit Creator Application</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         BRAND COMMISSION MODAL DIALOG
+         ========================================================= -->
+    <dialog class="form-dialog" id="brandDialog" aria-labelledby="brandModalTitle">
+      <div class="form-dialog-box">
+        <div class="form-dialog-head">
+          <div>
+            <span class="card-kicker">01 / For Brands</span>
+            <h3 style="font-size: 1.45rem; font-weight: 800; color: #fff; margin: 4px 0 0;" id="brandModalTitle">Commission a Series</h3>
+          </div>
+          <button class="cinema-icon-btn" id="closeBrandDialogBtn" type="button" aria-label="Close dialog">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+        </div>
+        <form onsubmit="event.preventDefault(); alert('Thank you! Your brand brief has been submitted. We will connect within 24 hours.'); document.getElementById('brandDialog').close();">
+          <div class="form-group">
+            <label class="form-label">Name & Title</label>
+            <input class="form-input" type="text" placeholder="e.g. Priya Nair, Brand Lead" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Work Email</label>
+            <input class="form-input" type="email" placeholder="priya@brand.com" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Series Type</label>
+            <select class="form-select">
+              <option>Branded Micro-Drama (Vertical Series)</option>
+              <option>Short Film & Performance Creative</option>
+              <option>Content-to-Commerce Integration</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Brief Details</label>
+            <textarea class="form-textarea" placeholder="Tell us about the narrative theme or campaign goals..."></textarea>
+          </div>
+          <button class="form-submit-btn" type="submit">Submit Brief</button>
+        </form>
+      </div>
+    </dialog>
+
+    <!-- =========================================================
+         CREATOR ADMISSION MODAL DIALOG
+         ========================================================= -->
+    <dialog class="form-dialog" id="creatorDialog" aria-labelledby="creatorModalTitle">
+      <div class="form-dialog-box">
+        <div class="form-dialog-head">
+          <div>
+            <span class="card-kicker">02 / For Creators</span>
+            <h3 style="font-size: 1.45rem; font-weight: 800; color: #fff; margin: 4px 0 0;" id="creatorModalTitle">Join the Creator Network</h3>
+          </div>
+          <button class="cinema-icon-btn" id="closeCreatorDialogBtn" type="button" aria-label="Close dialog">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+        </div>
+        <form onsubmit="event.preventDefault(); alert('Welcome! Your creator application has been submitted.'); document.getElementById('creatorDialog').close();">
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input class="form-input" type="text" placeholder="Your Name" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input class="form-input" type="email" placeholder="name@domain.com" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">City / Region in India</label>
+            <input class="form-input" type="text" placeholder="e.g. Mumbai, Hyderabad, Kolkata" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Portfolio URL</label>
+            <input class="form-input" type="url" placeholder="https://instagram.com/... or Behance / YouTube" required>
+          </div>
+          <button class="form-submit-btn" type="submit">Submit Application</button>
+        </form>
+      </div>
+    </dialog>
+  </main>
+
+  <!-- =========================================================
+       SITE FOOTER
+       ========================================================= -->
+  <footer class="site-footer">
+    <div class="page">
+      <div class="footer-top-grid">
+        <a href="#hero" class="brand" aria-label="Lila Studios Home">
+          <img src="assets/lila-logo-lockup.png" alt="Lila Studios" class="brand-logo" style="height: 28px; width: auto;">
+        </a>
+        <div class="footer-links-row">
+          <a href="#what" class="footer-link">What We Do</a>
+          <a href="#how" class="footer-link">How We Do It</a>
+          <a href="#why" class="footer-link">Why Lila</a>
+          <a href="#work" class="footer-link">Our Work</a>
+          <a href="#team" class="footer-link">Team</a>
+          <a href="#connect" class="footer-link">Connect</a>
+        </div>
+      </div>
+      <div class="footer-bottom-row">
+        <span>© 2026 Lila Studios. All rights reserved. Drama, generated.</span>
+        <span>India's AI-Native Micro-Drama Production Network</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =========================================================
+       SCRIPTS: Hero Interactions & Minimal Selector
+       ========================================================= -->
+  <script>
+    (() => {
+      // Mobile Navigation
+      const toggle = document.querySelector('.nav-toggle');
+      const navLinks = document.querySelector('.nav-links');
+      
+      const closeMenu = () => {
+        if (!toggle || !navLinks) return;
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Open navigation');
+        navLinks.classList.remove('open');
+        document.body.classList.remove('menu-open');
+      };
+
+      if (toggle && navLinks) {
+        toggle.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const open = toggle.getAttribute('aria-expanded') !== 'true';
+          toggle.setAttribute('aria-expanded', String(open));
+          toggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+          navLinks.classList.toggle('open', open);
+          document.body.classList.toggle('menu-open', open);
+        });
+
+        navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+        document.addEventListener('click', (e) => {
+          if (!toggle.contains(e.target) && !navLinks.contains(e.target)) {
+            closeMenu();
+          }
+        });
+      }
+
+      // Phone Video Player and Playlist Switcher
+      const video = document.getElementById('heroPhoneVideo');
+      const videoTitle = document.getElementById('phoneVideoTitle');
+      const videoMeta = document.getElementById('phoneVideoMeta');
+      const soundBtn = document.getElementById('soundToggleBtn');
+      const mutedIcon = document.getElementById('soundMutedIcon');
+      const unmutedIcon = document.getElementById('soundUnmutedIcon');
+      const pills = document.querySelectorAll('.playlist-pill');
+
+      if (soundBtn && video) {
+        soundBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          video.muted = !video.muted;
+          if (video.muted) {
+            mutedIcon.style.display = 'block';
+            unmutedIcon.style.display = 'none';
+          } else {
+            mutedIcon.style.display = 'none';
+            unmutedIcon.style.display = 'block';
+            video.play().catch(() => {});
+          }
+        });
+      }
+
+      pills.forEach((pill) => {
+        pill.addEventListener('click', () => {
+          pills.forEach(p => p.classList.remove('active'));
+          pill.classList.add('active');
+
+          const src = pill.dataset.videoSrc;
+          const title = pill.dataset.title;
+          const meta = pill.dataset.meta;
+
+          if (video && src) {
+            video.pause();
+            video.src = src;
+            video.load();
+            video.play().catch(() => {});
+          }
+          if (videoTitle) videoTitle.textContent = title;
+          if (videoMeta) videoMeta.textContent = meta;
+        });
+      });
+
+      // Work Catalog Data
+      const seriesCatalog = {
+        'journey-to-bombay': {
+          title: 'Journey to Bombay',
+          kicker: 'Branded Micro-Drama · 2 Episodes',
+          synopsis: 'A young dreamer navigates ambition, grit, and unexpected encounters in the city of dreams.',
+          episodes: [
+            { label: 'Episode 1', src: 'BRIEF/LILA Videos/Journey to Bombay/Journey to Bombay Ep 1.mp4' },
+            { label: 'Episode 2', src: 'BRIEF/LILA Videos/Journey to Bombay/Journey to Bombay Ep 2.mp4' }
+          ]
+        },
+        'raksha-bandhan': {
+          title: 'Raksha Bandhan',
+          kicker: 'Emotional Drama · Short Film',
+          synopsis: 'An intimate celebration of sibling bonds tested by distance, sacrifice, and modern crossroads.',
+          episodes: [
+            { label: 'Full Short Film', src: 'BRIEF/LILA Videos/Raksha Bandhan/Raksha Bandhan.mp4' }
+          ]
+        },
+        'meera': {
+          title: 'Meera',
+          kicker: 'Romance & Suspense · Short Film',
+          synopsis: 'Beneath the calm exterior of a modern romance lies a hidden revelation ready to unfold.',
+          episodes: [
+            { label: 'Full Short Film', src: 'BRIEF/LILA Videos/Meera/Meera.mp4' }
+          ]
+        },
+        'one-stitch': {
+          title: 'One Stitch at a Time',
+          kicker: 'Inspiring Drama · 2 Episodes',
+          synopsis: 'A courageous artisan defies generational norms to craft her own destiny and craft empire.',
+          episodes: [
+            { label: 'Episode 1', src: 'BRIEF/LILA Videos/One Stitch at a Time/One Stitch at a Time Ep 1.mp4' }
+          ]
+        },
+        'do-dhadkanein': {
+          title: 'Do Dhadkanein',
+          kicker: 'Romantic Thriller · 2 Episodes',
+          synopsis: 'Two intertwined hearts trapped in a high-stakes web of deception and intense passion.',
+          episodes: [
+            { label: 'Episode 1', src: 'BRIEF/LILA Videos/Do Dhadkanein/Do Dhadkanein Ep 1.mp4' },
+            { label: 'Episode 2', src: 'BRIEF/LILA Videos/Do Dhadkanein/Do Dhadkanein Ep 2.mp4' }
+          ]
+        },
+        'missed-call': {
+          title: 'Missed Call',
+          kicker: 'Suspense Mystery · 2 Episodes',
+          synopsis: 'A single midnight phone call triggers a domino effect of secrets, suspicion, and survival.',
+          episodes: [
+            { label: 'Episode 1', src: 'BRIEF/LILA Videos/Missed Call/Missed Call Ep 1.mp4' }
+          ]
+        },
+        'char-deewari': {
+          title: 'Char Deewari',
+          kicker: 'Social Drama · Short Film',
+          synopsis: 'Behind closed doors, a household confronts unspoken truths and the courage to break free.',
+          episodes: [
+            { label: 'Full Short Film', src: 'BRIEF/LILA Videos/Char Deewari/Char Deewari.mp4' }
+          ]
+        },
+        'the-powerful-tractor': {
+          title: 'The Powerful Tractor',
+          kicker: 'Rural Drama · Original Series',
+          synopsis: 'An inspiring tale of grassroots ambition, agricultural heritage, and technological resilience.',
+          episodes: [
+            { label: 'Series Teaser', src: 'BRIEF/LILA Videos/Journey to Bombay/Journey to Bombay Ep 1.mp4' }
+          ]
+        }
+      };
+
+      // Slider Track Navigation Controls
+      const workSliderTrack = document.getElementById('workSliderTrack');
+      const workPrevBtn = document.getElementById('workPrevBtn');
+      const workNextBtn = document.getElementById('workNextBtn');
+
+      if (workPrevBtn && workNextBtn && workSliderTrack) {
+        workPrevBtn.addEventListener('click', () => {
+          workSliderTrack.scrollBy({ left: -320, behavior: 'smooth' });
+        });
+        workNextBtn.addEventListener('click', () => {
+          workSliderTrack.scrollBy({ left: 320, behavior: 'smooth' });
+        });
+      }
+
+      const posterCards = document.querySelectorAll('.poster-card');
+
+      // Cinema Lightbox Modal Controller (Video-First Overlay)
+      const cinemaDialog = document.getElementById('cinemaDialog');
+      const modalVideoPlayer = document.getElementById('modalVideoPlayer');
+      const modalSeriesKicker = document.getElementById('modalSeriesKicker');
+      const modalSeriesTitle = document.getElementById('modalSeriesTitle');
+      const modalSeriesSynopsis = document.getElementById('modalSeriesSynopsis');
+      const modalEpButtons = document.getElementById('modalEpButtons');
+      const modalCloseBtn = document.getElementById('modalCloseBtn');
+      const modalSoundBtn = document.getElementById('modalSoundBtn');
+      const modalMutedIcon = document.getElementById('modalMutedIcon');
+      const modalUnmutedIcon = document.getElementById('modalUnmutedIcon');
+
+      // Sound toggle on modal
+      if (modalSoundBtn && modalVideoPlayer) {
+        modalSoundBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          modalVideoPlayer.muted = !modalVideoPlayer.muted;
+          if (modalVideoPlayer.muted) {
+            modalMutedIcon.style.display = 'block';
+            modalUnmutedIcon.style.display = 'none';
+          } else {
+            modalMutedIcon.style.display = 'none';
+            modalUnmutedIcon.style.display = 'block';
+            modalVideoPlayer.play().catch(() => {});
+          }
+        });
+      }
+
+      // Tap video to play/pause
+      if (modalVideoPlayer) {
+        modalVideoPlayer.addEventListener('click', () => {
+          if (modalVideoPlayer.paused) {
+            modalVideoPlayer.play().catch(() => {});
+          } else {
+            modalVideoPlayer.pause();
+          }
+        });
+      }
+
+      const openCinemaModal = (seriesKey) => {
+        const item = seriesCatalog[seriesKey];
+        if (!item) return;
+
+        modalSeriesTitle.textContent = item.title;
+        modalSeriesKicker.textContent = item.kicker;
+        if (modalSeriesSynopsis) modalSeriesSynopsis.textContent = item.synopsis;
+
+        // Populate episode picker pills (only if more than 1 episode or show single episode pill)
+        modalEpButtons.innerHTML = '';
+        if (item.episodes.length > 1) {
+          item.episodes.forEach((ep, idx) => {
+            const epBtn = document.createElement('button');
+            epBtn.className = `cinema-ep-pill ${idx === 0 ? 'active' : ''}`;
+            epBtn.type = 'button';
+            epBtn.textContent = ep.label;
+            epBtn.addEventListener('click', (e) => {
+              e.stopPropagation();
+              modalEpButtons.querySelectorAll('.cinema-ep-pill').forEach(b => b.classList.remove('active'));
+              epBtn.classList.add('active');
+              modalVideoPlayer.src = ep.src;
+              modalVideoPlayer.load();
+              modalVideoPlayer.play().catch(() => {});
+            });
+            modalEpButtons.appendChild(epBtn);
+          });
+          modalEpButtons.style.display = 'flex';
+        } else {
+          modalEpButtons.style.display = 'none';
+        }
+
+        // Reset sound state to unmuted for full immersion
+        modalVideoPlayer.muted = false;
+        if (modalMutedIcon && modalUnmutedIcon) {
+          modalMutedIcon.style.display = 'none';
+          modalUnmutedIcon.style.display = 'block';
+        }
+
+        // Load first episode and open dialog
+        modalVideoPlayer.src = item.episodes[0].src;
+        modalVideoPlayer.load();
+        cinemaDialog.showModal();
+        modalVideoPlayer.play().catch(() => {
+          // If browser blocks unmuted autoplay, mute and play
+          modalVideoPlayer.muted = true;
+          if (modalMutedIcon && modalUnmutedIcon) {
+            modalMutedIcon.style.display = 'block';
+            modalUnmutedIcon.style.display = 'none';
+          }
+          modalVideoPlayer.play().catch(() => {});
+        });
+      };
+
+      // Poster Card Hover Autoplay & Modal Open
+      posterCards.forEach(card => {
+        const hoverVideo = card.querySelector('.poster-hover-video');
+
+        if (hoverVideo) {
+          let playPromise = null;
+
+          card.addEventListener('mouseenter', () => {
+            if (!hoverVideo.src && hoverVideo.dataset.src) {
+              hoverVideo.src = hoverVideo.dataset.src;
+              hoverVideo.load();
+            }
+            card.classList.add('is-playing');
+            playPromise = hoverVideo.play().catch(() => {});
+          });
+
+          card.addEventListener('mouseleave', () => {
+            card.classList.remove('is-playing');
+            if (playPromise !== null) {
+              playPromise.then(() => {
+                hoverVideo.pause();
+                hoverVideo.currentTime = 0;
+              }).catch(() => {
+                hoverVideo.pause();
+              });
+            } else {
+              hoverVideo.pause();
+            }
+          });
+        }
+
+        card.addEventListener('click', () => {
+          openCinemaModal(card.dataset.seriesId);
+        });
+        card.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openCinemaModal(card.dataset.seriesId);
+          }
+        });
+      });
+
+      const closeCinemaModal = () => {
+        if (modalVideoPlayer) modalVideoPlayer.pause();
+        if (cinemaDialog) cinemaDialog.close();
+      };
+
+      if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeCinemaModal);
+      if (cinemaDialog) {
+        cinemaDialog.addEventListener('click', (e) => {
+          const stage = cinemaDialog.querySelector('.cinema-overlay-container');
+          if (stage && !stage.contains(e.target)) {
+            closeCinemaModal();
+          }
+        });
+        cinemaDialog.addEventListener('close', () => {
+          if (modalVideoPlayer) modalVideoPlayer.pause();
+        });
+      }
+
+      // Connect Option 2 Tab Switcher (Brand vs Creator)
+      const formTabBrand = document.getElementById('formTabBrand');
+      const formTabCreator = document.getElementById('formTabCreator');
+      const directBrandForm = document.getElementById('directBrandForm');
+      const directCreatorForm = document.getElementById('directCreatorForm');
+
+      if (formTabBrand && formTabCreator && directBrandForm && directCreatorForm) {
+        formTabBrand.addEventListener('click', () => {
+          formTabBrand.classList.add('active');
+          formTabCreator.classList.remove('active');
+          directBrandForm.style.display = 'block';
+          directCreatorForm.style.display = 'none';
+        });
+
+        formTabCreator.addEventListener('click', () => {
+          formTabCreator.classList.add('active');
+          formTabBrand.classList.remove('active');
+          directCreatorForm.style.display = 'block';
+          directBrandForm.style.display = 'none';
+        });
+      }
+
+      // Connect Option 1 Modal Openers & Closers
+      const brandDialog = document.getElementById('brandDialog');
+      const openBrandModalBtn = document.getElementById('openBrandModalBtn');
+      const closeBrandDialogBtn = document.getElementById('closeBrandDialogBtn');
+
+      if (brandDialog && openBrandModalBtn) {
+        openBrandModalBtn.addEventListener('click', () => brandDialog.showModal());
+      }
+      if (brandDialog && closeBrandDialogBtn) {
+        closeBrandDialogBtn.addEventListener('click', () => brandDialog.close());
+        brandDialog.addEventListener('click', (e) => {
+          const box = brandDialog.querySelector('.form-dialog-box');
+          if (box && !box.contains(e.target)) brandDialog.close();
+        });
+      }
+
+      const creatorDialog = document.getElementById('creatorDialog');
+      const openCreatorModalBtn = document.getElementById('openCreatorModalBtn');
+      const closeCreatorDialogBtn = document.getElementById('closeCreatorDialogBtn');
+
+      if (creatorDialog && openCreatorModalBtn) {
+        openCreatorModalBtn.addEventListener('click', () => creatorDialog.showModal());
+      }
+      if (creatorDialog && closeCreatorDialogBtn) {
+        closeCreatorDialogBtn.addEventListener('click', () => creatorDialog.close());
+        creatorDialog.addEventListener('click', (e) => {
+          const box = creatorDialog.querySelector('.form-dialog-box');
+          if (box && !box.contains(e.target)) creatorDialog.close();
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,250 +13,1554 @@
       --ink: #08070b;
       --paper: #f7f4f8;
       --muted: #aaa3b0;
-      --line: rgba(255,255,255,.12);
+      --line: rgba(255, 255, 255, .12);
       --purple: #7026b8;
       --violet: #a653e6;
       --lilac: #d5a5ff;
       --page: min(1240px, calc(100vw - 48px));
-      --ease: cubic-bezier(.2,.8,.2,1);
+      --ease: cubic-bezier(.2, .8, .2, 1);
     }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; scroll-padding-top: 104px; }
-    body { margin: 0; min-width: 320px; overflow-x: hidden; color: var(--paper); background: var(--ink); font-family: Inter, "Avenir Next", Avenir, "Helvetica Neue", Arial, sans-serif; line-height: 1.5; }
-    body.menu-open { overflow: hidden; }
-    a { color: inherit; }
-    button, a { -webkit-tap-highlight-color: transparent; }
-    button, input, select, textarea { font: inherit; }
-    img { display: block; max-width: 100%; }
-    h1, h2, h3, p { margin-top: 0; }
-    :focus-visible { outline: 3px solid var(--lilac); outline-offset: 4px; }
-    ::selection { color: white; background: var(--violet); }
-    .page { width: var(--page); margin-inline: auto; }
-    .eyebrow { margin: 0 0 13px; color: var(--lilac); font-size: .67rem; font-weight: 760; letter-spacing: .15em; text-transform: uppercase; }
-    .gradient { color: transparent; background: linear-gradient(105deg,#8f39d6,#c46eff 55%,#efd4ff); background-clip: text; -webkit-background-clip: text; }
-    .button { min-height: 46px; display: inline-flex; align-items: center; justify-content: center; gap: 9px; padding: 12px 22px; border: 1px solid transparent; border-radius: 999px; color: white; background: transparent; font-size: .88rem; font-weight: 560; letter-spacing: -.01em; line-height: 1; text-decoration: none; cursor: pointer; transition: transform .25s var(--ease), box-shadow .25s, background .25s; }
-    .button:hover { transform: translateY(-2px); }
-    .button-primary { background: linear-gradient(105deg,var(--purple),var(--violet)); box-shadow: 0 12px 30px rgba(112,38,184,.28); }
-    .button-light { color: #171219; background: white; box-shadow: 0 12px 32px rgba(0,0,0,.22); }
-    .arrow { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; flex-shrink: 0; transition: transform .22s var(--ease); }
-    .arrow svg { width: 100%; height: 100%; display: block; }
-    .button:hover .arrow { transform: translate(2px, -2px); }
-    .button:hover .arrow.arrow-right { transform: translateX(4px); }
-    .button:hover .arrow.arrow-down { transform: translateY(3px); }
-    .ico-link { width: .95em; height: .95em; display: inline-block; vertical-align: -0.12em; margin-left: 4px; transition: transform .2s var(--ease); }
-    .footer-link-list a:hover .ico-link, .footer-broadcast-contact a:hover .ico-link { transform: translate(2px, -2px); }
-    .footer-back-top { display: inline-flex; align-items: center; gap: 6px; }
-    .footer-back-top:hover .ico-link { transform: translateY(-2px); }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 104px;
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      overflow-x: hidden;
+      color: var(--paper);
+      background: var(--ink);
+      font-family: Inter, "Avenir Next", Avenir, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.5;
+    }
+
+    body.menu-open {
+      overflow: hidden;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--lilac);
+      outline-offset: 4px;
+    }
+
+    ::selection {
+      color: white;
+      background: var(--violet);
+    }
+
+    .page {
+      width: var(--page);
+      margin-inline: auto;
+    }
+
+    .eyebrow {
+      margin: 0 0 13px;
+      color: var(--lilac);
+      font-size: .67rem;
+      font-weight: 760;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+
+    .gradient {
+      color: transparent;
+      background: linear-gradient(105deg, #8f39d6, #c46eff 55%, #efd4ff);
+      background-clip: text;
+      -webkit-background-clip: text;
+    }
+
+    .button {
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 12px 22px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      color: white;
+      background: transparent;
+      font-size: .88rem;
+      font-weight: 560;
+      letter-spacing: -.01em;
+      line-height: 1;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform .25s var(--ease), box-shadow .25s, background .25s;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .button-primary {
+      background: linear-gradient(105deg, var(--purple), var(--violet));
+      box-shadow: 0 12px 30px rgba(112, 38, 184, .28);
+    }
+
+    .button-light {
+      color: #171219;
+      background: white;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, .22);
+    }
+
+    .arrow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      transition: transform .22s var(--ease);
+    }
+
+    .arrow svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .button:hover .arrow {
+      transform: translate(2px, -2px);
+    }
+
+    .button:hover .arrow.arrow-right {
+      transform: translateX(4px);
+    }
+
+    .button:hover .arrow.arrow-down {
+      transform: translateY(3px);
+    }
+
+    .ico-link {
+      width: .95em;
+      height: .95em;
+      display: inline-block;
+      vertical-align: -0.12em;
+      margin-left: 4px;
+      transition: transform .2s var(--ease);
+    }
+
+    .footer-link-list a:hover .ico-link,
+    .footer-broadcast-contact a:hover .ico-link {
+      transform: translate(2px, -2px);
+    }
+
+    .footer-back-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .footer-back-top:hover .ico-link {
+      transform: translateY(-2px);
+    }
 
     /* Navbar / Hero 01 */
-    .hero { position: relative; min-height: 100svh; display: flex; align-items: end; overflow: hidden; padding: 126px 0 112px; background: #07070a; isolation: isolate; }
-    .navbar { position: fixed; z-index: 100; top: 22px; left: 50%; width: var(--page); min-height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 10px 14px 10px 18px; border: 1px solid rgba(255,255,255,.14); border-radius: 18px; background: rgba(10,8,13,.82); box-shadow: 0 18px 45px rgba(0,0,0,.45); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); transform: translateX(-50%); transition: background .3s, border-color .3s, box-shadow .3s; }
-    .brand { display: inline-flex; align-items: center; flex: 0 0 auto; text-decoration: none; }
-    .brand img { width: 80px; }
-    .nav-links { display: flex; align-items: center; gap: 22px; margin-left: auto; }
-    .nav-links > a:not(.button) { color: #ded9e1; font-size: .8rem; text-decoration: none; }
-    .nav-links > a:not(.button):hover { color: white; }
-    .nav-toggle { display: none; width: 42px; height: 42px; padding: 0; border: 1px solid var(--line); border-radius: 50%; color: white; background: rgba(255,255,255,.05); cursor: pointer; backdrop-filter: blur(10px); transition: background .25s var(--ease), border-color .25s, transform .2s var(--ease); }
-    .nav-toggle:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.25); }
-    .nav-toggle:active { transform: scale(.93); }
-    .nav-toggle-icon { position: relative; width: 17px; height: 13px; display: block; margin: auto; }
-    .nav-toggle-icon span { position: absolute; left: 0; width: 100%; height: 2px; border-radius: 2px; background: #ffffff; transition: transform .32s cubic-bezier(0.16, 1, 0.3, 1), opacity .22s ease, top .32s cubic-bezier(0.16, 1, 0.3, 1), background .25s; }
-    .nav-toggle-icon span:nth-child(1) { top: 0; }
-    .nav-toggle-icon span:nth-child(2) { top: 5.5px; }
-    .nav-toggle-icon span:nth-child(3) { top: 11px; }
-    .nav-toggle[aria-expanded="true"] .nav-toggle-icon span:nth-child(1) { top: 5.5px; transform: rotate(45deg); }
-    .nav-toggle[aria-expanded="true"] .nav-toggle-icon span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-    .nav-toggle[aria-expanded="true"] .nav-toggle-icon span:nth-child(3) { top: 5.5px; transform: rotate(-45deg); }
-    .feature-art { position: absolute; z-index: -2; inset: 0; background: url("assets/images/coastline-run-hero.png") center / cover; transform: scale(1.015); animation: breathe 14s ease-in-out infinite alternate; transition: opacity .36s, transform .65s var(--ease), background-position .7s var(--ease); }
-    .feature-art::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg,rgba(4,7,10,.76),rgba(4,7,10,.38) 29%,transparent 62%), linear-gradient(0deg,rgba(5,5,8,.86),rgba(5,5,8,.3) 31%,transparent 60%), linear-gradient(180deg,rgba(5,5,8,.48),transparent 24%); }
-    .feature-art::after { content: ""; position: absolute; inset: 0; opacity: .17; background-image: repeating-radial-gradient(circle at 20% 30%,rgba(255,255,255,.28) 0 1px,transparent 1px 4px); mix-blend-mode: soft-light; }
-    .hero.is-changing .feature-art { opacity: .32; transform: scale(1.045); }
-    @keyframes breathe { to { transform: scale(1.045); } }
-    .feature-layout { position: relative; z-index: 4; }
-    .feature-copy { max-width: 620px; padding: 0 clamp(0px, 3vw, 24px); }
-    .feature-copy .eyebrow, .feature-copy h1, .feature-copy .proposition { filter: drop-shadow(0 2px 2px rgba(0,0,0,.88)) drop-shadow(0 8px 16px rgba(0,0,0,.74)); }
-    .feature-copy h1 { margin-bottom: 15px; font-size: clamp(3.7rem,6.2vw,6.4rem); font-weight: 490; line-height: .91; letter-spacing: -.06em; }
-    .proposition { max-width: 520px; margin-bottom: 0; color: #cbc4cf; font-size: clamp(.98rem,1.35vw,1.12rem); }
-    .feature-copy .button { margin-top: 25px; }
-    .marquee-peek { position: absolute; z-index: 3; top: 122px; bottom: 106px; width: clamp(86px,8vw,136px); overflow: hidden; padding: 0; border: 1px solid rgba(255,255,255,.28); border-radius: 22px; color: white; background: #151219 center / cover; box-shadow: 0 28px 70px rgba(0,0,0,.44); cursor: pointer; transition: transform .35s var(--ease), filter .35s; }
-    .marquee-peek::before { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg,rgba(4,4,7,.92),transparent 58%); }
-    .marquee-prev { left: calc(clamp(86px,8vw,136px) * -.55); }
-    .marquee-next { right: calc(clamp(86px,8vw,136px) * -.55); }
-    .marquee-prev:hover { transform: translateX(10px); }
-    .marquee-next:hover { transform: translateX(-10px); }
-    .marquee-peek span { position: absolute; right: 13px; bottom: 16px; left: 13px; text-align: left; }
-    .marquee-peek small { display: block; color: rgba(255,255,255,.68); font-size: .52rem; letter-spacing: .12em; text-transform: uppercase; }
-    .marquee-peek strong { display: block; font-size: .78rem; line-height: 1.05; }
-    .marquee-controls { position: absolute; z-index: 8; right: max(24px,calc((100vw - min(1240px,calc(100vw - 48px))) / 2)); bottom: 28px; left: max(24px,calc((100vw - min(1240px,calc(100vw - 48px))) / 2)); display: grid; grid-template-columns: auto 1fr auto auto; align-items: center; gap: 18px; }
-    .marquee-arrow { width: 42px; height: 42px; display: grid; place-items: center; padding: 0; border: 1px solid rgba(255,255,255,.26); border-radius: 50%; color: white; background: rgba(6,6,9,.48); cursor: pointer; backdrop-filter: blur(10px); transition: background .2s, border-color .2s, transform .2s; }
-    .marquee-arrow:hover { background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.45); }
-    .marquee-arrow:active { transform: scale(.92); }
-    .marquee-arrow svg { width: 17px; height: 17px; display: block; }
-    .marquee-track { display: flex; justify-content: center; gap: 8px; }
-    .marquee-track button { width: 38px; height: 16px; padding: 0; border: 0; background: transparent; cursor: pointer; }
-    .marquee-track button::before { content: ""; display: block; width: 100%; height: 2px; background: rgba(255,255,255,.32); }
-    .marquee-track button.active::before { height: 4px; background: white; }
-    .marquee-title { min-width: 145px; text-align: right; }
-    .marquee-title small { display: block; color: rgba(255,255,255,.56); font-size: .55rem; letter-spacing: .12em; text-transform: uppercase; }
-    .marquee-title strong { font-size: .82rem; }
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      align-items: end;
+      overflow: hidden;
+      padding: 126px 0 112px;
+      background: #07070a;
+      isolation: isolate;
+    }
+
+    .navbar {
+      position: fixed;
+      z-index: 100;
+      top: 22px;
+      left: 50%;
+      width: var(--page);
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 10px 14px 10px 18px;
+      border: 1px solid rgba(255, 255, 255, .14);
+      border-radius: 18px;
+      background: rgba(10, 8, 13, .82);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, .45);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      transform: translateX(-50%);
+      transition: background .3s, border-color .3s, box-shadow .3s;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      flex: 0 0 auto;
+      text-decoration: none;
+    }
+
+    .brand img {
+      width: 80px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      margin-left: auto;
+    }
+
+    .nav-links>a:not(.button) {
+      color: #ded9e1;
+      font-size: .8rem;
+      text-decoration: none;
+    }
+
+    .nav-links>a:not(.button):hover {
+      color: white;
+    }
+
+    .nav-toggle {
+      display: none;
+      width: 42px;
+      height: 42px;
+      padding: 0;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      color: white;
+      background: rgba(255, 255, 255, .05);
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      transition: background .25s var(--ease), border-color .25s, transform .2s var(--ease);
+    }
+
+    .nav-toggle:hover {
+      background: rgba(255, 255, 255, .1);
+      border-color: rgba(255, 255, 255, .25);
+    }
+
+    .nav-toggle:active {
+      transform: scale(.93);
+    }
+
+    .nav-toggle-icon {
+      position: relative;
+      width: 17px;
+      height: 13px;
+      display: block;
+      margin: auto;
+    }
+
+    .nav-toggle-icon span {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      border-radius: 2px;
+      background: #ffffff;
+      transition: transform .32s cubic-bezier(0.16, 1, 0.3, 1), opacity .22s ease, top .32s cubic-bezier(0.16, 1, 0.3, 1), background .25s;
+    }
+
+    .nav-toggle-icon span:nth-child(1) {
+      top: 0;
+    }
+
+    .nav-toggle-icon span:nth-child(2) {
+      top: 5.5px;
+    }
+
+    .nav-toggle-icon span:nth-child(3) {
+      top: 11px;
+    }
+
+    .nav-toggle[aria-expanded="true"] .nav-toggle-icon span:nth-child(1) {
+      top: 5.5px;
+      transform: rotate(45deg);
+    }
+
+    .nav-toggle[aria-expanded="true"] .nav-toggle-icon span:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+
+    .nav-toggle[aria-expanded="true"] .nav-toggle-icon span:nth-child(3) {
+      top: 5.5px;
+      transform: rotate(-45deg);
+    }
+
+    .feature-art {
+      position: absolute;
+      z-index: -2;
+      inset: 0;
+      background: url("assets/images/coastline-run-hero.png") center / cover;
+      transform: scale(1.015);
+      animation: breathe 14s ease-in-out infinite alternate;
+      transition: opacity .36s, transform .65s var(--ease), background-position .7s var(--ease);
+    }
+
+    .feature-art::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(4, 7, 10, .76), rgba(4, 7, 10, .38) 29%, transparent 62%), linear-gradient(0deg, rgba(5, 5, 8, .86), rgba(5, 5, 8, .3) 31%, transparent 60%), linear-gradient(180deg, rgba(5, 5, 8, .48), transparent 24%);
+    }
+
+    .feature-art::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: .17;
+      background-image: repeating-radial-gradient(circle at 20% 30%, rgba(255, 255, 255, .28) 0 1px, transparent 1px 4px);
+      mix-blend-mode: soft-light;
+    }
+
+    .hero.is-changing .feature-art {
+      opacity: .32;
+      transform: scale(1.045);
+    }
+
+    @keyframes breathe {
+      to {
+        transform: scale(1.045);
+      }
+    }
+
+    .feature-layout {
+      position: relative;
+      z-index: 4;
+    }
+
+    .feature-copy {
+      max-width: 620px;
+      padding: 0 clamp(0px, 3vw, 24px);
+    }
+
+    .feature-copy .eyebrow,
+    .feature-copy h1,
+    .feature-copy .proposition {
+      filter: drop-shadow(0 2px 2px rgba(0, 0, 0, .88)) drop-shadow(0 8px 16px rgba(0, 0, 0, .74));
+    }
+
+    .feature-copy h1 {
+      margin-bottom: 15px;
+      font-size: clamp(3.7rem, 6.2vw, 6.4rem);
+      font-weight: 490;
+      line-height: .91;
+      letter-spacing: -.06em;
+    }
+
+    .proposition {
+      max-width: 520px;
+      margin-bottom: 0;
+      color: #cbc4cf;
+      font-size: clamp(.98rem, 1.35vw, 1.12rem);
+    }
+
+    .feature-copy .button {
+      margin-top: 25px;
+    }
+
+    .marquee-peek {
+      position: absolute;
+      z-index: 3;
+      top: 122px;
+      bottom: 106px;
+      width: clamp(86px, 8vw, 136px);
+      overflow: hidden;
+      padding: 0;
+      border: 1px solid rgba(255, 255, 255, .28);
+      border-radius: 22px;
+      color: white;
+      background: #151219 center / cover;
+      box-shadow: 0 28px 70px rgba(0, 0, 0, .44);
+      cursor: pointer;
+      transition: transform .35s var(--ease), filter .35s;
+    }
+
+    .marquee-peek::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, rgba(4, 4, 7, .92), transparent 58%);
+    }
+
+    .marquee-prev {
+      left: calc(clamp(86px, 8vw, 136px) * -.55);
+    }
+
+    .marquee-next {
+      right: calc(clamp(86px, 8vw, 136px) * -.55);
+    }
+
+    .marquee-prev:hover {
+      transform: translateX(10px);
+    }
+
+    .marquee-next:hover {
+      transform: translateX(-10px);
+    }
+
+    .marquee-peek span {
+      position: absolute;
+      right: 13px;
+      bottom: 16px;
+      left: 13px;
+      text-align: left;
+    }
+
+    .marquee-peek small {
+      display: block;
+      color: rgba(255, 255, 255, .68);
+      font-size: .52rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .marquee-peek strong {
+      display: block;
+      font-size: .78rem;
+      line-height: 1.05;
+    }
+
+    .marquee-controls {
+      position: absolute;
+      z-index: 8;
+      right: max(24px, calc((100vw - min(1240px, calc(100vw - 48px))) / 2));
+      bottom: 28px;
+      left: max(24px, calc((100vw - min(1240px, calc(100vw - 48px))) / 2));
+      display: grid;
+      grid-template-columns: auto 1fr auto auto;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .marquee-arrow {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      padding: 0;
+      border: 1px solid rgba(255, 255, 255, .26);
+      border-radius: 50%;
+      color: white;
+      background: rgba(6, 6, 9, .48);
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      transition: background .2s, border-color .2s, transform .2s;
+    }
+
+    .marquee-arrow:hover {
+      background: rgba(255, 255, 255, .14);
+      border-color: rgba(255, 255, 255, .45);
+    }
+
+    .marquee-arrow:active {
+      transform: scale(.92);
+    }
+
+    .marquee-arrow svg {
+      width: 17px;
+      height: 17px;
+      display: block;
+    }
+
+    .marquee-track {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .marquee-track button {
+      width: 38px;
+      height: 16px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .marquee-track button::before {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: rgba(255, 255, 255, .32);
+    }
+
+    .marquee-track button.active::before {
+      height: 4px;
+      background: white;
+    }
+
+    .marquee-title {
+      min-width: 145px;
+      text-align: right;
+    }
+
+    .marquee-title small {
+      display: block;
+      color: rgba(255, 255, 255, .56);
+      font-size: .55rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .marquee-title strong {
+      font-size: .82rem;
+    }
 
     /* Services 02 */
-    .services { position: relative; min-height: 780px; overflow: hidden; padding: clamp(76px,8vw,118px) 0 0; background: #09080c; }
-    .services-head { display: grid; grid-template-columns: 1.1fr .9fr; align-items: end; gap: clamp(36px,7vw,100px); margin-bottom: clamp(42px,6vw,76px); }
-    .services-head h2, .work-head h2, .process-head h2 { margin: 0; font-size: clamp(3.2rem,6vw,6.4rem); font-weight: 500; line-height: .91; letter-spacing: -.065em; }
-    .services-head > p, .process-head > p { max-width: 500px; margin: 0 0 7px; color: var(--muted); }
-    .chapter-list { height: clamp(590px,68svh,760px); display: flex; flex-direction: column; }
-    .service-chapter { position: relative; flex: 1; min-height: 0; overflow: hidden; border-top: 1px solid rgba(255,255,255,.16); background-position: center; background-size: cover; outline: none; transition: flex .55s var(--ease), filter .4s; }
-    .service-chapter:last-child { border-bottom: 1px solid rgba(255,255,255,.16); }
-    .service-chapter:nth-child(1) { background-image: url("assets/images/the-last-voice-banner-v2.png"); background-position: center 42%; }
-    .service-chapter:nth-child(2) { background-image: url("assets/images/borrowed-time-poster-v2.png"); background-position: center 35%; }
-    .service-chapter:nth-child(3) { background-image: url("assets/images/after-monsoon-poster-v2.png"); background-position: center 48%; }
-    .service-chapter::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg,rgba(5,5,8,.78) 0%,rgba(5,5,8,.36) 45%,rgba(5,5,8,.04) 100%),linear-gradient(0deg,rgba(5,5,8,.22),transparent 60%); transition: background .45s; }
-    .service-chapter:hover::after, .service-chapter:focus-visible::after { background: linear-gradient(90deg,rgba(5,5,8,.7) 0%,rgba(5,5,8,.2) 55%,transparent 100%); }
-    .service-chapter:hover, .service-chapter:focus-visible { flex: 1.65; filter: saturate(1.12); }
-    .chapter-inner { position: relative; z-index: 2; height: 100%; display: grid; grid-template-columns: 92px minmax(240px,.7fr) 1fr; align-items: center; gap: 28px; }
-    .chapter-index, .why-step-code, .process-mission-label span, .path-code { color: var(--lilac); font-family: ui-monospace,SFMono-Regular,Menlo,monospace; font-size: .6rem; letter-spacing: .12em; text-transform: uppercase; }
-    .chapter-inner h3 { margin: 0; font-size: clamp(1.65rem,3vw,3.3rem); line-height: .96; letter-spacing: -.045em; }
-    .chapter-detail { max-width: 560px; opacity: .36; transform: translateX(-15px); transition: opacity .4s, transform .4s var(--ease); }
-    .chapter-detail p { margin: 0; color: #ded7e1; }
-    .service-chapter:hover .chapter-detail, .service-chapter:focus-visible .chapter-detail { opacity: 1; transform: none; }
-    .service-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 22px; }
-    .service-tags span { padding: 7px 10px; border: 1px solid rgba(255,255,255,.18); border-radius: 999px; color: #d8d0dc; font-size: .58rem; letter-spacing: .08em; text-transform: uppercase; }
+    .services {
+      position: relative;
+      min-height: 780px;
+      overflow: hidden;
+      padding: clamp(76px, 8vw, 118px) 0 0;
+      background: #09080c;
+    }
+
+    .services-head {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      align-items: end;
+      gap: clamp(36px, 7vw, 100px);
+      margin-bottom: clamp(42px, 6vw, 76px);
+    }
+
+    .services-head h2,
+    .work-head h2,
+    .process-head h2 {
+      margin: 0;
+      font-size: clamp(3.2rem, 6vw, 6.4rem);
+      font-weight: 500;
+      line-height: .91;
+      letter-spacing: -.065em;
+    }
+
+    .services-head>p,
+    .process-head>p {
+      max-width: 500px;
+      margin: 0 0 7px;
+      color: var(--muted);
+    }
+
+    .chapter-list {
+      height: clamp(590px, 68svh, 760px);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .service-chapter {
+      position: relative;
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+      border-top: 1px solid rgba(255, 255, 255, .16);
+      background-position: center;
+      background-size: cover;
+      outline: none;
+      transition: flex .55s var(--ease), filter .4s;
+    }
+
+    .service-chapter:last-child {
+      border-bottom: 1px solid rgba(255, 255, 255, .16);
+    }
+
+    .service-chapter:nth-child(1) {
+      background-image: url("assets/images/the-last-voice-banner-v2.png");
+      background-position: center 42%;
+    }
+
+    .service-chapter:nth-child(2) {
+      background-image: url("assets/images/borrowed-time-poster-v2.png");
+      background-position: center 35%;
+    }
+
+    .service-chapter:nth-child(3) {
+      background-image: url("assets/images/after-monsoon-poster-v2.png");
+      background-position: center 48%;
+    }
+
+    .service-chapter::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(5, 5, 8, .78) 0%, rgba(5, 5, 8, .36) 45%, rgba(5, 5, 8, .04) 100%), linear-gradient(0deg, rgba(5, 5, 8, .22), transparent 60%);
+      transition: background .45s;
+    }
+
+    .service-chapter:hover::after,
+    .service-chapter:focus-visible::after {
+      background: linear-gradient(90deg, rgba(5, 5, 8, .7) 0%, rgba(5, 5, 8, .2) 55%, transparent 100%);
+    }
+
+    .service-chapter:hover,
+    .service-chapter:focus-visible {
+      flex: 1.65;
+      filter: saturate(1.12);
+    }
+
+    .chapter-inner {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: grid;
+      grid-template-columns: 92px minmax(240px, .7fr) 1fr;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .chapter-index,
+    .why-step-code,
+    .process-mission-label span,
+    .path-code {
+      color: var(--lilac);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: .6rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .chapter-inner h3 {
+      margin: 0;
+      font-size: clamp(1.65rem, 3vw, 3.3rem);
+      line-height: .96;
+      letter-spacing: -.045em;
+    }
+
+    .chapter-detail {
+      max-width: 560px;
+      opacity: .36;
+      transform: translateX(-15px);
+      transition: opacity .4s, transform .4s var(--ease);
+    }
+
+    .chapter-detail p {
+      margin: 0;
+      color: #ded7e1;
+    }
+
+    .service-chapter:hover .chapter-detail,
+    .service-chapter:focus-visible .chapter-detail {
+      opacity: 1;
+      transform: none;
+    }
+
+    .service-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 22px;
+    }
+
+    .service-tags span {
+      padding: 7px 10px;
+      border: 1px solid rgba(255, 255, 255, .18);
+      border-radius: 999px;
+      color: #d8d0dc;
+      font-size: .58rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
 
     /* Work 02 */
-    .work { position: relative; min-height: 700px; overflow: hidden; padding: clamp(68px,7vw,96px) 0; background: #09080c; }
-    .work-head { display: flex; align-items: end; justify-content: space-between; gap: 40px; margin-bottom: clamp(38px,5vw,62px); }
-    .work-head h2 { font-size: clamp(2.8rem,5vw,5.2rem); }
-    .work-link { flex: 0 0 auto; padding-bottom: 7px; border-bottom: 1px solid currentColor; color: #d8d0dc; font-size: .68rem; letter-spacing: .1em; text-decoration: none; text-transform: uppercase; }
-    .work-categories { display: grid; gap: 30px; }
-    .stream-label { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 14px; }
-    .stream-label h3 { margin: 0; font-size: clamp(1.1rem,1.8vw,1.5rem); }
-    .stream-label span { color: #827b86; font-size: .62rem; letter-spacing: .08em; text-transform: uppercase; }
-    .stream-row { display: grid; grid-auto-flow: column; grid-auto-columns: clamp(148px,13vw,188px); gap: 10px; overflow-x: auto; padding: 5px 2px 22px; scroll-snap-type: x proximity; scrollbar-width: none; }
-    .stream-row::-webkit-scrollbar { display: none; }
-    .stream-card { position: relative; aspect-ratio: 9/16; overflow: hidden; border: 1px solid rgba(255,255,255,.12); border-radius: 12px; color: white; background-position: center; background-size: cover; text-decoration: none; scroll-snap-align: start; transition: transform .28s var(--ease), border-color .28s, filter .28s; }
-    .stream-card::after { content: ""; position: absolute; inset: 52% 0 0; background: linear-gradient(transparent,rgba(4,4,7,.96)); }
-    .stream-card:hover { z-index: 3; transform: scale(1.035); border-color: rgba(255,255,255,.42); filter: saturate(1.08); }
-    .stream-card-copy { position: absolute; z-index: 2; right: 13px; bottom: 13px; left: 13px; }
-    .work-meta { color: #c9c1cc; font-size: .52rem; letter-spacing: .1em; text-transform: uppercase; }
-    .work-title { display: block; margin-top: 5px; font-size: 1rem; line-height: 1; letter-spacing: -.035em; }
-    .stream-badge { position: absolute; z-index: 2; top: 10px; left: 10px; padding: 5px 7px; border-radius: 4px; background: rgba(6,5,8,.72); font-size: .5rem; font-weight: 750; letter-spacing: .08em; text-transform: uppercase; }
-    .art-one-room { background-image: url("assets/images/one-room-poster.png"); }
-    .art-borrowed { background-image: url("assets/images/borrowed-time-poster-v2.png"); }
-    .art-monsoon { background-image: url("assets/images/after-monsoon-poster-v2.png"); }
-    .art-last-voice { background-image: url("assets/images/the-last-voice-poster.png"); }
-    .art-coastline { background-image: url("assets/images/coastline-run-hero.png"); background-position: 63% center; }
-    .art-neon { background-image: url("assets/images/featured-project-bg.jpg"); background-position: 64% center; }
+    .work {
+      position: relative;
+      min-height: 700px;
+      overflow: hidden;
+      padding: clamp(68px, 7vw, 96px) 0;
+      background: #09080c;
+    }
+
+    .work-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 40px;
+      margin-bottom: clamp(38px, 5vw, 62px);
+    }
+
+    .work-head h2 {
+      font-size: clamp(2.8rem, 5vw, 5.2rem);
+    }
+
+    .work-link {
+      flex: 0 0 auto;
+      padding-bottom: 7px;
+      border-bottom: 1px solid currentColor;
+      color: #d8d0dc;
+      font-size: .68rem;
+      letter-spacing: .1em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .work-categories {
+      display: grid;
+      gap: 30px;
+    }
+
+    .stream-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 14px;
+    }
+
+    .stream-label h3 {
+      margin: 0;
+      font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+    }
+
+    .stream-label span {
+      color: #827b86;
+      font-size: .62rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .stream-row {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: clamp(148px, 13vw, 188px);
+      gap: 10px;
+      overflow-x: auto;
+      padding: 5px 2px 22px;
+      scroll-snap-type: x proximity;
+      scrollbar-width: none;
+    }
+
+    .stream-row::-webkit-scrollbar {
+      display: none;
+    }
+
+    .stream-card {
+      position: relative;
+      aspect-ratio: 9/16;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-radius: 12px;
+      color: white;
+      background-position: center;
+      background-size: cover;
+      text-decoration: none;
+      scroll-snap-align: start;
+      transition: transform .28s var(--ease), border-color .28s, filter .28s;
+    }
+
+    .stream-card::after {
+      content: "";
+      position: absolute;
+      inset: 52% 0 0;
+      background: linear-gradient(transparent, rgba(4, 4, 7, .96));
+    }
+
+    .stream-card:hover {
+      z-index: 3;
+      transform: scale(1.035);
+      border-color: rgba(255, 255, 255, .42);
+      filter: saturate(1.08);
+    }
+
+    .stream-card-copy {
+      position: absolute;
+      z-index: 2;
+      right: 13px;
+      bottom: 13px;
+      left: 13px;
+    }
+
+    .work-meta {
+      color: #c9c1cc;
+      font-size: .52rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .work-title {
+      display: block;
+      margin-top: 5px;
+      font-size: 1rem;
+      line-height: 1;
+      letter-spacing: -.035em;
+    }
+
+    .stream-badge {
+      position: absolute;
+      z-index: 2;
+      top: 10px;
+      left: 10px;
+      padding: 5px 7px;
+      border-radius: 4px;
+      background: rgba(6, 5, 8, .72);
+      font-size: .5rem;
+      font-weight: 750;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .art-one-room {
+      background-image: url("assets/images/one-room-poster.png");
+    }
+
+    .art-borrowed {
+      background-image: url("assets/images/borrowed-time-poster-v2.png");
+    }
+
+    .art-monsoon {
+      background-image: url("assets/images/after-monsoon-poster-v2.png");
+    }
+
+    .art-last-voice {
+      background-image: url("assets/images/the-last-voice-poster.png");
+    }
+
+    .art-coastline {
+      background-image: url("assets/images/coastline-run-hero.png");
+      background-position: 63% center;
+    }
+
+    .art-neon {
+      background-image: url("assets/images/featured-project-bg.jpg");
+      background-position: 64% center;
+    }
 
     /* Work video overlay */
-    .work-dialog { width: min(344px,calc(100vw - 20px)); max-height: calc(100svh - 20px); overflow-x: hidden; overflow-y: auto; border: 1px solid rgba(255,255,255,.18); border-radius: 24px; padding: 0; color: white; background: #0b0a0f; box-shadow: 0 35px 100px rgba(0,0,0,.78); scrollbar-width: thin; scrollbar-color: rgba(213,165,255,.45) transparent; }
-    .work-dialog::backdrop { background: rgba(3,3,5,.86); backdrop-filter: blur(14px); }
-    .work-dialog-close { position: absolute; z-index: 3; top: 15px; right: 15px; width: 38px; height: 38px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.22); border-radius: 50%; padding: 0; color: white; background: rgba(5,4,7,.72); font-size: 1.15rem; cursor: pointer; backdrop-filter: blur(9px); }
-    .work-dialog-head { padding: 21px 66px 17px 21px; border-bottom: 1px solid rgba(255,255,255,.09); }
-    .work-dialog-head span { display: block; margin-bottom: 8px; color: var(--lilac); font-family: ui-monospace,SFMono-Regular,Menlo,monospace; font-size: .56rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
-    .work-dialog-head h3 { margin: 0; font-size: clamp(1.55rem,5vw,2rem); font-weight: 540; line-height: 1; letter-spacing: -.045em; }
-    .work-dialog-media { width: 100%; aspect-ratio: 9/16; overflow: hidden; background: #000; }
-    .work-dialog-video { width: 100%; height: 100%; display: block; object-fit: cover; background: #000; }
-    .work-dialog-details { padding: 20px 21px 24px; }
-    .work-dialog-service { margin: 0 0 10px; color: var(--lilac); font-family: ui-monospace,SFMono-Regular,Menlo,monospace; font-size: .58rem; font-weight: 700; letter-spacing: .1em; line-height: 1.5; text-transform: uppercase; }
-    .work-dialog-description { margin: 0; color: #b8b1bd; font-size: .84rem; line-height: 1.55; }
+    .work-dialog {
+      width: min(344px, calc(100vw - 20px));
+      max-height: calc(100svh - 20px);
+      overflow-x: hidden;
+      overflow-y: auto;
+      border: 1px solid rgba(255, 255, 255, .18);
+      border-radius: 24px;
+      padding: 0;
+      color: white;
+      background: #0b0a0f;
+      box-shadow: 0 35px 100px rgba(0, 0, 0, .78);
+      scrollbar-width: thin;
+      scrollbar-color: rgba(213, 165, 255, .45) transparent;
+    }
+
+    .work-dialog::backdrop {
+      background: rgba(3, 3, 5, .86);
+      backdrop-filter: blur(14px);
+    }
+
+    .work-dialog-close {
+      position: absolute;
+      z-index: 3;
+      top: 15px;
+      right: 15px;
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, .22);
+      border-radius: 50%;
+      padding: 0;
+      color: white;
+      background: rgba(5, 4, 7, .72);
+      font-size: 1.15rem;
+      cursor: pointer;
+      backdrop-filter: blur(9px);
+    }
+
+    .work-dialog-head {
+      padding: 21px 66px 17px 21px;
+      border-bottom: 1px solid rgba(255, 255, 255, .09);
+    }
+
+    .work-dialog-head span {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--lilac);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: .56rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .work-dialog-head h3 {
+      margin: 0;
+      font-size: clamp(1.55rem, 5vw, 2rem);
+      font-weight: 540;
+      line-height: 1;
+      letter-spacing: -.045em;
+    }
+
+    .work-dialog-media {
+      width: 100%;
+      aspect-ratio: 9/16;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .work-dialog-video {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      background: #000;
+    }
+
+    .work-dialog-details {
+      padding: 20px 21px 24px;
+    }
+
+    .work-dialog-service {
+      margin: 0 0 10px;
+      color: var(--lilac);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: .58rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      line-height: 1.5;
+      text-transform: uppercase;
+    }
+
+    .work-dialog-description {
+      margin: 0;
+      color: #b8b1bd;
+      font-size: .84rem;
+      line-height: 1.55;
+    }
 
     /* Why 03 */
-    .why { position: relative; min-height: 760px; overflow: hidden; padding: clamp(74px,8vw,112px) 0; background: #08090b; }
-    .process-head { display: grid; grid-template-columns: 1.1fr .9fr; align-items: end; gap: clamp(40px,7vw,95px); margin-bottom: clamp(48px,7vw,82px); }
-    .why-timeline { position: relative; display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
-    .why-timeline::before { content: ""; position: absolute; top: 13px; right: 0; left: 0; height: 1px; background: rgba(255,255,255,.16); }
-    .why-step { position: relative; padding-top: 42px; }
-    .why-step::before { content: ""; position: absolute; z-index: 2; top: 8px; left: 0; width: 11px; height: 11px; border: 3px solid #08090b; border-radius: 50%; background: var(--lilac); box-shadow: 0 0 0 1px rgba(213,165,255,.6); }
-    .why-step-frame { aspect-ratio: 4/3; overflow: hidden; border-radius: 18px; background-position: center; background-size: cover; }
-    .why-step:nth-child(1) .why-step-frame { background-image: url("assets/images/coastline-run-hero.png"); }
-    .why-step:nth-child(2) .why-step-frame { background-image: url("assets/images/one-room-poster.png"); background-position: center 50%; }
-    .why-step:nth-child(3) .why-step-frame { background-image: url("assets/images/the-last-voice-banner-v2.png"); }
-    .why-step:nth-child(4) .why-step-frame { background-image: url("assets/images/after-monsoon-poster-v2.png"); background-position: center 45%; }
-    .why-step-code { display: block; margin-top: 22px; }
-    .why-step h3 { margin: 9px 0 10px; font-size: clamp(1.25rem,2vw,1.8rem); line-height: 1; letter-spacing: -.035em; }
-    .why-step p { margin: 0; color: var(--muted); font-size: .87rem; }
-    .process-mission { display: grid; grid-template-columns: .58fr 1.42fr; gap: clamp(36px,8vw,110px); margin-top: clamp(72px,10vw,124px); padding-top: clamp(38px,5vw,62px); border-top: 1px solid rgba(255,255,255,.16); }
-    .process-mission-label strong { display: block; max-width: 250px; margin-top: 15px; font-size: clamp(1.35rem,2.3vw,2rem); font-weight: 540; line-height: 1.02; letter-spacing: -.04em; }
-    .process-belief blockquote { max-width: 900px; margin: 0; font-size: clamp(2.5rem,5.1vw,5.2rem); font-weight: 510; line-height: .93; letter-spacing: -.06em; }
-    .process-belief blockquote em { color: var(--lilac); font-style: normal; }
-    .process-belief > p { max-width: 660px; margin: 30px 0 0; color: var(--muted); font-size: clamp(.95rem,1.4vw,1.15rem); }
-    .process-belief > p strong { color: white; }
+    .why {
+      position: relative;
+      min-height: 760px;
+      overflow: hidden;
+      padding: clamp(74px, 8vw, 112px) 0;
+      background: #08090b;
+    }
+
+    .process-head {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      align-items: end;
+      gap: clamp(40px, 7vw, 95px);
+      margin-bottom: clamp(48px, 7vw, 82px);
+    }
+
+    .why-timeline {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .why-timeline::before {
+      content: "";
+      position: absolute;
+      top: 13px;
+      right: 0;
+      left: 0;
+      height: 1px;
+      background: rgba(255, 255, 255, .16);
+    }
+
+    .why-step {
+      position: relative;
+      padding-top: 42px;
+    }
+
+    .why-step::before {
+      content: "";
+      position: absolute;
+      z-index: 2;
+      top: 8px;
+      left: 0;
+      width: 11px;
+      height: 11px;
+      border: 3px solid #08090b;
+      border-radius: 50%;
+      background: var(--lilac);
+      box-shadow: 0 0 0 1px rgba(213, 165, 255, .6);
+    }
+
+    .why-step-frame {
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      border-radius: 18px;
+      background-position: center;
+      background-size: cover;
+    }
+
+    .why-step:nth-child(1) .why-step-frame {
+      background-image: url("assets/images/coastline-run-hero.png");
+    }
+
+    .why-step:nth-child(2) .why-step-frame {
+      background-image: url("assets/images/one-room-poster.png");
+      background-position: center 50%;
+    }
+
+    .why-step:nth-child(3) .why-step-frame {
+      background-image: url("assets/images/the-last-voice-banner-v2.png");
+    }
+
+    .why-step:nth-child(4) .why-step-frame {
+      background-image: url("assets/images/after-monsoon-poster-v2.png");
+      background-position: center 45%;
+    }
+
+    .why-step-code {
+      display: block;
+      margin-top: 22px;
+    }
+
+    .why-step h3 {
+      margin: 9px 0 10px;
+      font-size: clamp(1.25rem, 2vw, 1.8rem);
+      line-height: 1;
+      letter-spacing: -.035em;
+    }
+
+    .why-step p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .87rem;
+    }
+
+    .process-mission {
+      display: grid;
+      grid-template-columns: .58fr 1.42fr;
+      gap: clamp(36px, 8vw, 110px);
+      margin-top: clamp(72px, 10vw, 124px);
+      padding-top: clamp(38px, 5vw, 62px);
+      border-top: 1px solid rgba(255, 255, 255, .16);
+    }
+
+    .process-mission-label strong {
+      display: block;
+      max-width: 250px;
+      margin-top: 15px;
+      font-size: clamp(1.35rem, 2.3vw, 2rem);
+      font-weight: 540;
+      line-height: 1.02;
+      letter-spacing: -.04em;
+    }
+
+    .process-belief blockquote {
+      max-width: 900px;
+      margin: 0;
+      font-size: clamp(2.5rem, 5.1vw, 5.2rem);
+      font-weight: 510;
+      line-height: .93;
+      letter-spacing: -.06em;
+    }
+
+    .process-belief blockquote em {
+      color: var(--lilac);
+      font-style: normal;
+    }
+
+    .process-belief>p {
+      max-width: 660px;
+      margin: 30px 0 0;
+      color: var(--muted);
+      font-size: clamp(.95rem, 1.4vw, 1.15rem);
+    }
+
+    .process-belief>p strong {
+      color: white;
+    }
 
     /* Connect 04 */
-    .connect { position: relative; min-height: 760px; overflow: hidden; background: #050507; }
-    .broadcast-wall { position: relative; min-height: 100svh; display: grid; grid-template-columns: .72fr 1.42fr .86fr; gap: 6px; overflow: hidden; isolation: isolate; }
-    .broadcast-shot { background-position: center; background-size: cover; filter: saturate(1.04); }
-    .broadcast-shot:nth-child(1) { background-image: url("assets/images/borrowed-time-poster-v2.png"); background-position: center 35%; }
-    .broadcast-shot:nth-child(2) { background-image: url("assets/images/one-room-poster.png"); background-position: center 47%; }
-    .broadcast-shot:nth-child(3) { background-image: url("assets/images/after-monsoon-poster-v2.png"); background-position: center 42%; }
-    .broadcast-wall::after { content: ""; position: absolute; z-index: 1; inset: 0; background: linear-gradient(180deg,rgba(4,4,6,.5),rgba(4,4,6,.14) 38%,rgba(4,4,6,.83)),linear-gradient(90deg,rgba(4,4,6,.3),transparent 20%,transparent 80%,rgba(4,4,6,.3)); pointer-events: none; }
-    .broadcast-overlay { position: absolute; z-index: 2; inset: 0; display: grid; grid-template-rows: auto 1fr auto; padding: clamp(28px,4vw,58px) max(24px,calc((100vw - min(1360px,calc(100vw - 48px))) / 2)); }
-    .broadcast-topline { display: flex; justify-content: space-between; gap: 20px; font-family: ui-monospace,SFMono-Regular,Menlo,monospace; font-size: .6rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
-    .broadcast-statement { align-self: center; justify-self: center; max-width: 1100px; margin: 0; font-size: clamp(4.3rem,9.7vw,10rem); font-weight: 520; line-height: .78; letter-spacing: -.075em; text-align: center; text-wrap: balance; filter: drop-shadow(0 12px 34px rgba(0,0,0,.8)); }
-    .broadcast-statement em { color: var(--lilac); font-style: normal; }
-    .broadcast-actions { display: grid; grid-template-columns: 1fr 1fr; border-block: 1px solid rgba(255,255,255,.42); backdrop-filter: blur(12px); }
-    .broadcast-choice { min-height: 118px; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 24px; border: 0; padding: 20px clamp(20px,3vw,40px); color: white; background: rgba(5,4,7,.42); text-align: left; cursor: pointer; transition: background .25s var(--ease); }
-    .broadcast-choice + .broadcast-choice { border-left: 1px solid rgba(255,255,255,.42); }
-    .broadcast-choice:hover { background: rgba(112,38,184,.72); }
-    .broadcast-choice small { display: block; margin-bottom: 7px; color: var(--lilac); font-family: ui-monospace,SFMono-Regular,Menlo,monospace; font-size: .78rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
-    .broadcast-choice strong { display: block; font-size: clamp(1.75rem,3vw,3.1rem); font-weight: 540; line-height: .92; letter-spacing: -.05em; }
-    .choice-arrow { display: grid; width: 48px; height: 48px; place-items: center; border: 1px solid rgba(255,255,255,.38); border-radius: 50%; background: rgba(255,255,255,.05); flex-shrink: 0; transition: transform .25s var(--ease), border-color .25s, background .25s; }
-    .choice-arrow svg { width: 18px; height: 18px; display: block; transition: transform .25s var(--ease); }
-    .broadcast-choice:hover .choice-arrow { transform: scale(1.05); border-color: rgba(255,255,255,.85); background: rgba(255,255,255,.15); }
-    .broadcast-choice:hover .choice-arrow svg { transform: translate(2px, -2px); }
-    .contact-dialog { width: min(720px,calc(100vw - 28px)); max-height: calc(100svh - 28px); overflow-y: auto; border: 1px solid rgba(255,255,255,.18); border-radius: 24px; padding: clamp(26px,5vw,58px); color: white; background: #0b0a0f; box-shadow: 0 35px 100px rgba(0,0,0,.75); }
-    .contact-dialog::backdrop { background: rgba(3,3,5,.82); backdrop-filter: blur(12px); }
-    .dialog-close { position: absolute; top: 18px; right: 18px; width: 38px; height: 38px; border: 1px solid rgba(255,255,255,.18); border-radius: 50%; color: white; background: transparent; cursor: pointer; }
-    .contact-dialog h3 { max-width: 530px; margin: 13px 0 10px; font-size: clamp(2.6rem,6vw,5rem); font-weight: 520; line-height: .88; letter-spacing: -.06em; }
-    .contact-dialog > p { color: var(--muted); }
-    .connect-form { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 22px; }
-    .connect-form label { display: grid; gap: 6px; color: var(--muted); font-family: ui-monospace,SFMono-Regular,Menlo,monospace; font-size: .56rem; letter-spacing: .09em; text-transform: uppercase; }
-    .connect-form label.full, .connect-form button, .form-status { grid-column: 1/-1; }
-    .connect-form input, .connect-form select, .connect-form textarea { width: 100%; border: 0; border-bottom: 1px solid rgba(255,255,255,.24); border-radius: 0; padding: 10px 0 11px; color: white; background: transparent; outline: none; }
-    .connect-form textarea { min-height: 78px; resize: vertical; }
-    .connect-form select option { color: white; background: #111016; }
-    .connect-form button { justify-self: start; margin-top: 5px; border: 0; }
-    .form-status { min-height: 1.2em; margin: 0; color: var(--lilac); font-size: .76rem; }
+    .connect {
+      position: relative;
+      min-height: 760px;
+      overflow: hidden;
+      background: #050507;
+    }
+
+    .broadcast-wall {
+      position: relative;
+      min-height: 100svh;
+      display: grid;
+      grid-template-columns: .72fr 1.42fr .86fr;
+      gap: 6px;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .broadcast-shot {
+      background-position: center;
+      background-size: cover;
+      filter: saturate(1.04);
+    }
+
+    .broadcast-shot:nth-child(1) {
+      background-image: url("assets/images/borrowed-time-poster-v2.png");
+      background-position: center 35%;
+    }
+
+    .broadcast-shot:nth-child(2) {
+      background-image: url("assets/images/one-room-poster.png");
+      background-position: center 47%;
+    }
+
+    .broadcast-shot:nth-child(3) {
+      background-image: url("assets/images/after-monsoon-poster-v2.png");
+      background-position: center 42%;
+    }
+
+    .broadcast-wall::after {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(4, 4, 6, .5), rgba(4, 4, 6, .14) 38%, rgba(4, 4, 6, .83)), linear-gradient(90deg, rgba(4, 4, 6, .3), transparent 20%, transparent 80%, rgba(4, 4, 6, .3));
+      pointer-events: none;
+    }
+
+    .broadcast-overlay {
+      position: absolute;
+      z-index: 2;
+      inset: 0;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      padding: clamp(28px, 4vw, 58px) max(24px, calc((100vw - min(1360px, calc(100vw - 48px))) / 2));
+    }
+
+    .broadcast-topline {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: .6rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .broadcast-statement {
+      align-self: center;
+      justify-self: center;
+      max-width: 1100px;
+      margin: 0;
+      font-size: clamp(4.3rem, 9.7vw, 10rem);
+      font-weight: 520;
+      line-height: .78;
+      letter-spacing: -.075em;
+      text-align: center;
+      text-wrap: balance;
+      filter: drop-shadow(0 12px 34px rgba(0, 0, 0, .8));
+    }
+
+    .broadcast-statement em {
+      color: var(--lilac);
+      font-style: normal;
+    }
+
+    .broadcast-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-block: 1px solid rgba(255, 255, 255, .42);
+      backdrop-filter: blur(12px);
+    }
+
+    .broadcast-choice {
+      min-height: 118px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 24px;
+      border: 0;
+      padding: 20px clamp(20px, 3vw, 40px);
+      color: white;
+      background: rgba(5, 4, 7, .42);
+      text-align: left;
+      cursor: pointer;
+      transition: background .25s var(--ease);
+    }
+
+    .broadcast-choice+.broadcast-choice {
+      border-left: 1px solid rgba(255, 255, 255, .42);
+    }
+
+    .broadcast-choice:hover {
+      background: rgba(112, 38, 184, .72);
+    }
+
+    .broadcast-choice small {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--lilac);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .broadcast-choice strong {
+      display: block;
+      font-size: clamp(1.75rem, 3vw, 3.1rem);
+      font-weight: 540;
+      line-height: .92;
+      letter-spacing: -.05em;
+    }
+
+    .choice-arrow {
+      display: grid;
+      width: 48px;
+      height: 48px;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, .38);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .05);
+      flex-shrink: 0;
+      transition: transform .25s var(--ease), border-color .25s, background .25s;
+    }
+
+    .choice-arrow svg {
+      width: 18px;
+      height: 18px;
+      display: block;
+      transition: transform .25s var(--ease);
+    }
+
+    .broadcast-choice:hover .choice-arrow {
+      transform: scale(1.05);
+      border-color: rgba(255, 255, 255, .85);
+      background: rgba(255, 255, 255, .15);
+    }
+
+    .broadcast-choice:hover .choice-arrow svg {
+      transform: translate(2px, -2px);
+    }
+
+    .contact-dialog {
+      width: min(720px, calc(100vw - 28px));
+      max-height: calc(100svh - 28px);
+      overflow-y: auto;
+      border: 1px solid rgba(255, 255, 255, .18);
+      border-radius: 24px;
+      padding: clamp(26px, 5vw, 58px);
+      color: white;
+      background: #0b0a0f;
+      box-shadow: 0 35px 100px rgba(0, 0, 0, .75);
+    }
+
+    .contact-dialog::backdrop {
+      background: rgba(3, 3, 5, .82);
+      backdrop-filter: blur(12px);
+    }
+
+    .dialog-close {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(255, 255, 255, .18);
+      border-radius: 50%;
+      color: white;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .contact-dialog h3 {
+      max-width: 530px;
+      margin: 13px 0 10px;
+      font-size: clamp(2.6rem, 6vw, 5rem);
+      font-weight: 520;
+      line-height: .88;
+      letter-spacing: -.06em;
+    }
+
+    .contact-dialog>p {
+      color: var(--muted);
+    }
+
+    .connect-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .connect-form label {
+      display: grid;
+      gap: 6px;
+      color: var(--muted);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: .56rem;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    .connect-form label.full,
+    .connect-form button,
+    .form-status {
+      grid-column: 1/-1;
+    }
+
+    .connect-form input,
+    .connect-form select,
+    .connect-form textarea {
+      width: 100%;
+      border: 0;
+      border-bottom: 1px solid rgba(255, 255, 255, .24);
+      border-radius: 0;
+      padding: 10px 0 11px;
+      color: white;
+      background: transparent;
+      outline: none;
+    }
+
+    .connect-form textarea {
+      min-height: 78px;
+      resize: vertical;
+    }
+
+    .connect-form select option {
+      color: white;
+      background: #111016;
+    }
+
+    .connect-form button {
+      justify-self: start;
+      margin-top: 5px;
+      border: 0;
+    }
+
+    .form-status {
+      min-height: 1.2em;
+      margin: 0;
+      color: var(--lilac);
+      font-size: .76rem;
+    }
 
     /* Footer 03 — Broadcast Sign-off */
-    .footer-broadcast { position: relative; overflow: hidden; color: #ffffff; background: #08070b; padding: clamp(48px, 7vw, 76px) 0 28px; }
-    .footer-broadcast a { color: inherit; text-decoration: none; transition: color .2s var(--ease), opacity .2s var(--ease); }
-    .footer-broadcast a:hover { color: var(--lilac); }
-    .footer-broadcast-title { padding: 0 0 clamp(28px, 4vw, 44px); }
-    .footer-broadcast-title h2 { margin: 0; font-size: clamp(3.2rem, 8.2vw, 8.6rem); font-weight: 800; line-height: .88; letter-spacing: -.065em; text-transform: uppercase; }
-    .footer-broadcast-title .solid { color: #ffffff; }
-    .footer-broadcast-title .stroke { color: transparent; font-style: normal; -webkit-text-stroke: 1.5px #d5a5ff; }
-    .footer-broadcast-grid { display: grid; grid-template-columns: 1.35fr .8fr .8fr 1.15fr; gap: clamp(28px, 5vw, 68px); padding: 44px 0 60px; border-top: 1px solid rgba(255, 255, 255, .09); }
-    .footer-wordmark { width: clamp(100px, 11vw, 148px); height: auto; display: block; }
-    .footer-brand-note { margin: 20px 0 0; color: #8f8895; font-size: .86rem; line-height: 1.55; max-width: 320px; }
-    .footer-kicker { display: block; color: var(--lilac); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .62rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 16px; }
-    .footer-link-list { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
-    .footer-link-list a { color: #b5aeb9; font-size: .88rem; }
-    .footer-broadcast-contact .footer-kicker { margin-bottom: 8px; }
-    .footer-broadcast-contact a { display: block; margin-top: 4px; font-size: clamp(1.5rem, 2.3vw, 2.2rem); font-weight: 600; line-height: 1.05; letter-spacing: -.04em; color: #ffffff; }
-    .footer-legal-bar { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-top: 24px; border-top: 1px solid rgba(255, 255, 255, .08); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .58rem; letter-spacing: .09em; text-transform: uppercase; color: #77707c; }
-    .footer-legal { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; }
-    .footer-legal a { color: #77707c; }
-    .footer-legal a:hover { color: #ded9e1; }
-    .footer-back-top { color: #77707c; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .58rem; letter-spacing: .09em; text-transform: uppercase; }
-    .footer-back-top:hover { color: white; }
+    .footer-broadcast {
+      position: relative;
+      overflow: hidden;
+      color: #ffffff;
+      background: #08070b;
+      padding: clamp(48px, 7vw, 76px) 0 28px;
+    }
+
+    .footer-broadcast a {
+      color: inherit;
+      text-decoration: none;
+      transition: color .2s var(--ease), opacity .2s var(--ease);
+    }
+
+    .footer-broadcast a:hover {
+      color: var(--lilac);
+    }
+
+    .footer-broadcast-title {
+      padding: 0 0 clamp(28px, 4vw, 44px);
+    }
+
+    .footer-broadcast-title h2 {
+      margin: 0;
+      font-size: clamp(3.2rem, 8.2vw, 8.6rem);
+      font-weight: 800;
+      line-height: .88;
+      letter-spacing: -.065em;
+      text-transform: uppercase;
+    }
+
+    .footer-broadcast-title .solid {
+      color: #ffffff;
+    }
+
+    .footer-broadcast-title .stroke {
+      color: transparent;
+      font-style: normal;
+      -webkit-text-stroke: 1.5px #d5a5ff;
+    }
+
+    .footer-broadcast-grid {
+      display: grid;
+      grid-template-columns: 1.35fr .8fr .8fr 1.15fr;
+      gap: clamp(28px, 5vw, 68px);
+      padding: 44px 0 60px;
+      border-top: 1px solid rgba(255, 255, 255, .09);
+    }
+
+    .footer-wordmark {
+      width: clamp(100px, 11vw, 148px);
+      height: auto;
+      display: block;
+    }
+
+    .footer-brand-note {
+      margin: 20px 0 0;
+      color: #8f8895;
+      font-size: .86rem;
+      line-height: 1.55;
+      max-width: 320px;
+    }
+
+    .footer-kicker {
+      display: block;
+      color: var(--lilac);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: .62rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .footer-link-list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .footer-link-list a {
+      color: #b5aeb9;
+      font-size: .88rem;
+    }
+
+    .footer-broadcast-contact .footer-kicker {
+      margin-bottom: 8px;
+    }
+
+    .footer-broadcast-contact a {
+      display: block;
+      margin-top: 4px;
+      font-size: clamp(1.5rem, 2.3vw, 2.2rem);
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: -.04em;
+      color: #ffffff;
+    }
+
+    .footer-legal-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255, 255, 255, .08);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: .58rem;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      color: #77707c;
+    }
+
+    .footer-legal {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px 28px;
+    }
+
+    .footer-legal a {
+      color: #77707c;
+    }
+
+    .footer-legal a:hover {
+      color: #ded9e1;
+    }
+
+    .footer-back-top {
+      color: #77707c;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: .58rem;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    .footer-back-top:hover {
+      color: white;
+    }
 
     @media (max-width: 1024px) {
-      .feature-copy { max-width: 580px; padding: 0 20px 0 clamp(44px, 7vw, 76px); }
-      .feature-copy h1 { font-size: clamp(3.2rem, 6.2vw, 5.2rem); }
-      .marquee-peek { width: clamp(70px, 7vw, 100px); }
-      .marquee-prev { left: calc(clamp(70px, 7vw, 100px) * -.62); }
-      .marquee-next { right: calc(clamp(70px, 7vw, 100px) * -.62); }
-      .marquee-peek span { display: none; }
+      .feature-copy {
+        max-width: 580px;
+        padding: 0 20px 0 clamp(44px, 7vw, 76px);
+      }
+
+      .feature-copy h1 {
+        font-size: clamp(3.2rem, 6.2vw, 5.2rem);
+      }
+
+      .marquee-peek {
+        width: clamp(70px, 7vw, 100px);
+      }
+
+      .marquee-prev {
+        left: calc(clamp(70px, 7vw, 100px) * -.62);
+      }
+
+      .marquee-next {
+        right: calc(clamp(70px, 7vw, 100px) * -.62);
+      }
+
+      .marquee-peek span {
+        display: none;
+      }
     }
 
     @media (max-width: 720px) {
-      html { scroll-padding-top: 86px; }
-      :root { --page: min(100% - 28px,1240px); }
-      .navbar { top: 14px; min-height: 56px; padding: 8px 9px 8px 14px; border-radius: 15px; }
-      .brand img { width: 70px; }
-      .nav-toggle { display: grid; place-items: center; }
+      html {
+        scroll-padding-top: 86px;
+      }
+
+      :root {
+        --page: min(100% - 28px, 1240px);
+      }
+
+      .navbar {
+        top: 14px;
+        min-height: 56px;
+        padding: 8px 9px 8px 14px;
+        border-radius: 15px;
+      }
+
+      .brand img {
+        width: 70px;
+      }
+
+      .nav-toggle {
+        display: grid;
+        place-items: center;
+      }
+
       .nav-links {
         position: absolute;
         top: calc(100% + 8px);
@@ -268,8 +1573,8 @@
         padding: 14px;
         border: 1px solid var(--line);
         border-radius: 18px;
-        background: rgba(10,8,14,.96);
-        box-shadow: 0 24px 60px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.06) inset;
+        background: rgba(10, 8, 14, .96);
+        box-shadow: 0 24px 60px rgba(0, 0, 0, .6), 0 0 0 1px rgba(255, 255, 255, .06) inset;
         backdrop-filter: blur(24px);
         -webkit-backdrop-filter: blur(24px);
         opacity: 0;
@@ -278,65 +1583,149 @@
         pointer-events: none;
         transform-origin: top center;
         transition: opacity .32s cubic-bezier(0.16, 1, 0.3, 1),
-                    transform .32s cubic-bezier(0.16, 1, 0.3, 1),
-                    visibility .32s;
+          transform .32s cubic-bezier(0.16, 1, 0.3, 1),
+          visibility .32s;
       }
+
       .nav-links.open {
         opacity: 1;
         visibility: visible;
         transform: translateY(0) scale(1);
         pointer-events: auto;
       }
-      .nav-links > * {
+
+      .nav-links>* {
         opacity: 0;
         transform: translateY(-6px);
         transition: opacity .25s cubic-bezier(0.16, 1, 0.3, 1), transform .25s cubic-bezier(0.16, 1, 0.3, 1);
       }
-      .nav-links.open > * {
+
+      .nav-links.open>* {
         opacity: 1;
         transform: translateY(0);
       }
-      .nav-links.open > *:nth-child(1) { transition-delay: .04s; }
-      .nav-links.open > *:nth-child(2) { transition-delay: .08s; }
-      .nav-links.open > *:nth-child(3) { transition-delay: .12s; }
-      .nav-links.open > *:nth-child(4) { transition-delay: .16s; }
-      .nav-links > a:not(.button) {
+
+      .nav-links.open>*:nth-child(1) {
+        transition-delay: .04s;
+      }
+
+      .nav-links.open>*:nth-child(2) {
+        transition-delay: .08s;
+      }
+
+      .nav-links.open>*:nth-child(3) {
+        transition-delay: .12s;
+      }
+
+      .nav-links.open>*:nth-child(4) {
+        transition-delay: .16s;
+      }
+
+      .nav-links>a:not(.button) {
         padding: 12px 14px;
         font-size: .92rem;
         border-radius: 10px;
         transition: background .2s, color .2s;
       }
-      .nav-links > a:not(.button):hover, .nav-links > a:not(.button):active {
-        background: rgba(255,255,255,.07);
+
+      .nav-links>a:not(.button):hover,
+      .nav-links>a:not(.button):active {
+        background: rgba(255, 255, 255, .07);
       }
-      .nav-links .button { margin-top: 8px; }
-      .hero { min-height: 760px; padding: 105px 0 102px; }
-      .feature-copy { max-width: 540px; padding: 0 16px 0 clamp(28px, 7vw, 42px); }
-      .feature-copy h1 { font-size: clamp(3.15rem,15vw,4.5rem); }
-      .marquee-peek { top: 94px; bottom: 88px; width: 64px; border-radius: 16px; }
-      .marquee-prev { left: -46px; }
-      .marquee-next { right: -46px; }
-      .marquee-peek span, .marquee-title { display: none; }
-      .marquee-controls { right: 18px; bottom: 20px; left: 18px; grid-template-columns: auto 1fr auto; gap: 10px; }
-      .services { min-height: auto; padding-top: 72px; }
-      .services-head, .process-head { grid-template-columns: 1fr; gap: 20px; margin-bottom: 40px; }
-      .services-head h2, .work-head h2, .process-head h2 { font-size: clamp(3.05rem,14vw,4.7rem); }
-      .chapter-list { height: auto; display: flex; flex-direction: column; gap: 0; }
-      .service-chapter, .service-chapter:hover, .service-chapter:focus-visible {
+
+      .nav-links .button {
+        margin-top: 8px;
+      }
+
+      .hero {
+        min-height: 760px;
+        padding: 105px 0 102px;
+      }
+
+      .feature-copy {
+        max-width: 540px;
+        padding: 0 16px 0 clamp(28px, 7vw, 42px);
+      }
+
+      .feature-copy h1 {
+        font-size: clamp(3.15rem, 15vw, 4.5rem);
+      }
+
+      .marquee-peek {
+        top: 94px;
+        bottom: 88px;
+        width: 64px;
+        border-radius: 16px;
+      }
+
+      .marquee-prev {
+        left: -46px;
+      }
+
+      .marquee-next {
+        right: -46px;
+      }
+
+      .marquee-peek span,
+      .marquee-title {
+        display: none;
+      }
+
+      .marquee-controls {
+        right: 18px;
+        bottom: 20px;
+        left: 18px;
+        grid-template-columns: auto 1fr auto;
+        gap: 10px;
+      }
+
+      .services {
+        min-height: auto;
+        padding-top: 72px;
+      }
+
+      .services-head,
+      .process-head {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        margin-bottom: 40px;
+      }
+
+      .services-head h2,
+      .work-head h2,
+      .process-head h2 {
+        font-size: clamp(3.05rem, 14vw, 4.7rem);
+      }
+
+      .chapter-list {
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+
+      .service-chapter,
+      .service-chapter:hover,
+      .service-chapter:focus-visible {
         flex: none;
         min-height: clamp(340px, 46vw, 420px);
         border-radius: 0;
         border: 0;
-        border-top: 1px solid rgba(255,255,255,.16);
+        border-top: 1px solid rgba(255, 255, 255, .16);
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
       }
-      .service-chapter:last-child { border-bottom: 1px solid rgba(255,255,255,.16); }
-      .service-chapter::after {
-        background: linear-gradient(0deg, rgba(5,5,8,.84) 0%, rgba(5,5,8,.52) 45%, rgba(5,5,8,.08) 82%, transparent 100%),
-                    linear-gradient(90deg, rgba(5,5,8,.5) 0%, rgba(5,5,8,.1) 60%, transparent 100%);
+
+      .service-chapter:last-child {
+        border-bottom: 1px solid rgba(255, 255, 255, .16);
       }
+
+      .service-chapter::after {
+        background: linear-gradient(0deg, rgba(5, 5, 8, .84) 0%, rgba(5, 5, 8, .52) 45%, rgba(5, 5, 8, .08) 82%, transparent 100%),
+          linear-gradient(90deg, rgba(5, 5, 8, .5) 0%, rgba(5, 5, 8, .1) 60%, transparent 100%);
+      }
+
       .chapter-inner {
         position: relative;
         z-index: 2;
@@ -351,6 +1740,7 @@
         gap: 8px;
         padding: 24px 0 32px;
       }
+
       .chapter-index {
         font-size: .62rem;
         font-weight: 700;
@@ -359,16 +1749,19 @@
         white-space: nowrap;
         display: inline-block;
       }
+
       .chapter-inner h3 {
         margin: 0 0 4px;
         font-size: clamp(1.65rem, 5.8vw, 2.3rem);
         line-height: 1.08;
       }
+
       .chapter-detail {
         opacity: 1;
         transform: none;
         max-width: 100%;
       }
+
       .chapter-detail p {
         margin: 0 0 12px;
         font-size: .88rem;
@@ -376,104 +1769,407 @@
         color: #ded7e1;
         max-width: 520px;
       }
+
       .service-tags {
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
         margin-top: 10px;
       }
+
       .service-tags span {
         padding: 6px 12px;
         font-size: .56rem;
-        border: 1px solid rgba(255,255,255,.2);
+        border: 1px solid rgba(255, 255, 255, .2);
         border-radius: 999px;
       }
-      .work { min-height: auto; padding: 72px 0; }
-      .work-head { align-items: flex-start; flex-direction: column; gap: 20px; margin-bottom: 36px; }
-      .stream-row { width: calc(100vw - 14px); grid-auto-columns: min(42vw,172px); padding-right: 14px; }
-      .why { min-height: auto; padding: 72px 0; }
-      .why-timeline { grid-template-columns: 1fr; gap: 34px; }
-      .why-timeline::before, .why-step::before { display: none; }
-      .why-step { padding-top: 0; }
-      .why-step-frame { aspect-ratio: 16/10; }
-      .process-mission { grid-template-columns: 1fr; gap: 34px; margin-top: 70px; }
-      .broadcast-wall { min-height: 820px; grid-template-columns: 1fr 1fr; }
-      .broadcast-shot:nth-child(1) { display: none; }
-      .broadcast-overlay { padding: 26px 14px; }
-      .broadcast-statement { font-size: clamp(4rem,17vw,6.8rem); }
-      .broadcast-actions { grid-template-columns: 1fr; }
-      .broadcast-choice { min-height: 102px; }
-      .broadcast-choice + .broadcast-choice { border-top: 1px solid rgba(255,255,255,.42); border-left: 0; }
-      .footer-broadcast-grid { grid-template-columns: 1fr 1fr; }
-      .footer-broadcast-grid > div:first-child, .footer-broadcast-contact { grid-column: 1 / -1; }
-      .footer-legal-bar { align-items: flex-start; flex-direction: column; gap: 14px; }
+
+      .work {
+        min-height: auto;
+        padding: 72px 0;
+      }
+
+      .work-head {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 20px;
+        margin-bottom: 36px;
+      }
+
+      .stream-row {
+        width: calc(100vw - 14px);
+        grid-auto-columns: min(42vw, 172px);
+        padding-right: 14px;
+      }
+
+      .why {
+        min-height: auto;
+        padding: 72px 0;
+      }
+
+      .why-timeline {
+        grid-template-columns: 1fr;
+        gap: 34px;
+      }
+
+      .why-timeline::before,
+      .why-step::before {
+        display: none;
+      }
+
+      .why-step {
+        padding-top: 0;
+      }
+
+      .why-step-frame {
+        aspect-ratio: 16/10;
+      }
+
+      .process-mission {
+        grid-template-columns: 1fr;
+        gap: 34px;
+        margin-top: 70px;
+      }
+
+      .broadcast-wall {
+        min-height: 820px;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .broadcast-shot:nth-child(1) {
+        display: none;
+      }
+
+      .broadcast-overlay {
+        padding: 26px 14px;
+      }
+
+      .broadcast-statement {
+        font-size: clamp(4rem, 17vw, 6.8rem);
+      }
+
+      .broadcast-actions {
+        grid-template-columns: 1fr;
+      }
+
+      .broadcast-choice {
+        min-height: 102px;
+      }
+
+      .broadcast-choice+.broadcast-choice {
+        border-top: 1px solid rgba(255, 255, 255, .42);
+        border-left: 0;
+      }
+
+      .footer-broadcast-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .footer-broadcast-grid>div:first-child,
+      .footer-broadcast-contact {
+        grid-column: 1 / -1;
+      }
+
+      .footer-legal-bar {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 14px;
+      }
     }
 
     @media (max-width: 430px) {
-      .connect-form { grid-template-columns: 1fr; }
-      .connect-form label.full, .connect-form button, .form-status { grid-column: auto; }
-      .broadcast-topline span:last-child { display: none; }
-      .broadcast-statement { text-align: left; }
-      .footer-broadcast-grid { grid-template-columns: 1fr; }
-      .footer-broadcast-grid > div:first-child, .footer-broadcast-contact { grid-column: auto; }
+      .connect-form {
+        grid-template-columns: 1fr;
+      }
+
+      .connect-form label.full,
+      .connect-form button,
+      .form-status {
+        grid-column: auto;
+      }
+
+      .broadcast-topline span:last-child {
+        display: none;
+      }
+
+      .broadcast-statement {
+        text-align: left;
+      }
+
+      .footer-broadcast-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-broadcast-grid>div:first-child,
+      .footer-broadcast-contact {
+        grid-column: auto;
+      }
     }
+
     @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      *,*::before,*::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
     }
   </style>
 </head>
+
 <body id="top">
   <nav class="navbar" aria-label="Primary navigation">
-    <a class="brand" href="#home" aria-label="Lila Studios home"><img src="assets/SVG/variants/lila-wordmark-color.svg" alt="Lila"></a>
-    <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false"><span class="nav-toggle-icon"><span></span><span></span><span></span></span></button>
-    <div class="nav-links"><a href="#services">Our Services</a><a href="#work">Our Work</a><a href="#why">Why Lila</a><a class="button button-primary" href="#connect">Connect <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7m0 0H8m9 0v9"/></svg></span></a></div>
+    <a class="brand" href="#home" aria-label="Lila Studios home"><img src="assets/SVG/variants/lila-wordmark-color.svg"
+        alt="Lila"></a>
+    <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false"><span
+        class="nav-toggle-icon"><span></span><span></span><span></span></span></button>
+    <div class="nav-links"><a href="#services">Our Services</a><a href="#work">Our Work</a><a href="#why">Why Lila</a><a
+        class="button button-primary" href="#connect">Connect <span class="arrow"><svg viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M7 17L17 7m0 0H8m9 0v9" />
+          </svg></span></a></div>
   </nav>
   <main>
     <section class="hero" id="home">
       <div class="feature-art" id="featureArt" aria-hidden="true"></div>
-      <button class="marquee-peek marquee-prev" id="featurePeekPrev" type="button" aria-label="Show previous story"><span><small>Previous</small><strong id="featurePrevTitle">Borrowed Time</strong></span></button>
-      <button class="marquee-peek marquee-next" id="featurePeekNext" type="button" aria-label="Show next story"><span><small>Up next</small><strong id="featureNextTitle">One Room</strong></span></button>
-      <div class="page feature-layout"><div class="feature-copy"><p class="eyebrow">AI-native micro-drama studio</p><h1>Drama, <span class="gradient">generated.</span></h1><p class="proposition">Lila creates cinematic, vertical stories through a human-led, AI-native production process.</p><a class="button button-light" href="#work">Explore Our Work <span class="arrow arrow-right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m0 0l-7-7m7 7l-7 7"/></svg></span></a></div></div>
-      <div class="marquee-controls" aria-label="Featured stories"><button class="marquee-arrow" id="featurePrev" type="button" aria-label="Previous story"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m0 0l7-7m-7 7l7 7"/></svg></button><div class="marquee-track"><button class="active" type="button" data-feature-slide="0" aria-label="Show Coastline Run"></button><button type="button" data-feature-slide="1" aria-label="Show One Room"></button><button type="button" data-feature-slide="2" aria-label="Show Borrowed Time"></button></div><div class="marquee-title"><small>Now showing</small><strong id="featureTitle">Coastline Run</strong></div><button class="marquee-arrow" id="featureNext" type="button" aria-label="Next story"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m0 0l-7-7m7 7l-7 7"/></svg></button></div>
+      <button class="marquee-peek marquee-prev" id="featurePeekPrev" type="button"
+        aria-label="Show previous story"><span><small>Previous</small><strong id="featurePrevTitle">Borrowed
+            Time</strong></span></button>
+      <button class="marquee-peek marquee-next" id="featurePeekNext" type="button"
+        aria-label="Show next story"><span><small>Up next</small><strong id="featureNextTitle">One
+            Room</strong></span></button>
+      <div class="page feature-layout">
+        <div class="feature-copy">
+          <p class="eyebrow">AI-native micro-drama studio</p>
+          <h1>Drama, <span class="gradient">generated.</span></h1>
+          <p class="proposition">Lila creates cinematic, vertical stories through a human-led, AI-native production
+            process.</p><a class="button button-light" href="#work">Explore Our Work <span
+              class="arrow arrow-right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14m0 0l-7-7m7 7l-7 7" />
+              </svg></span></a>
+        </div>
+      </div>
+      <div class="marquee-controls" aria-label="Featured stories"><button class="marquee-arrow" id="featurePrev"
+          type="button" aria-label="Previous story"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M19 12H5m0 0l7-7m-7 7l7 7" />
+          </svg></button>
+        <div class="marquee-track"><button class="active" type="button" data-feature-slide="0"
+            aria-label="Show Coastline Run"></button><button type="button" data-feature-slide="1"
+            aria-label="Show One Room"></button><button type="button" data-feature-slide="2"
+            aria-label="Show Borrowed Time"></button></div>
+        <div class="marquee-title"><small>Now showing</small><strong id="featureTitle">Coastline Run</strong></div>
+        <button class="marquee-arrow" id="featureNext" type="button" aria-label="Next story"><svg viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"
+            aria-hidden="true">
+            <path d="M5 12h14m0 0l-7-7m7 7l-7 7" />
+          </svg></button>
+      </div>
     </section>
 
     <section class="services" id="services">
-      <header class="services-head page"><div><p class="eyebrow">Our services / Three acts</p><h2>Every story<br>needs a <span class="gradient">system.</span></h2></div><p>Three connected capabilities. Expand a chapter to see how Lila takes an idea from narrative to audience.</p></header>
+      <header class="services-head page">
+        <div>
+          <p class="eyebrow">Our services / Three acts</p>
+          <h2>Every story<br>needs a <span class="gradient">system.</span></h2>
+        </div>
+        <p>Three connected capabilities. Expand a chapter to see how Lila takes an idea from narrative to audience.</p>
+      </header>
       <div class="chapter-list">
-        <article class="service-chapter" tabindex="0"><div class="page chapter-inner"><span class="chapter-index">ACT 01 / STORY</span><h3>Branded Micro-Dramas</h3><div class="chapter-detail"><p>Characters, tension and episodic worlds designed around the brand—not interrupted by it.</p><div class="service-tags"><span>Narrative Design</span><span>Character IP</span></div></div></div></article>
-        <article class="service-chapter" tabindex="0"><div class="page chapter-inner"><span class="chapter-index">ACT 02 / MAKE</span><h3>AI-Native Production</h3><div class="chapter-detail"><p>A fluid generative production model that expands visual ambition without the limits of a traditional set.</p><div class="service-tags"><span>Visual Development</span><span>Generative Production</span></div></div></div></article>
-        <article class="service-chapter" tabindex="0"><div class="page chapter-inner"><span class="chapter-index">ACT 03 / RELEASE</span><h3>Distribution &amp; Amplification</h3><div class="chapter-detail"><p>Every episode versioned for the channel, format and audience it needs to reach.</p><div class="service-tags"><span>Channel Strategy</span><span>Versioning</span></div></div></div></article>
+        <article class="service-chapter" tabindex="0">
+          <div class="page chapter-inner"><span class="chapter-index">ACT 01 / STORY</span>
+            <h3>Branded Micro-Dramas</h3>
+            <div class="chapter-detail">
+              <p>Characters, tension and episodic worlds designed around the brand—not interrupted by it.</p>
+              <div class="service-tags"><span>Narrative Design</span><span>Character IP</span></div>
+            </div>
+          </div>
+        </article>
+        <article class="service-chapter" tabindex="0">
+          <div class="page chapter-inner"><span class="chapter-index">ACT 02 / MAKE</span>
+            <h3>AI-Native Production</h3>
+            <div class="chapter-detail">
+              <p>A fluid generative production model that expands visual ambition without the limits of a traditional
+                set.</p>
+              <div class="service-tags"><span>Visual Development</span><span>Generative Production</span></div>
+            </div>
+          </div>
+        </article>
+        <article class="service-chapter" tabindex="0">
+          <div class="page chapter-inner"><span class="chapter-index">ACT 03 / RELEASE</span>
+            <h3>Distribution &amp; Amplification</h3>
+            <div class="chapter-detail">
+              <p>Every episode versioned for the channel, format and audience it needs to reach.</p>
+              <div class="service-tags"><span>Channel Strategy</span><span>Versioning</span></div>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
 
     <section class="work" id="work">
       <div class="page">
-        <header class="work-head"><div><p class="eyebrow">Our work / Browse</p><h2>Find your<br>next <span class="gradient">episode.</span></h2></div></header>
+        <header class="work-head">
+          <div>
+            <p class="eyebrow">Our work / Browse</p>
+            <h2>Find your<br>next <span class="gradient">episode.</span></h2>
+          </div>
+        </header>
         <div class="work-categories">
-          <div><div class="stream-label"><h3>Drama &amp; romance</h3></div><div class="stream-row" aria-label="Drama and romance"><a class="stream-card art-last-voice" href="#work"><span class="stream-card-copy"><span class="work-meta">Romance</span><strong class="work-title">The Last Voice</strong></span></a><a class="stream-card art-monsoon" href="#work"><span class="stream-card-copy"><span class="work-meta">Drama</span><strong class="work-title">After Monsoon</strong></span></a><a class="stream-card art-coastline" href="#work"><span class="stream-card-copy"><span class="work-meta">Road romance</span><strong class="work-title">Coastline Run</strong></span></a><a class="stream-card art-one-room" href="#work"><span class="stream-card-copy"><span class="work-meta">Dramedy</span><strong class="work-title">One Room</strong></span></a><a class="stream-card art-neon" href="#work"><span class="stream-card-copy"><span class="work-meta">Drama</span><strong class="work-title">Second Signal</strong></span></a><a class="stream-card art-borrowed" href="#work"><span class="stream-card-copy"><span class="work-meta">Romantic thriller</span><strong class="work-title">Borrowed Time</strong></span></a></div></div>
-          <div><div class="stream-label"><h3>Thrills &amp; twists</h3></div><div class="stream-row" aria-label="Thrills and twists"><a class="stream-card art-borrowed" href="#work"><span class="stream-badge">Popular</span><span class="stream-card-copy"><span class="work-meta">Thriller</span><strong class="work-title">Borrowed Time</strong></span></a><a class="stream-card art-neon" href="#work"><span class="stream-card-copy"><span class="work-meta">Noir</span><strong class="work-title">Second Signal</strong></span></a><a class="stream-card art-one-room" href="#work"><span class="stream-card-copy"><span class="work-meta">Dark comedy</span><strong class="work-title">One Room</strong></span></a><a class="stream-card art-monsoon" href="#work"><span class="stream-card-copy"><span class="work-meta">Mystery</span><strong class="work-title">After Monsoon</strong></span></a><a class="stream-card art-last-voice" href="#work"><span class="stream-card-copy"><span class="work-meta">Romantic mystery</span><strong class="work-title">The Last Voice</strong></span></a><a class="stream-card art-coastline" href="#work"><span class="stream-card-copy"><span class="work-meta">Suspense drama</span><strong class="work-title">Coastline Run</strong></span></a></div></div>
+          <div>
+            <div class="stream-label">
+              <h3>Drama &amp; romance</h3>
+            </div>
+            <div class="stream-row" aria-label="Drama and romance"><a class="stream-card art-last-voice"
+                href="#work"><span class="stream-card-copy"><span class="work-meta">Romance</span><strong
+                    class="work-title">The Last Voice</strong></span></a><a class="stream-card art-monsoon"
+                href="#work"><span class="stream-card-copy"><span class="work-meta">Drama</span><strong
+                    class="work-title">After Monsoon</strong></span></a><a class="stream-card art-coastline"
+                href="#work"><span class="stream-card-copy"><span class="work-meta">Road romance</span><strong
+                    class="work-title">Coastline Run</strong></span></a><a class="stream-card art-one-room"
+                href="#work"><span class="stream-card-copy"><span class="work-meta">Dramedy</span><strong
+                    class="work-title">One Room</strong></span></a><a class="stream-card art-neon" href="#work"><span
+                  class="stream-card-copy"><span class="work-meta">Drama</span><strong class="work-title">Second
+                    Signal</strong></span></a><a class="stream-card art-borrowed" href="#work"><span
+                  class="stream-card-copy"><span class="work-meta">Romantic thriller</span><strong
+                    class="work-title">Borrowed Time</strong></span></a></div>
+          </div>
+          <div>
+            <div class="stream-label">
+              <h3>Thrills &amp; twists</h3>
+            </div>
+            <div class="stream-row" aria-label="Thrills and twists"><a class="stream-card art-borrowed"
+                href="#work"><span class="stream-badge">Popular</span><span class="stream-card-copy"><span
+                    class="work-meta">Thriller</span><strong class="work-title">Borrowed Time</strong></span></a><a
+                class="stream-card art-neon" href="#work"><span class="stream-card-copy"><span
+                    class="work-meta">Noir</span><strong class="work-title">Second Signal</strong></span></a><a
+                class="stream-card art-one-room" href="#work"><span class="stream-card-copy"><span
+                    class="work-meta">Dark comedy</span><strong class="work-title">One Room</strong></span></a><a
+                class="stream-card art-monsoon" href="#work"><span class="stream-card-copy"><span
+                    class="work-meta">Mystery</span><strong class="work-title">After Monsoon</strong></span></a><a
+                class="stream-card art-last-voice" href="#work"><span class="stream-card-copy"><span
+                    class="work-meta">Romantic mystery</span><strong class="work-title">The Last
+                    Voice</strong></span></a><a class="stream-card art-coastline" href="#work"><span
+                  class="stream-card-copy"><span class="work-meta">Suspense drama</span><strong
+                    class="work-title">Coastline Run</strong></span></a></div>
+          </div>
         </div>
       </div>
     </section>
 
     <section class="why" id="why">
       <div class="page">
-        <header class="process-head"><div><p class="eyebrow">Why Lila / How we work</p><h2>A clear path.<br>An <span class="gradient">open canvas.</span></h2></div><p>The process stays simple, collaborative and relentlessly story-first—from the first tension to the final release.</p></header>
+        <header class="process-head">
+          <div>
+            <p class="eyebrow">Why Lila / How we work</p>
+            <h2>A clear path.<br>An <span class="gradient">open canvas.</span></h2>
+          </div>
+          <p>The process stays simple, collaborative and relentlessly story-first—from the first tension to the final
+            release.</p>
+        </header>
         <div class="why-timeline">
-          <article class="why-step"><div class="why-step-frame"></div><span class="why-step-code">01 / Listen</span><h3>Understand the brief</h3><p>Find the human tension, audience truth and ambition inside the ask.</p></article>
-          <article class="why-step"><div class="why-step-frame"></div><span class="why-step-code">02 / Write</span><h3>Build the story</h3><p>Shape the world, characters and episodic hooks before a frame is made.</p></article>
-          <article class="why-step"><div class="why-step-frame"></div><span class="why-step-code">03 / Create</span><h3>Produce AI-native</h3><p>Develop, generate, direct and refine through one fluid visual system.</p></article>
-          <article class="why-step"><div class="why-step-frame"></div><span class="why-step-code">04 / Release</span><h3>Prepare to travel</h3><p>Prepare and version every story for release, distribution, format and audience.</p></article>
+          <article class="why-step">
+            <div class="why-step-frame"></div><span class="why-step-code">01 / Listen</span>
+            <h3>Understand the brief</h3>
+            <p>Find the human tension, audience truth and ambition inside the ask.</p>
+          </article>
+          <article class="why-step">
+            <div class="why-step-frame"></div><span class="why-step-code">02 / Write</span>
+            <h3>Build the story</h3>
+            <p>Shape the world, characters and episodic hooks before a frame is made.</p>
+          </article>
+          <article class="why-step">
+            <div class="why-step-frame"></div><span class="why-step-code">03 / Create</span>
+            <h3>Produce AI-native</h3>
+            <p>Develop, generate, direct and refine through one fluid visual system.</p>
+          </article>
+          <article class="why-step">
+            <div class="why-step-frame"></div><span class="why-step-code">04 / Release</span>
+            <h3>Prepare to travel</h3>
+            <p>Prepare and version every story for release, distribution, format and audience.</p>
+          </article>
         </div>
-        <div class="process-mission"><div class="process-mission-label"><span>Our mission / 05</span><strong>Creative Independence</strong></div><div class="process-belief"><blockquote>AI does not replace the storyteller. It <em>removes what stands between</em> the storyteller and the story.</blockquote><p>That freedom gives <strong>storytellers and brands room to imagine beyond the limits of traditional production</strong>—while human taste, intention and authorship remain firmly in control.</p></div></div>
+        <div class="process-mission">
+          <div class="process-mission-label"><span>Our mission / 05</span><strong>Creative Independence</strong></div>
+          <div class="process-belief">
+            <blockquote>AI does not replace the storyteller. It <em>removes what stands between</em> the storyteller and
+              the story.</blockquote>
+            <p>That freedom gives <strong>storytellers and brands room to imagine beyond the limits of traditional
+                production</strong>—while human taste, intention and authorship remain firmly in control.</p>
+          </div>
+        </div>
       </div>
     </section>
 
     <section class="connect" id="connect">
-      <div class="broadcast-wall"><div class="broadcast-shot" aria-hidden="true"></div><div class="broadcast-shot" aria-hidden="true"></div><div class="broadcast-shot" aria-hidden="true"></div><div class="broadcast-overlay"><div class="broadcast-topline"><span>Lila Studios / Open line</span><span>Brands · Writers · Filmmakers · Visual storytellers</span></div><h2 class="broadcast-statement">Bring the brief.<br>Or bring <em>the voice.</em></h2><div class="broadcast-actions"><button class="broadcast-choice" type="button" data-dialog-open="brand-dialog"><span><small>For brands</small><strong>Talk to Lila</strong></span><span class="choice-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7m0 0H8m9 0v9"/></svg></span></button><button class="broadcast-choice" type="button" data-dialog-open="creator-dialog"><span><small>For creators</small><strong>Join Lila</strong></span><span class="choice-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7m0 0H8m9 0v9"/></svg></span></button></div></div></div>
-      <dialog class="contact-dialog" id="brand-dialog"><button class="dialog-close" type="button" aria-label="Close brand enquiry" data-dialog-close>×</button><span class="path-code">For brands / Talk to Lila</span><h3>Let’s find the story inside the brief.</h3><p>Share the beginning. We will take it from there.</p><form class="connect-form" data-connect-form><label><span>Name</span><input name="name" autocomplete="name" required></label><label><span>Work email</span><input type="email" name="email" autocomplete="email" required></label><label class="full"><span>Brand / organisation</span><input name="company" autocomplete="organization" required></label><label class="full"><span>What opportunity are you exploring?</span><textarea name="message" required></textarea></label><button class="button button-primary" type="submit">Send enquiry <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7m0 0H8m9 0v9"/></svg></span></button><p class="form-status" aria-live="polite"></p></form></dialog>
-      <dialog class="contact-dialog" id="creator-dialog"><button class="dialog-close" type="button" aria-label="Close creator application" data-dialog-close>×</button><span class="path-code">For creators / Join Lila</span><h3>Show us how you see the world.</h3><p>Writers, filmmakers and visual storytellers are invited in.</p><form class="connect-form" data-connect-form><label><span>Name</span><input name="name" autocomplete="name" required></label><label><span>Email</span><input type="email" name="email" autocomplete="email" required></label><label class="full"><span>Your discipline</span><select name="discipline" required><option value="">Choose one</option><option>Writer</option><option>Filmmaker</option><option>Visual storyteller</option><option>Creative technologist</option><option>Other</option></select></label><label class="full"><span>Portfolio link</span><input type="url" name="portfolio" placeholder="https://" required></label><button class="button button-primary" type="submit">Send application <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7m0 0H8m9 0v9"/></svg></span></button><p class="form-status" aria-live="polite"></p></form></dialog>
+      <div class="broadcast-wall">
+        <div class="broadcast-shot" aria-hidden="true"></div>
+        <div class="broadcast-shot" aria-hidden="true"></div>
+        <div class="broadcast-shot" aria-hidden="true"></div>
+        <div class="broadcast-overlay">
+          <div class="broadcast-topline"><span>Lila Studios / Open line</span><span>Brands · Writers · Filmmakers ·
+              Visual storytellers</span></div>
+          <h2 class="broadcast-statement">Bring the brief.<br>Or bring <em>the voice.</em></h2>
+          <div class="broadcast-actions"><button class="broadcast-choice" type="button"
+              data-dialog-open="brand-dialog"><span><small>For brands</small><strong>Talk to Lila</strong></span><span
+                class="choice-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"
+                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M7 17L17 7m0 0H8m9 0v9" />
+                </svg></span></button><button class="broadcast-choice" type="button"
+              data-dialog-open="creator-dialog"><span><small>For creators</small><strong>Join Lila</strong></span><span
+                class="choice-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"
+                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M7 17L17 7m0 0H8m9 0v9" />
+                </svg></span></button></div>
+        </div>
+      </div>
+      <dialog class="contact-dialog" id="brand-dialog"><button class="dialog-close" type="button"
+          aria-label="Close brand enquiry" data-dialog-close>×</button><span class="path-code">For brands / Talk to
+          Lila</span>
+        <h3>Let’s find the story inside the brief.</h3>
+        <p>Share the beginning. We will take it from there.</p>
+        <form class="connect-form" data-connect-form><label><span>Name</span><input name="name" autocomplete="name"
+              required></label><label><span>Work email</span><input type="email" name="email" autocomplete="email"
+              required></label><label class="full"><span>Brand / organisation</span><input name="company"
+              autocomplete="organization" required></label><label class="full"><span>What opportunity are you
+              exploring?</span><textarea name="message" required></textarea></label><button
+            class="button button-primary" type="submit">Send enquiry <span class="arrow"><svg viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                aria-hidden="true">
+                <path d="M7 17L17 7m0 0H8m9 0v9" />
+              </svg></span></button>
+          <p class="form-status" aria-live="polite"></p>
+        </form>
+      </dialog>
+      <dialog class="contact-dialog" id="creator-dialog"><button class="dialog-close" type="button"
+          aria-label="Close creator application" data-dialog-close>×</button><span class="path-code">For creators / Join
+          Lila</span>
+        <h3>Show us how you see the world.</h3>
+        <p>Writers, filmmakers and visual storytellers are invited in.</p>
+        <form class="connect-form" data-connect-form><label><span>Name</span><input name="name" autocomplete="name"
+              required></label><label><span>Email</span><input type="email" name="email" autocomplete="email"
+              required></label><label class="full"><span>Your discipline</span><select name="discipline" required>
+              <option value="">Choose one</option>
+              <option>Writer</option>
+              <option>Filmmaker</option>
+              <option>Visual storyteller</option>
+              <option>Creative technologist</option>
+              <option>Other</option>
+            </select></label><label class="full"><span>Portfolio link</span><input type="url" name="portfolio"
+              placeholder="https://" required></label><button class="button button-primary" type="submit">Send
+            application <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M7 17L17 7m0 0H8m9 0v9" />
+              </svg></span></button>
+          <p class="form-status" aria-live="polite"></p>
+        </form>
+      </dialog>
     </section>
 
     <footer class="footer-broadcast" id="footer">
@@ -497,14 +2193,27 @@
           <div>
             <span class="footer-kicker">Social</span>
             <ul class="footer-link-list">
-              <li><a href="#">Instagram <svg class="ico-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7m0 0H8m9 0v9"/></svg></a></li>
-              <li><a href="#">LinkedIn <svg class="ico-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7m0 0H8m9 0v9"/></svg></a></li>
-              <li><a href="#">Vimeo <svg class="ico-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7m0 0H8m9 0v9"/></svg></a></li>
+              <li><a href="#">Instagram <svg class="ico-link" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M7 17L17 7m0 0H8m9 0v9" />
+                  </svg></a></li>
+              <li><a href="#">LinkedIn <svg class="ico-link" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M7 17L17 7m0 0H8m9 0v9" />
+                  </svg></a></li>
+              <li><a href="#">Vimeo <svg class="ico-link" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M7 17L17 7m0 0H8m9 0v9" />
+                  </svg></a></li>
             </ul>
           </div>
           <div class="footer-broadcast-contact">
             <span class="footer-kicker">For brands + creators:</span>
-            <a href="#connect">Connect with<br>us <svg class="ico-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7m0 0H8m9 0v9"/></svg></a>
+            <a href="#connect">Connect with<br>us <svg class="ico-link" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"
+                aria-hidden="true">
+                <path d="M7 17L17 7m0 0H8m9 0v9" />
+              </svg></a>
           </div>
         </div>
         <div class="footer-legal-bar">
@@ -513,7 +2222,11 @@
             <a href="#">Privacy policy</a>
             <a href="#">Terms</a>
           </div>
-          <a class="footer-back-top" href="#top">Replay from top <svg class="ico-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20V4m0 0l-6 6m6-6l6 6"/></svg></a>
+          <a class="footer-back-top" href="#top">Replay from top <svg class="ico-link" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"
+              aria-hidden="true">
+              <path d="M12 20V4m0 0l-6 6m6-6l6 6" />
+            </svg></a>
         </div>
       </div>
     </footer>
@@ -525,21 +2238,23 @@
       <h3 id="workDialogTitle">The Last Voice</h3>
     </div>
     <div class="work-dialog-media">
-      <video class="work-dialog-video" id="workDialogVideo" controls muted loop playsinline preload="metadata" poster="assets/images/the-last-voice-poster.png">
+      <video class="work-dialog-video" id="workDialogVideo" controls muted loop playsinline preload="metadata"
+        poster="assets/images/the-last-voice-poster.png">
         <source src="assets/MP4/ElevenLabs_video_seedance-2-0_Use panels 1–4 _2026-08-15T17_46_28.mp4" type="video/mp4">
         Your browser does not support embedded video.
       </video>
     </div>
     <div class="work-dialog-details">
       <p class="work-dialog-service" id="workDialogService">Lila Originals · AI-Native Production</p>
-      <p class="work-dialog-description" id="workDialogDescription">A cinematic vertical story developed through Lila's human-led, AI-native production process.</p>
+      <p class="work-dialog-description" id="workDialogDescription">A cinematic vertical story developed through Lila's
+        human-led, AI-native production process.</p>
     </div>
   </dialog>
   <script>
     (() => {
       const toggle = document.querySelector('.nav-toggle');
       const navLinks = document.querySelector('.nav-links');
-      
+
       const closeMenu = () => {
         toggle.setAttribute('aria-expanded', 'false');
         toggle.setAttribute('aria-label', 'Open navigation');
@@ -603,7 +2318,7 @@
           peekNext.style.backgroundImage = `url("${next.art}")`;
           prevTitle.textContent = previous.title;
           nextTitle.textContent = next.title;
-          dots.forEach((dot,index) => dot.classList.toggle('active', index === current));
+          dots.forEach((dot, index) => dot.classList.toggle('active', index === current));
           hero.classList.remove('is-changing');
         }, 180);
         resetAutoplay();
@@ -614,7 +2329,7 @@
       peekPrev.addEventListener('click', () => showSlide(current - 1));
       peekNext.addEventListener('click', () => showSlide(current + 1));
       dots.forEach(dot => dot.addEventListener('click', () => showSlide(Number(dot.dataset.featureSlide))));
-      
+
       hero.addEventListener('mouseenter', () => clearInterval(autoplayTimer));
       hero.addEventListener('mouseleave', () => resetAutoplay());
       document.addEventListener('visibilitychange', () => {
@@ -679,7 +2394,7 @@
           workDialog.showModal();
           workDialog.scrollTop = 0;
           workDialogVideo.currentTime = 0;
-          workDialogVideo.play().catch(() => {});
+          workDialogVideo.play().catch(() => { });
         });
       });
 
@@ -712,4 +2427,5 @@
     })();
   </script>
 </body>
+
 </html>

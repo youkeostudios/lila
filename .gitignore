@@ -3,3 +3,5 @@ Thumbs.db
 tmp/
 .vscode/
 .idea/
+*.mp4
+BRIEF/LILA Videos/**/*.mp4
