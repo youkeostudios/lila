@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
   <style>
     :root {
       color-scheme: dark;
@@ -2576,7 +2577,7 @@
           <!-- 1. Journey to Bombay -->
           <article class="poster-card" data-genre="drama" data-series-id="journey-to-bombay" role="button" tabindex="0" aria-haspopup="dialog">
             <img class="poster-bg" src="BRIEF/LILA Videos/Journey to Bombay/Journey to Bombay_Thumbnail/Journey to Bombay Ep 1/01.jpg" alt="Journey to Bombay Poster" loading="lazy">
-            <video class="poster-hover-video" playsinline loop muted preload="none" data-src="BRIEF/LILA Videos/Journey to Bombay/Journey to Bombay Ep 1.mp4"></video>
+            <video class="poster-hover-video" playsinline loop muted preload="none" data-src="dcc685b10539b7908c2f4976ae5e1f1a"></video>
             <div class="poster-gradient"></div>
             <span class="poster-badge">2 Episodes</span>
             <div class="poster-play-icon" aria-hidden="true">
@@ -3123,6 +3124,48 @@
         });
       }
 
+      // Cloudflare Stream Customer Configuration & HLS Player
+      const STREAM_CUSTOMER = 'customer-7z8nm3dkie1l45pw.cloudflarestream.com';
+
+      function getStreamHlsUrl(videoIdOrSrc) {
+        if (!videoIdOrSrc) return '';
+        if (videoIdOrSrc.startsWith('http://') || videoIdOrSrc.startsWith('https://') || videoIdOrSrc.includes('/')) {
+          return videoIdOrSrc;
+        }
+        return `https://${STREAM_CUSTOMER}/${videoIdOrSrc}/manifest/video.m3u8`;
+      }
+
+      function playStream(videoEl, videoIdOrSrc, autoplay = true) {
+        if (!videoEl || !videoIdOrSrc) return;
+        const streamUrl = getStreamHlsUrl(videoIdOrSrc);
+
+        if (streamUrl.includes('.m3u8')) {
+          if (videoEl.canPlayType('application/vnd.apple.mpegurl')) {
+            // Safari / iOS Native HLS
+            videoEl.src = streamUrl;
+            if (autoplay) videoEl.play().catch(() => {});
+          } else if (window.Hls && Hls.isSupported()) {
+            // Chrome / Firefox / Android Hls.js
+            if (videoEl._hls) {
+              videoEl._hls.destroy();
+            }
+            const hls = new Hls({ enableWorker: true, lowLatencyMode: true });
+            hls.loadSource(streamUrl);
+            hls.attachMedia(videoEl);
+            videoEl._hls = hls;
+            hls.on(Hls.Events.MANIFEST_PARSED, () => {
+              if (autoplay) videoEl.play().catch(() => {});
+            });
+          } else {
+            videoEl.src = streamUrl;
+            if (autoplay) videoEl.play().catch(() => {});
+          }
+        } else {
+          videoEl.src = streamUrl;
+          if (autoplay) videoEl.play().catch(() => {});
+        }
+      }
+
       // Phone Video Player and Playlist Switcher
       const video = document.getElementById('heroPhoneVideo');
       const videoTitle = document.getElementById('phoneVideoTitle');
@@ -3131,6 +3174,11 @@
       const mutedIcon = document.getElementById('soundMutedIcon');
       const unmutedIcon = document.getElementById('soundUnmutedIcon');
       const pills = document.querySelectorAll('.playlist-pill');
+
+      // Initialize Hero Video with Cloudflare Stream
+      if (video) {
+        playStream(video, 'dcc685b10539b7908c2f4976ae5e1f1a', true);
+      }
 
       if (soundBtn && video) {
         soundBtn.addEventListener('click', (e) => {
@@ -3157,10 +3205,7 @@
           const meta = pill.dataset.meta;
 
           if (video && src) {
-            video.pause();
-            video.src = src;
-            video.load();
-            video.play().catch(() => {});
+            playStream(video, src, true);
           }
           if (videoTitle) videoTitle.textContent = title;
           if (videoMeta) videoMeta.textContent = meta;
@@ -3174,7 +3219,7 @@
           kicker: 'Branded Micro-Drama · 2 Episodes',
           synopsis: 'A young dreamer navigates ambition, grit, and unexpected encounters in the city of dreams.',
           episodes: [
-            { label: 'Episode 1', src: 'BRIEF/LILA Videos/Journey to Bombay/Journey to Bombay Ep 1.mp4' },
+            { label: 'Episode 1', src: 'dcc685b10539b7908c2f4976ae5e1f1a' },
             { label: 'Episode 2', src: 'BRIEF/LILA Videos/Journey to Bombay/Journey to Bombay Ep 2.mp4' }
           ]
         },
@@ -3312,9 +3357,7 @@
               e.stopPropagation();
               modalEpButtons.querySelectorAll('.cinema-ep-pill').forEach(b => b.classList.remove('active'));
               epBtn.classList.add('active');
-              modalVideoPlayer.src = ep.src;
-              modalVideoPlayer.load();
-              modalVideoPlayer.play().catch(() => {});
+              playStream(modalVideoPlayer, ep.src, true);
             });
             modalEpButtons.appendChild(epBtn);
           });
@@ -3330,19 +3373,9 @@
           modalUnmutedIcon.style.display = 'block';
         }
 
-        // Load first episode and open dialog
-        modalVideoPlayer.src = item.episodes[0].src;
-        modalVideoPlayer.load();
+        // Load first episode via Cloudflare Stream and open dialog
+        playStream(modalVideoPlayer, item.episodes[0].src, true);
         cinemaDialog.showModal();
-        modalVideoPlayer.play().catch(() => {
-          // If browser blocks unmuted autoplay, mute and play
-          modalVideoPlayer.muted = true;
-          if (modalMutedIcon && modalUnmutedIcon) {
-            modalMutedIcon.style.display = 'block';
-            modalUnmutedIcon.style.display = 'none';
-          }
-          modalVideoPlayer.play().catch(() => {});
-        });
       };
 
       // Poster Card Hover Autoplay & Modal Open
@@ -3350,29 +3383,18 @@
         const hoverVideo = card.querySelector('.poster-hover-video');
 
         if (hoverVideo) {
-          let playPromise = null;
-
           card.addEventListener('mouseenter', () => {
             if (!hoverVideo.src && hoverVideo.dataset.src) {
-              hoverVideo.src = hoverVideo.dataset.src;
-              hoverVideo.load();
+              playStream(hoverVideo, hoverVideo.dataset.src, true);
+            } else if (hoverVideo.paused) {
+              hoverVideo.play().catch(() => {});
             }
             card.classList.add('is-playing');
-            playPromise = hoverVideo.play().catch(() => {});
           });
 
           card.addEventListener('mouseleave', () => {
             card.classList.remove('is-playing');
-            if (playPromise !== null) {
-              playPromise.then(() => {
-                hoverVideo.pause();
-                hoverVideo.currentTime = 0;
-              }).catch(() => {
-                hoverVideo.pause();
-              });
-            } else {
-              hoverVideo.pause();
-            }
+            hoverVideo.pause();
           });
         }
 
