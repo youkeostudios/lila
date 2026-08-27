@@ -1939,8 +1939,33 @@
         gap: 16px;
       }
       .team-portrait-grid {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
         gap: 16px;
+        padding: 4px 16px 16px;
+        margin-inline: -16px;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(166, 83, 230, 0.35) transparent;
+      }
+      .team-portrait-grid::-webkit-scrollbar {
+        height: 5px;
+      }
+      .team-portrait-grid::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.04);
+        border-radius: 999px;
+      }
+      .team-portrait-grid::-webkit-scrollbar-thumb {
+        background: linear-gradient(90deg, var(--purple), var(--violet));
+        border-radius: 999px;
+      }
+      .team-portrait-card {
+        flex: 0 0 270px;
+        width: 270px;
+        scroll-snap-align: start;
       }
       .connect-split-layout {
         grid-template-columns: 1fr;
@@ -2034,6 +2059,10 @@
       }
       .hero-stat-item span {
         font-size: 0.52rem;
+      }
+      .team-portrait-card {
+        flex: 0 0 250px;
+        width: 250px;
       }
       .hero-actions-row {
         flex-direction: column;
