@@ -3142,17 +3142,41 @@
         if (streamUrl.includes('.m3u8')) {
           if (videoEl.canPlayType('application/vnd.apple.mpegurl')) {
             // Safari / iOS Native HLS
-            videoEl.src = streamUrl;
-            if (autoplay) videoEl.play().catch(() => {});
+            if (videoEl.src !== streamUrl) {
+              videoEl.src = streamUrl;
+            }
+            if (autoplay) {
+              const p = videoEl.play();
+              if (p) p.catch(() => {});
+            }
           } else if (window.Hls && Hls.isSupported()) {
-            // Chrome / Firefox / Android Hls.js
+            // Chrome / Firefox / Android Hls.js High-Performance Fast-Start
+            if (videoEl._hlsUrl === streamUrl && videoEl._hls) {
+              if (autoplay) videoEl.play().catch(() => {});
+              return;
+            }
             if (videoEl._hls) {
               videoEl._hls.destroy();
             }
-            const hls = new Hls({ enableWorker: true, lowLatencyMode: true });
+            const hls = new Hls({
+              enableWorker: true,
+              lowLatencyMode: true,
+              capLevelToPlayerSize: true,
+              startFragPrefetch: true,
+              maxBufferLength: 8,
+              maxMaxBufferLength: 16,
+              maxBufferSize: 8 * 1024 * 1024,
+              fragLoadingTimeOut: 6000,
+              manifestLoadingTimeOut: 4000
+            });
+            videoEl._hlsUrl = streamUrl;
             hls.loadSource(streamUrl);
             hls.attachMedia(videoEl);
             videoEl._hls = hls;
+
+            hls.on(Hls.Events.MEDIA_ATTACHED, () => {
+              if (autoplay) videoEl.play().catch(() => {});
+            });
             hls.on(Hls.Events.MANIFEST_PARSED, () => {
               if (autoplay) videoEl.play().catch(() => {});
             });
@@ -3175,7 +3199,7 @@
       const unmutedIcon = document.getElementById('soundUnmutedIcon');
       const pills = document.querySelectorAll('.playlist-pill');
 
-      // Initialize Hero Video with Cloudflare Stream
+      // Initialize Hero Video immediately on load
       if (video) {
         playStream(video, '7169fd55d82ff2fc7091b1de13612026', true);
       }
@@ -3378,7 +3402,7 @@
         cinemaDialog.showModal();
       };
 
-      // Poster Card Hover Autoplay & Modal Open
+      // Poster Card Hover Autoplay & Modal Open with Pre-warming
       posterCards.forEach(card => {
         const hoverVideo = card.querySelector('.poster-hover-video');
 
