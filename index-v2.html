@@ -2127,7 +2127,22 @@
         letter-spacing: 0.04em;
       }
       .hero-actions-row {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
         justify-content: center;
+        gap: 12px;
+        width: 100%;
+        max-width: 420px;
+        margin-inline: auto;
+      }
+      .hero-actions-row .button {
+        flex: 1 1 0;
+        min-width: 0;
+        padding: 12px 14px;
+        font-size: 0.84rem;
+        justify-content: center;
+        white-space: nowrap;
       }
       .iphone-device {
         width: min(300px, 75vw);
@@ -2203,11 +2218,21 @@
         width: 250px;
       }
       .hero-actions-row {
-        flex-direction: column;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
         width: 100%;
       }
       .hero-actions-row .button {
-        width: 100%;
+        flex: 1 1 0;
+        min-width: 0;
+        padding: 11px 8px;
+        font-size: 0.78rem;
+        gap: 6px;
+        justify-content: center;
+        white-space: nowrap;
       }
       .what-head-bar {
         flex-direction: column;
