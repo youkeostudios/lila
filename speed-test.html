@@ -7,12 +7,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;0,800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <!-- Cloudflare Stream SDK & HLS Player -->
+  <script src="https://embed.cloudflarestream.com/embed/sdk.latest.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
   <style>
     :root {
       color-scheme: dark;
       --bg: #07060a;
-      --card-bg: rgba(18, 15, 24, 0.85);
+      --card-bg: rgba(18, 15, 24, 0.88);
       --cf-orange: #f48120;
       --cf-glow: rgba(244, 129, 32, 0.25);
       --aws-amber: #ff9900;
@@ -44,7 +46,7 @@
 
     header {
       text-align: center;
-      margin-bottom: 40px;
+      margin-bottom: 36px;
     }
 
     .brand-eyebrow {
@@ -86,7 +88,7 @@
       align-items: center;
       justify-content: center;
       gap: 16px;
-      margin-bottom: 40px;
+      margin-bottom: 36px;
       flex-wrap: wrap;
     }
 
@@ -94,9 +96,9 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 12px 24px;
+      padding: 13px 26px;
       border-radius: 12px;
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       font-weight: 700;
       cursor: pointer;
       border: none;
@@ -147,11 +149,11 @@
 
     .provider-card.cf {
       border-color: rgba(244, 129, 32, 0.35);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 40px var(--cf-glow);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 35px var(--cf-glow);
     }
     .provider-card.aws {
       border-color: rgba(255, 153, 0, 0.35);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 40px var(--aws-glow);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 35px var(--aws-glow);
     }
 
     .card-header {
@@ -203,23 +205,24 @@
       box-shadow: 0 16px 36px rgba(0, 0, 0, 0.8);
     }
 
-    video {
+    video, stream, iframe {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
+      border: none;
       background: #000;
     }
 
     /* Metrics Dashboard Box */
     .metrics-panel {
-      background: rgba(0, 0, 0, 0.45);
+      background: rgba(0, 0, 0, 0.55);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 16px;
-      padding: 16px;
+      padding: 18px;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
+      gap: 14px;
     }
 
     .metric-item {
@@ -229,7 +232,7 @@
     }
 
     .metric-label {
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       font-weight: 700;
       color: #a79fb0;
       text-transform: uppercase;
@@ -238,7 +241,7 @@
 
     .metric-val {
       font-family: var(--font-mono);
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       font-weight: 700;
       color: #ffffff;
     }
@@ -252,7 +255,7 @@
 
     .endpoint-box {
       grid-column: 1 / -1;
-      padding-top: 8px;
+      padding-top: 10px;
       border-top: 1px solid rgba(255, 255, 255, 0.06);
     }
     .endpoint-url {
@@ -282,7 +285,7 @@
 
   <div class="container">
     <header>
-      <div class="brand-eyebrow">Lila Studios · CDN Speed Lab</div>
+      <div class="brand-eyebrow">Lila Studios · Speed Benchmark Lab</div>
       <h1>Cloudflare Stream vs AWS CloudFront</h1>
       <p class="subtitle">
         Real-time latency, startup speed, and buffer benchmarking on the same video: <strong>The Powerful Tractor</strong>.
@@ -315,11 +318,12 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg>
             Cloudflare Stream
           </div>
-          <span class="video-title-pill">Adaptive HLS</span>
+          <span class="video-title-pill">Adaptive Multi-Bitrate</span>
         </div>
 
         <div class="video-container">
-          <video id="cfVideo" playsinline muted controls preload="auto"></video>
+          <!-- Cloudflare Official Web Component Player -->
+          <stream src="4b69785183cde6d01887f7c21546bbd2" id="cfPlayer" controls muted preload="auto" defaultTextTrack="off"></stream>
         </div>
 
         <div class="metrics-panel">
@@ -395,132 +399,136 @@
   </div>
 
   <script>
-    (() => {
-      const cfVideo = document.getElementById(cfVideo);
-      const awsVideo = document.getElementById(awsVideo);
+    window.addEventListener("DOMContentLoaded", () => {
+      const cfPlayer = document.getElementById("cfPlayer");
+      const awsVideo = document.getElementById("awsVideo");
 
-      const cfTimeFirstFrame = document.getElementById(cfTimeFirstFrame);
-      const awsTimeFirstFrame = document.getElementById(awsTimeFirstFrame);
-      const cfStatus = document.getElementById(cfStatus);
-      const awsStatus = document.getElementById(awsStatus);
-      const cfStalls = document.getElementById(cfStalls);
-      const awsStalls = document.getElementById(awsStalls);
+      const cfTimeFirstFrame = document.getElementById("cfTimeFirstFrame");
+      const awsTimeFirstFrame = document.getElementById("awsTimeFirstFrame");
+      const cfStatus = document.getElementById("cfStatus");
+      const awsStatus = document.getElementById("awsStatus");
+      const cfStalls = document.getElementById("cfStalls");
+      const awsStalls = document.getElementById("awsStalls");
 
-      const playBothBtn = document.getElementById(playBothBtn);
-      const restartBtn = document.getElementById(restartBtn);
-      const muteToggleBtn = document.getElementById(muteToggleBtn);
-      const muteToggleText = document.getElementById(muteToggleText);
+      const playBothBtn = document.getElementById("playBothBtn");
+      const restartBtn = document.getElementById("restartBtn");
+      const muteToggleBtn = document.getElementById("muteToggleBtn");
+      const muteToggleText = document.getElementById("muteToggleText");
 
       let cfStartTime = 0;
       let awsStartTime = 0;
       let cfStallCount = 0;
       let awsStallCount = 0;
 
-      // Cloudflare Stream URL
-      const CF_STREAM_URL = "https://customer-7z8nm3dkie1l45pw.cloudflarestream.com/4b69785183cde6d01887f7c21546bbd2/manifest/video.m3u8";
-
-      // Attach HLS to Cloudflare Video
-      function initCfStream() {
-        if (cfVideo.canPlayType("application/vnd.apple.mpegurl")) {
-          cfVideo.src = CF_STREAM_URL;
-        } else if (window.Hls && Hls.isSupported()) {
-          if (cfVideo._hls) cfVideo._hls.destroy();
-          const hls = new Hls({
-            enableWorker: true,
-            lowLatencyMode: true,
-            startFragPrefetch: true,
-            capLevelToPlayerSize: true,
-            maxBufferLength: 8,
-            maxMaxBufferLength: 16
-          });
-          hls.loadSource(CF_STREAM_URL);
-          hls.attachMedia(cfVideo);
-          cfVideo._hls = hls;
-        }
+      // Measure Cloudflare Stream
+      if (cfPlayer) {
+        cfPlayer.addEventListener("play", () => {
+          if (!cfStartTime) cfStartTime = performance.now();
+          cfStatus.textContent = "Buffering...";
+          cfStatus.style.color = "#fbbf24";
+        });
+        cfPlayer.addEventListener("playing", () => {
+          if (cfStartTime) {
+            const elapsed = (performance.now() - cfStartTime).toFixed(0);
+            cfTimeFirstFrame.textContent = `${elapsed} ms`;
+            cfStartTime = 0;
+          }
+          cfStatus.textContent = "Streaming";
+          cfStatus.style.color = "#4ade80";
+        });
+        cfPlayer.addEventListener("waiting", () => {
+          cfStallCount++;
+          cfStalls.textContent = cfStallCount;
+          cfStatus.textContent = "Rebuffering...";
+          cfStatus.style.color = "#fbbf24";
+        });
       }
 
-      initCfStream();
+      // Measure AWS CloudFront Video
+      if (awsVideo) {
+        awsVideo.addEventListener("play", () => {
+          if (!awsStartTime) awsStartTime = performance.now();
+          awsStatus.textContent = "Buffering...";
+          awsStatus.style.color = "#fbbf24";
+        });
+        awsVideo.addEventListener("playing", () => {
+          if (awsStartTime) {
+            const elapsed = (performance.now() - awsStartTime).toFixed(0);
+            awsTimeFirstFrame.textContent = `${elapsed} ms`;
+            awsStartTime = 0;
+          }
+          awsStatus.textContent = "Streaming";
+          awsStatus.style.color = "#4ade80";
+        });
+        awsVideo.addEventListener("waiting", () => {
+          awsStallCount++;
+          awsStalls.textContent = awsStallCount;
+          awsStatus.textContent = "Rebuffering...";
+          awsStatus.style.color = "#fbbf24";
+        });
+      }
 
-      // Measure Time to First Frame for Cloudflare
-      cfVideo.addEventListener("play", () => {
-        if (!cfStartTime) cfStartTime = performance.now();
-        cfStatus.textContent = "Buffering...";
-      });
-      cfVideo.addEventListener("playing", () => {
-        if (cfStartTime) {
-          const elapsed = (performance.now() - cfStartTime).toFixed(0);
-          cfTimeFirstFrame.textContent = `${elapsed} ms`;
-          cfStartTime = 0;
-        }
-        cfStatus.textContent = "Streaming";
-        cfStatus.style.color = "#4ade80";
-      });
-      cfVideo.addEventListener("waiting", () => {
-        cfStallCount++;
-        cfStalls.textContent = cfStallCount;
-        cfStatus.textContent = "Rebuffering...";
-        cfStatus.style.color = "#fbbf24";
-      });
+      // Master Sync Controls
+      if (playBothBtn) {
+        playBothBtn.addEventListener("click", () => {
+          const now = performance.now();
+          cfStartTime = now;
+          awsStartTime = now;
+          cfTimeFirstFrame.textContent = "Measuring...";
+          awsTimeFirstFrame.textContent = "Measuring...";
 
-      // Measure Time to First Frame for AWS CloudFront
-      awsVideo.addEventListener("play", () => {
-        if (!awsStartTime) awsStartTime = performance.now();
-        awsStatus.textContent = "Buffering...";
-      });
-      awsVideo.addEventListener("playing", () => {
-        if (awsStartTime) {
-          const elapsed = (performance.now() - awsStartTime).toFixed(0);
-          awsTimeFirstFrame.textContent = `${elapsed} ms`;
-          awsStartTime = 0;
-        }
-        awsStatus.textContent = "Streaming";
-        awsStatus.style.color = "#4ade80";
-      });
-      awsVideo.addEventListener("waiting", () => {
-        awsStallCount++;
-        awsStalls.textContent = awsStallCount;
-        awsStatus.textContent = "Rebuffering...";
-        awsStatus.style.color = "#fbbf24";
-      });
+          if (cfPlayer) {
+            try {
+              const res = cfPlayer.play();
+              if (res && res.catch) res.catch(() => {});
+            } catch (e) {}
+          }
+          if (awsVideo) {
+            try {
+              const res2 = awsVideo.play();
+              if (res2 && res2.catch) res2.catch(() => {});
+            } catch (e) {}
+          }
+        });
+      }
 
-      // Master Controls
-      playBothBtn.addEventListener("click", () => {
-        const now = performance.now();
-        cfStartTime = now;
-        awsStartTime = now;
-        cfTimeFirstFrame.textContent = "Measuring...";
-        awsTimeFirstFrame.textContent = "Measuring...";
+      if (restartBtn) {
+        restartBtn.addEventListener("click", () => {
+          if (cfPlayer) {
+            cfPlayer.pause();
+            cfPlayer.currentTime = 0;
+          }
+          if (awsVideo) {
+            awsVideo.pause();
+            awsVideo.currentTime = 0;
+          }
 
-        cfVideo.play().catch(() => {});
-        awsVideo.play().catch(() => {});
-      });
+          cfStallCount = 0;
+          awsStallCount = 0;
+          cfStalls.textContent = "0";
+          awsStalls.textContent = "0";
+          cfTimeFirstFrame.textContent = "—";
+          awsTimeFirstFrame.textContent = "—";
 
-      restartBtn.addEventListener("click", () => {
-        cfVideo.currentTime = 0;
-        awsVideo.currentTime = 0;
-        cfStallCount = 0;
-        awsStallCount = 0;
-        cfStalls.textContent = "0";
-        awsStalls.textContent = "0";
-        cfTimeFirstFrame.textContent = "—";
-        awsTimeFirstFrame.textContent = "—";
+          const now = performance.now();
+          cfStartTime = now;
+          awsStartTime = now;
 
-        const now = performance.now();
-        cfStartTime = now;
-        awsStartTime = now;
-
-        cfVideo.play().catch(() => {});
-        awsVideo.play().catch(() => {});
-      });
+          if (cfPlayer) cfPlayer.play().catch(() => {});
+          if (awsVideo) awsVideo.play().catch(() => {});
+        });
+      }
 
       let allMuted = true;
-      muteToggleBtn.addEventListener("click", () => {
-        allMuted = !allMuted;
-        cfVideo.muted = allMuted;
-        awsVideo.muted = allMuted;
-        muteToggleText.textContent = allMuted ? "Unmute All" : "Mute All";
-      });
-    })();
+      if (muteToggleBtn) {
+        muteToggleBtn.addEventListener("click", () => {
+          allMuted = !allMuted;
+          if (cfPlayer) cfPlayer.muted = allMuted;
+          if (awsVideo) awsVideo.muted = allMuted;
+          muteToggleText.textContent = allMuted ? "Unmute All" : "Mute All";
+        });
+      }
+    });
   </script>
 </body>
 </html>
