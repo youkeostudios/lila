@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lila Studios — Cloudflare Stream vs AWS CloudFront Benchmark</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;0,800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #07060a;
+      --card-bg: rgba(18, 15, 24, 0.85);
+      --cf-orange: #f48120;
+      --cf-glow: rgba(244, 129, 32, 0.25);
+      --aws-amber: #ff9900;
+      --aws-glow: rgba(255, 153, 0, 0.25);
+      --purple: #7026b8;
+      --violet: #a653e6;
+      --lilac: #d5a5ff;
+      --border: rgba(255, 255, 255, 0.12);
+      --font: "Plus Jakarta Sans", -apple-system, sans-serif;
+      --font-mono: "JetBrains Mono", monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: #f7f4f8;
+      font-family: var(--font);
+      min-height: 100vh;
+      padding: 40px 20px 80px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin-inline: auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .brand-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 999px;
+      background: rgba(166, 83, 230, 0.12);
+      border: 1px solid rgba(213, 165, 255, 0.3);
+      color: var(--lilac);
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #ffffff 40%, var(--lilac) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      color: #a79fb0;
+      font-size: 1.05rem;
+      max-width: 680px;
+      margin-inline: auto;
+    }
+
+    /* Master Controls Bar */
+    .master-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+    }
+    .btn:active { transform: scale(0.97); }
+
+    .btn-primary {
+      background: linear-gradient(105deg, var(--purple), var(--violet));
+      color: #ffffff;
+      box-shadow: 0 4px 20px rgba(112, 38, 184, 0.4);
+    }
+    .btn-primary:hover {
+      box-shadow: 0 6px 28px rgba(166, 83, 230, 0.6);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: #ffffff;
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    /* Grid Layout */
+    .benchmark-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 32px;
+      align-items: start;
+    }
+
+    /* Provider Card */
+    .provider-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 24px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .provider-card.cf {
+      border-color: rgba(244, 129, 32, 0.35);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 40px var(--cf-glow);
+    }
+    .provider-card.aws {
+      border-color: rgba(255, 153, 0, 0.35);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 40px var(--aws-glow);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .provider-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 6px 12px;
+      border-radius: 8px;
+    }
+    .provider-tag.cf {
+      background: rgba(244, 129, 32, 0.15);
+      color: var(--cf-orange);
+      border: 1px solid rgba(244, 129, 32, 0.4);
+    }
+    .provider-tag.aws {
+      background: rgba(255, 153, 0, 0.15);
+      color: var(--aws-amber);
+      border: 1px solid rgba(255, 153, 0, 0.4);
+    }
+
+    .video-title-pill {
+      font-size: 0.8rem;
+      color: #a79fb0;
+      font-weight: 600;
+    }
+
+    /* Video Frame (9:16 vertical container) */
+    .video-container {
+      position: relative;
+      width: 100%;
+      max-width: 320px;
+      aspect-ratio: 9 / 16;
+      margin-inline: auto;
+      background: #000000;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.8);
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      background: #000;
+    }
+
+    /* Metrics Dashboard Box */
+    .metrics-panel {
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 16px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .metric-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .metric-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #a79fb0;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .metric-val {
+      font-family: var(--font-mono);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .metric-val.highlight {
+      color: #4ade80;
+    }
+    .metric-val.warning {
+      color: #fbbf24;
+    }
+
+    .endpoint-box {
+      grid-column: 1 / -1;
+      padding-top: 8px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .endpoint-url {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: #8e8796;
+      word-break: break-all;
+    }
+
+    .back-home-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--lilac);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 700;
+      margin-top: 40px;
+      transition: color 0.2s;
+    }
+    .back-home-link:hover {
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="brand-eyebrow">Lila Studios · CDN Speed Lab</div>
+      <h1>Cloudflare Stream vs AWS CloudFront</h1>
+      <p class="subtitle">
+        Real-time latency, startup speed, and buffer benchmarking on the same video: <strong>The Powerful Tractor</strong>.
+      </p>
+    </header>
+
+    <!-- Master Sync Controls -->
+    <div class="master-controls">
+      <button class="btn btn-primary" id="playBothBtn" type="button">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <span>Play Both Simultaneously</span>
+      </button>
+      <button class="btn btn-secondary" id="restartBtn" type="button">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+        <span>Restart & Re-Measure</span>
+      </button>
+      <button class="btn btn-secondary" id="muteToggleBtn" type="button">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/></svg>
+        <span id="muteToggleText">Unmute All</span>
+      </button>
+    </div>
+
+    <!-- Side-by-Side Comparison Grid -->
+    <div class="benchmark-grid">
+
+      <!-- 1. CLOUDFLARE STREAM -->
+      <div class="provider-card cf">
+        <div class="card-header">
+          <div class="provider-tag cf">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg>
+            Cloudflare Stream
+          </div>
+          <span class="video-title-pill">Adaptive HLS</span>
+        </div>
+
+        <div class="video-container">
+          <video id="cfVideo" playsinline muted controls preload="auto"></video>
+        </div>
+
+        <div class="metrics-panel">
+          <div class="metric-item">
+            <span class="metric-label">Time to First Frame</span>
+            <span class="metric-val highlight" id="cfTimeFirstFrame">—</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-label">Delivery Pipeline</span>
+            <span class="metric-val">Multi-Bitrate HLS</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-label">Status</span>
+            <span class="metric-val" id="cfStatus">Ready</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-label">Buffer Stalls</span>
+            <span class="metric-val" id="cfStalls">0</span>
+          </div>
+          <div class="endpoint-box">
+            <span class="metric-label">Endpoint</span>
+            <div class="endpoint-url">https://customer-7z8nm3dkie1l45pw.cloudflarestream.com/4b69785183cde6d01887f7c21546bbd2/manifest/video.m3u8</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. AWS CLOUDFRONT -->
+      <div class="provider-card aws">
+        <div class="card-header">
+          <div class="provider-tag aws">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-2h2v2zm0-4H9V7h2v5z"/></svg>
+            AWS CloudFront (S3)
+          </div>
+          <span class="video-title-pill">Direct MP4</span>
+        </div>
+
+        <div class="video-container">
+          <video id="awsVideo" playsinline muted controls preload="auto" src="https://d2j5x7i3l2mh2f.cloudfront.net/The%20Powerful%20Tractor.mp4"></video>
+        </div>
+
+        <div class="metrics-panel">
+          <div class="metric-item">
+            <span class="metric-label">Time to First Frame</span>
+            <span class="metric-val highlight" id="awsTimeFirstFrame">—</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-label">Delivery Pipeline</span>
+            <span class="metric-val">Byte-Range Edge</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-label">Status</span>
+            <span class="metric-val" id="awsStatus">Ready</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-label">Buffer Stalls</span>
+            <span class="metric-val" id="awsStalls">0</span>
+          </div>
+          <div class="endpoint-box">
+            <span class="metric-label">Endpoint</span>
+            <div class="endpoint-url">https://d2j5x7i3l2mh2f.cloudfront.net/The%20Powerful%20Tractor.mp4</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="text-align: center;">
+      <a href="index.html" class="back-home-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <span>Back to Lila Studios Website</span>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const cfVideo = document.getElementById(cfVideo);
+      const awsVideo = document.getElementById(awsVideo);
+
+      const cfTimeFirstFrame = document.getElementById(cfTimeFirstFrame);
+      const awsTimeFirstFrame = document.getElementById(awsTimeFirstFrame);
+      const cfStatus = document.getElementById(cfStatus);
+      const awsStatus = document.getElementById(awsStatus);
+      const cfStalls = document.getElementById(cfStalls);
+      const awsStalls = document.getElementById(awsStalls);
+
+      const playBothBtn = document.getElementById(playBothBtn);
+      const restartBtn = document.getElementById(restartBtn);
+      const muteToggleBtn = document.getElementById(muteToggleBtn);
+      const muteToggleText = document.getElementById(muteToggleText);
+
+      let cfStartTime = 0;
+      let awsStartTime = 0;
+      let cfStallCount = 0;
+      let awsStallCount = 0;
+
+      // Cloudflare Stream URL
+      const CF_STREAM_URL = "https://customer-7z8nm3dkie1l45pw.cloudflarestream.com/4b69785183cde6d01887f7c21546bbd2/manifest/video.m3u8";
+
+      // Attach HLS to Cloudflare Video
+      function initCfStream() {
+        if (cfVideo.canPlayType("application/vnd.apple.mpegurl")) {
+          cfVideo.src = CF_STREAM_URL;
+        } else if (window.Hls && Hls.isSupported()) {
+          if (cfVideo._hls) cfVideo._hls.destroy();
+          const hls = new Hls({
+            enableWorker: true,
+            lowLatencyMode: true,
+            startFragPrefetch: true,
+            capLevelToPlayerSize: true,
+            maxBufferLength: 8,
+            maxMaxBufferLength: 16
+          });
+          hls.loadSource(CF_STREAM_URL);
+          hls.attachMedia(cfVideo);
+          cfVideo._hls = hls;
+        }
+      }
+
+      initCfStream();
+
+      // Measure Time to First Frame for Cloudflare
+      cfVideo.addEventListener("play", () => {
+        if (!cfStartTime) cfStartTime = performance.now();
+        cfStatus.textContent = "Buffering...";
+      });
+      cfVideo.addEventListener("playing", () => {
+        if (cfStartTime) {
+          const elapsed = (performance.now() - cfStartTime).toFixed(0);
+          cfTimeFirstFrame.textContent = `${elapsed} ms`;
+          cfStartTime = 0;
+        }
+        cfStatus.textContent = "Streaming";
+        cfStatus.style.color = "#4ade80";
+      });
+      cfVideo.addEventListener("waiting", () => {
+        cfStallCount++;
+        cfStalls.textContent = cfStallCount;
+        cfStatus.textContent = "Rebuffering...";
+        cfStatus.style.color = "#fbbf24";
+      });
+
+      // Measure Time to First Frame for AWS CloudFront
+      awsVideo.addEventListener("play", () => {
+        if (!awsStartTime) awsStartTime = performance.now();
+        awsStatus.textContent = "Buffering...";
+      });
+      awsVideo.addEventListener("playing", () => {
+        if (awsStartTime) {
+          const elapsed = (performance.now() - awsStartTime).toFixed(0);
+          awsTimeFirstFrame.textContent = `${elapsed} ms`;
+          awsStartTime = 0;
+        }
+        awsStatus.textContent = "Streaming";
+        awsStatus.style.color = "#4ade80";
+      });
+      awsVideo.addEventListener("waiting", () => {
+        awsStallCount++;
+        awsStalls.textContent = awsStallCount;
+        awsStatus.textContent = "Rebuffering...";
+        awsStatus.style.color = "#fbbf24";
+      });
+
+      // Master Controls
+      playBothBtn.addEventListener("click", () => {
+        const now = performance.now();
+        cfStartTime = now;
+        awsStartTime = now;
+        cfTimeFirstFrame.textContent = "Measuring...";
+        awsTimeFirstFrame.textContent = "Measuring...";
+
+        cfVideo.play().catch(() => {});
+        awsVideo.play().catch(() => {});
+      });
+
+      restartBtn.addEventListener("click", () => {
+        cfVideo.currentTime = 0;
+        awsVideo.currentTime = 0;
+        cfStallCount = 0;
+        awsStallCount = 0;
+        cfStalls.textContent = "0";
+        awsStalls.textContent = "0";
+        cfTimeFirstFrame.textContent = "—";
+        awsTimeFirstFrame.textContent = "—";
+
+        const now = performance.now();
+        cfStartTime = now;
+        awsStartTime = now;
+
+        cfVideo.play().catch(() => {});
+        awsVideo.play().catch(() => {});
+      });
+
+      let allMuted = true;
+      muteToggleBtn.addEventListener("click", () => {
+        allMuted = !allMuted;
+        cfVideo.muted = allMuted;
+        awsVideo.muted = allMuted;
+        muteToggleText.textContent = allMuted ? "Unmute All" : "Mute All";
+      });
+    })();
+  </script>
+</body>
+</html>
