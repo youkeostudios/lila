@@ -695,10 +695,10 @@
       margin: 0;
     }
 
-    /* --- OPTION 2: 3 Cards Architecture --- */
+    /* --- What We Do: service cards --- */
     .opt2-cards-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 24px;
       align-items: stretch;
     }
@@ -755,6 +755,27 @@
       line-height: 1.62;
       margin: 0;
       flex-grow: 1;
+    }
+    .distribution-options {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 24px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .distribution-option-title {
+      margin: 0 0 8px;
+      color: #ffffff;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+    }
+    .distribution-option-copy {
+      margin: 0;
+      color: #ded8e2;
+      font-size: 0.82rem;
+      line-height: 1.55;
     }
 
     /* =========================================================
@@ -951,7 +972,7 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: clamp(18px, 2.5vw, 28px);
-      margin-top: 34px;
+      margin: 34px 0 28px;
     }
 
     /* =========================================================
@@ -1387,6 +1408,30 @@
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+    .team-avatar-image {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transform-origin: center;
+    }
+    .team-avatar-image--rajesh {
+      object-position: 50% 28%;
+      transform: translateY(5%) scale(1.2);
+    }
+    .team-avatar-image--rupak {
+      object-position: 50% 50%;
+      transform: translateY(20%) scale(1.7);
+    }
+    .team-avatar-image--siddharth {
+      object-position: 50% 50%;
+      transform: translateY(10%) scale(1.15);
+    }
+    .team-avatar-image--somya {
+      object-position: 50% 44%;
+      transform: scale(1.1);
     }
     .team-avatar-initials {
       font-size: 2.2rem;
@@ -2055,6 +2100,10 @@
         grid-template-columns: 1fr;
         gap: 16px;
       }
+      .distribution-options {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
       .why-contrast-grid {
         grid-template-columns: 1fr;
         gap: 16px;
@@ -2385,168 +2434,6 @@
     </section>
 
     <!-- =========================================================
-         SECTION 2: WHAT WE DO?
-         ========================================================= -->
-    <section class="what-section-container" id="what">
-      <div class="page what-page-wrapper">
-        <!-- Section Header -->
-        <div class="what-head-bar">
-          <div class="what-head-left">
-            <p class="eyebrow">What</p>
-          </div>
-        </div>
-
-        <div class="opt1-container" style="margin-bottom: 34px;">
-          <h3 class="opt1-statement" style="margin-bottom: 0;">
-            In our first phase we make<br>
-            <span class="gradient">branded micro-dramas.</span>
-          </h3>
-        </div>
-
-        <div class="opt2-cards-grid">
-          <!-- Card 1 -->
-          <article class="what-card">
-            <span class="card-kicker">01 / Story Series</span>
-            <h3 class="card-heading">Branded Micro-Dramas</h3>
-            <p class="card-text">
-              Short vertical story series that put a brand inside something people actually want to watch.
-            </p>
-          </article>
-
-          <!-- Card 2 -->
-          <article class="what-card">
-            <span class="card-kicker">02 / Distribution</span>
-            <h3 class="card-heading">Brand Social Engine</h3>
-            <p class="card-text">
-              Strategized distribution and analytics engineered to slot seamlessly into your brand’s own social channels.
-            </p>
-          </article>
-
-          <!-- Card 3 -->
-          <article class="what-card">
-            <span class="card-kicker">03 / Conversion & Funnel</span>
-            <h3 class="card-heading">View to Funnel Integration</h3>
-            <p class="card-text">
-              3rd-party OVP integration that turns micro-dramas from a view into a direct funnel — outreach and transaction on one screen.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- =========================================================
-         SECTION 3: HOW WE DO IT?
-         ========================================================= -->
-    <section class="how-section-container" id="how">
-      <div class="page how-page-wrapper">
-        <!-- Section Header -->
-        <div class="what-head-bar">
-          <div class="what-head-left">
-            <p class="eyebrow">How</p>
-          </div>
-        </div>
-
-        <div class="opt1-container" style="margin-bottom: 30px;">
-          <h3 class="opt1-statement" style="margin-bottom: 0;">
-            Lila runs on a <span class="gradient">hub-and-spoke production network.</span>
-          </h3>
-        </div>
-
-        <div class="how-network-box">
-          <div class="how-network-diagram">
-            <!-- Node 1: Hub -->
-            <div class="network-node network-node-hub">
-              <span class="card-kicker">Central Studio</span>
-              <div class="network-node-title">The Hub</div>
-              <p class="card-text" style="font-size: 0.88rem;">Holds craft standards, brand relationships, and the proprietary AI production pipeline.</p>
-              <div class="network-tags">
-                <span class="network-tag">Craft Standards</span>
-                <span class="network-tag">Brand Relations</span>
-                <span class="network-tag">AI Pipeline</span>
-              </div>
-            </div>
-
-            <!-- Connector -->
-            <div class="network-connector">
-              <span class="connector-badge">National Standard</span>
-              <div class="connector-line"></div>
-              <span class="connector-badge">AI Pipeline</span>
-            </div>
-
-            <!-- Node 2: Spokes -->
-            <div class="network-node">
-              <span class="card-kicker">Regional Creators</span>
-              <div class="network-node-title">Pan-India Spokes</div>
-              <p class="card-text" style="font-size: 0.88rem;">Regional AI-video creator spokes across India, trained and equipped to produce at scale.</p>
-              <div class="network-tags">
-                <span class="network-tag">Trained Creators</span>
-                <span class="network-tag">Regional Stories</span>
-                <span class="network-tag">National Reach</span>
-              </div>
-            </div>
-          </div>
-
-          <p class="how-network-summary">
-            A central studio holds the craft standards, the brand relationships, and the AI production pipeline. Around it, regional AI-video spokes across India are trained and equipped to produce micro-dramas to a single national standard.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- =========================================================
-         SECTION 4: OUR WHY. OUR PURPOSE?
-         ========================================================= -->
-    <section class="why-section-container" id="why">
-      <div class="page why-page-wrapper">
-        <!-- Section Header -->
-        <div class="what-head-bar">
-          <div class="what-head-left">
-            <p class="eyebrow">Why</p>
-          </div>
-        </div>
-
-        <div class="opt1-container">
-          <h3 class="opt1-statement">
-            We exist to set the<br>
-            <span class="gradient">storyteller free.</span>
-          </h3>
-          <p class="opt1-body">
-            That is creative independence: AI matters not because it is faster or cheaper, but because for the first time the only limit on a brand's story is the imagination behind it.
-          </p>
-        </div>
-
-        <!-- Contrast Grid: Traditional vs AI (Full Page Width) -->
-        <div class="why-contrast-grid">
-          <div class="why-contrast-card">
-            <span class="card-kicker">Traditional Production</span>
-            <div class="why-contrast-title">Magic Through Commitment</div>
-            <p class="card-text">
-              Traditional production earns its magic through commitment. Plans locked, crews assembled, a hundred people moving toward one shared vision on one shared day. That discipline is what makes it great, and it will always have its place.
-            </p>
-          </div>
-
-          <div class="why-contrast-card why-contrast-highlight">
-            <span class="card-kicker">AI-Native Production</span>
-            <div class="why-contrast-title">The Power of Flexibility</div>
-            <p class="card-text">
-              We work on the other side of that trade. With AI, there is flexibility. The storyteller can make any story, at any scale, in any language, the moment inspiration strikes.
-            </p>
-          </div>
-        </div>
-
-        <!-- Creator Ecosystem Manifesto Box (Full Page Width) -->
-        <div class="why-manifesto-card">
-          <div class="manifesto-quote">
-            AI removes the industrial apparatus of production; it does not remove the storyteller. It puts them at the centre.
-          </div>
-          <p class="manifesto-body">
-            But through the phases and right from day 1, we are building an AI-native eco-system that turns India's storytellers into working, credited, IP-owning filmmakers. An AI-native micro-drama studio built around its creators, not instead of them through a national network of AI-fluent storytellers whom we train, credit, pay through national brand work, and help to originate and own their own stories.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- =========================================================
          SECTION 5: OUR WORK (OTT POSTER GRID + CINEMA LIGHTBOX)
          ========================================================= -->
     <section class="work-section-container" id="work">
@@ -2747,6 +2634,177 @@
     </dialog>
 
     <!-- =========================================================
+         SECTION 2: WHAT WE DO?
+         ========================================================= -->
+    <section class="what-section-container" id="what">
+      <div class="page what-page-wrapper">
+        <!-- Section Header -->
+        <div class="what-head-bar">
+          <div class="what-head-left">
+            <p class="eyebrow">What</p>
+          </div>
+        </div>
+
+        <div class="opt1-container" style="margin-bottom: 34px;">
+          <h3 class="opt1-statement" style="margin-bottom: 0;">
+            In our first phase we make<br>
+            <span class="gradient">branded micro-dramas.</span>
+          </h3>
+        </div>
+
+        <div class="opt2-cards-grid">
+          <!-- Card 1 -->
+          <article class="what-card">
+            <span class="card-kicker">01 / Story Series</span>
+            <h3 class="card-heading">Branded Micro-Dramas</h3>
+            <p class="card-text">
+              Short vertical story series that put a brand inside something people actually want to watch.
+            </p>
+          </article>
+
+          <!-- Card 2: Distribution + View-to-Funnel -->
+          <article class="what-card">
+            <span class="card-kicker">02 / Distribution</span>
+            <h3 class="card-heading">Distribution &amp; View-to-Funnel</h3>
+            <p class="card-text">
+              We help strategise distribution and analytics for each micro-drama, wherever it needs to work hardest.
+            </p>
+            <div class="distribution-options">
+              <div>
+                <h4 class="distribution-option-title">Brand Social Engine</h4>
+                <p class="distribution-option-copy">Strategise distribution and analytics for your brand’s own social channels.</p>
+              </div>
+              <div>
+                <h4 class="distribution-option-title">View-to-Funnel Integration</h4>
+                <p class="distribution-option-copy">Work with a third-party partner to turn a view into a funnel — outreach and transaction on one screen.</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 3: HOW WE DO IT?
+         ========================================================= -->
+    <section class="how-section-container" id="how">
+      <div class="page how-page-wrapper">
+        <!-- Section Header -->
+        <div class="what-head-bar">
+          <div class="what-head-left">
+            <p class="eyebrow">How</p>
+          </div>
+        </div>
+
+        <div class="opt1-container" style="margin-bottom: 30px;">
+          <h3 class="opt1-statement" style="margin-bottom: 0;">
+            Lila runs on a <span class="gradient">hub-and-spoke production network.</span>
+          </h3>
+        </div>
+
+        <div class="how-network-box">
+          <div class="how-network-diagram">
+            <!-- Node 1: Hub -->
+            <div class="network-node network-node-hub">
+              <span class="card-kicker">Central Studio</span>
+              <div class="network-node-title">The Hub</div>
+              <p class="card-text" style="font-size: 0.88rem;">Holds craft standards, brand relationships, and the proprietary AI production pipeline.</p>
+              <div class="network-tags">
+                <span class="network-tag">Craft Standards</span>
+                <span class="network-tag">Brand Relations</span>
+                <span class="network-tag">AI Pipeline</span>
+              </div>
+            </div>
+
+            <!-- Connector -->
+            <div class="network-connector">
+              <span class="connector-badge">National Standard</span>
+              <div class="connector-line"></div>
+              <span class="connector-badge">AI Pipeline</span>
+            </div>
+
+            <!-- Node 2: Spokes -->
+            <div class="network-node">
+              <span class="card-kicker">Regional Creators</span>
+              <div class="network-node-title">Pan-India Spokes</div>
+              <p class="card-text" style="font-size: 0.88rem;">Regional AI-video creator spokes across India, trained and equipped to produce at scale.</p>
+              <div class="network-tags">
+                <span class="network-tag">Trained Creators</span>
+                <span class="network-tag">Regional Stories</span>
+                <span class="network-tag">National Reach</span>
+              </div>
+            </div>
+          </div>
+
+          <p class="how-network-summary">
+            A central studio holds the craft standards, the brand relationships, and the AI production pipeline. Around it, regional AI-video spokes across India are trained and equipped to produce micro-dramas to a single national standard.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 4: OUR WHY. OUR PURPOSE?
+         ========================================================= -->
+    <section class="why-section-container" id="why">
+      <div class="page why-page-wrapper">
+        <!-- Section Header -->
+        <div class="what-head-bar">
+          <div class="what-head-left">
+            <p class="eyebrow">Why</p>
+          </div>
+        </div>
+
+        <div class="opt1-container">
+          <h3 class="opt1-statement">
+            We exist to set the<br>
+            <span class="gradient">storyteller free.</span>
+          </h3>
+          <p class="opt1-body">
+            That is creative independence: AI matters not because it is faster or cheaper, but because for the first time the only limit on a brand's story is the imagination behind it.
+          </p>
+        </div>
+
+        <div class="why-pillars-grid">
+          <article class="what-card">
+            <span class="card-kicker">01 / Flexibility</span>
+            <h3 class="card-heading">The Power of Flexibility</h3>
+            <p class="card-text">
+              The storyteller can make any story, at any scale, in any language, the moment inspiration strikes.
+            </p>
+          </article>
+
+          <article class="what-card">
+            <span class="card-kicker">02 / Cost Advantage</span>
+            <h3 class="card-heading">More worlds. One budget.</h3>
+            <p class="card-text">
+              Create multiple episodes, looks and locations without multiplying the budget.
+            </p>
+          </article>
+
+          <article class="what-card">
+            <span class="card-kicker">03 / Test &amp; Optimise</span>
+            <h3 class="card-heading">Let the audience shape the story.</h3>
+            <p class="card-text">
+              Produce multiple hooks, thumbnails and story directions, then scale only what performs — creative decisions backed by data.
+            </p>
+          </article>
+        </div>
+
+        <!-- Creator Ecosystem Manifesto Box (Full Page Width) -->
+        <div class="why-manifesto-card">
+          <div class="manifesto-quote">
+            An AI-native micro-drama studio built around its creators, not instead of them.
+          </div>
+          <p class="manifesto-body">
+            Right from day one, we are building an AI-native ecosystem that turns India's storytellers into working, credited, IP-owning filmmakers. Through a national network of AI-fluent storytellers, we train, credit and pay creators through national brand work, and help them originate and own their own stories.
+          </p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =========================================================
          SECTION 6: THE TEAM (CORE LEADERSHIP & COLLECTIVE)
          ========================================================= -->
     <section class="team-section-container" id="team">
@@ -2766,45 +2824,45 @@
           <!-- Member 1 -->
           <article class="team-portrait-card">
             <div class="team-avatar-frame">
-              <span class="team-avatar-initials">VR</span>
+              <img class="team-avatar-image team-avatar-image--rajesh" src="team/WhatsApp%20Image%202026-09-01%20at%2011.16.03.jpeg" alt="Rajesh Grover">
               <span class="team-avatar-badge">Founder</span>
             </div>
-            <h3 class="team-name">Vikramaditya Roy</h3>
-            <p class="team-role">Founder & Creative Director</p>
-            <p class="team-bio">Directs overarching creative vision, brand storytelling philosophy, and the central studio craft standards.</p>
+            <h3 class="team-name">Rajesh Grover</h3>
+            <p class="team-role">Founder</p>
+            <p class="team-bio">Rajesh brings three decades in advertising and brand production to Lila. He sets the studio’s direction and holds the creative bar for every frame that leaves the building.</p>
           </article>
 
           <!-- Member 2 -->
           <article class="team-portrait-card">
             <div class="team-avatar-frame">
-              <span class="team-avatar-initials">AS</span>
-              <span class="team-avatar-badge">AI Pipeline</span>
+              <img class="team-avatar-image team-avatar-image--rupak" src="team/WhatsApp%20Image%202026-09-01%20at%2011.16.03%20(1).jpeg" alt="Rupak Shah">
+              <span class="team-avatar-badge">Growth &amp; Ecosystem</span>
             </div>
-            <h3 class="team-name">Ananya Sharma</h3>
-            <p class="team-role">Head of AI Production & Pipeline</p>
-            <p class="team-bio">Architects the proprietary generative video pipelines, prompt architectures, and technical quality controls.</p>
+            <h3 class="team-name">Rupak Shah</h3>
+            <p class="team-role">Co-Founder &amp; Growth Hacker</p>
+            <p class="team-bio">Co-founder of AiVANTA Labs, Rupak leads growth, ecosystem strategy and the operating processes that let Lila’s distributed studio move at one speed.</p>
           </article>
 
           <!-- Member 3 -->
           <article class="team-portrait-card">
             <div class="team-avatar-frame">
-              <span class="team-avatar-initials">SM</span>
-              <span class="team-avatar-badge">Brands & Growth</span>
+              <img class="team-avatar-image team-avatar-image--siddharth" src="team/WhatsApp%20Image%202026-09-01%20at%2011.16.04.jpeg" alt="Siddharth Singh">
+              <span class="team-avatar-badge">Production &amp; Network</span>
             </div>
-            <h3 class="team-name">Siddharth Mehta</h3>
-            <p class="team-role">Head of Brand Partnerships</p>
-            <p class="team-bio">Leads brand relationships, content-to-commerce OVP integrations, and multi-channel distribution strategy.</p>
+            <h3 class="team-name">Siddharth Singh</h3>
+            <p class="team-role">Creative Director, Production &amp; Network</p>
+            <p class="team-bio">Siddharth directs Lila’s films, supervises scripts and coordinates the regional spokes, bringing every story in the network to one standard.</p>
           </article>
 
           <!-- Member 4 -->
           <article class="team-portrait-card">
             <div class="team-avatar-frame">
-              <span class="team-avatar-initials">PN</span>
-              <span class="team-avatar-badge">Spokes Network</span>
+              <img class="team-avatar-image team-avatar-image--somya" src="team/WhatsApp%20Image%202026-09-01%20at%2011.16.04%20(1).jpeg" alt="Somya Jain">
+              <span class="team-avatar-badge">Communications</span>
             </div>
-            <h3 class="team-name">Pooja Nambiar</h3>
-            <p class="team-role">Lead Story Architect & Network Director</p>
-            <p class="team-bio">Equips and guides regional AI-video creator spokes across India to produce regional stories to a national standard.</p>
+            <h3 class="team-name">Somya Jain</h3>
+            <p class="team-role">Communications Lead</p>
+            <p class="team-bio">Somya is responsible for Lila’s voice across LinkedIn and social, while contributing to content strategy, scriptwriting and the wider creative process.</p>
           </article>
         </div>
       </div>
@@ -2895,14 +2953,6 @@
 
           <!-- Editorial & Direct Contacts Column -->
           <div class="connect-editorial-col">
-            <div class="connect-editorial-box">
-              <span class="card-kicker">Launch: 15 August 2026</span>
-              <h3 class="portal-heading" style="font-size: 1.6rem; margin: 8px 0 12px;">Creative Independence</h3>
-              <p class="portal-text" style="margin-bottom: 0;">
-                Not the borrowed weight of the freedom struggle, but its spirit carried into creation — the storyteller and the brand, finally free to imagine beyond the reach of a physical camera.
-              </p>
-            </div>
-
             <div class="connect-direct-strip" style="flex-direction: column; align-items: flex-start;">
               <div class="direct-item">
                 <div class="direct-icon-box">
