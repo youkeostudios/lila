@@ -339,6 +339,11 @@
       letter-spacing: -0.05em;
       text-transform: uppercase;
     }
+    .hero-copy-col .hero-logo {
+      display: block;
+      width: min(100%, 310px);
+      height: auto;
+    }
     .hero-copy-col .hero-subheading {
       color: #ded8e2;
       font-size: 1.15rem;
@@ -2044,6 +2049,9 @@
     }
 
     @media (max-width: 768px) {
+      .hero-copy-col .hero-logo {
+        margin-inline: auto;
+      }
       .hero-grid {
         grid-template-columns: 1fr;
         text-align: center;
@@ -2105,6 +2113,10 @@
         gap: 16px;
       }
       .why-contrast-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .why-pillars-grid {
         grid-template-columns: 1fr;
         gap: 16px;
       }
@@ -2340,8 +2352,7 @@
         <div class="hero-copy-col">
           <p class="eyebrow">AI-Native Micro-Drama Studio</p>
           <h1>
-            Drama,<br>
-            <span class="gradient">Generated.</span>
+            <img class="hero-logo" src="assets/SVG/variants/lila-primary-color-on-dark.svg" width="527" height="382" alt="Lila Studios — Drama, Generated.">
           </h1>
           <p class="hero-subheading">
             An AI-native studio that produces micro-dramas — vertical, phone-first, cliffhanger-driven short films, created entirely with generative AI.
@@ -2418,14 +2429,14 @@
 
               <!-- Main Video Element -->
               <video class="iphone-video" id="heroPhoneVideo" playsinline autoplay muted loop preload="auto">
-                <source src="https://d2j5x7i3l2mh2f.cloudfront.net/Journey%20to%20Bombay%20Ep%201.mp4" type="video/mp4">
+                <source src="BRIEF/LILA%20Videos/Video%20Montage.mp4" type="video/mp4">
                 Your browser does not support HTML5 video.
               </video>
 
               <!-- Bottom Overlay -->
               <div class="iphone-overlay-bottom">
-                <div class="video-now-title" id="phoneVideoTitle">Journey to Bombay</div>
-                <div class="video-now-meta" id="phoneVideoMeta">Ep 01 · Branded Micro-Drama</div>
+                <div class="video-now-title" id="phoneVideoTitle">Lila Studios</div>
+                <div class="video-now-meta" id="phoneVideoMeta">Drama, Generated.</div>
               </div>
             </div>
           </div>
@@ -2655,28 +2666,28 @@
         <div class="opt2-cards-grid">
           <!-- Card 1 -->
           <article class="what-card">
-            <span class="card-kicker">01 / Story Series</span>
-            <h3 class="card-heading">Branded Micro-Dramas</h3>
+            <span class="card-kicker">Story Series</span>
+            <h3 class="card-heading">Branded Micro-Drama Series</h3>
             <p class="card-text">
-              Short vertical story series that put a brand inside something people actually want to watch.
+              A single ad can hint at a journey but cannot demonstrate it credibly. A micro-drama series uniquely enables is distraction-free mobile viewing environments where branded content commands 30–50% higher CPM rates than standard influencer sponsorships because the narrative removes the psychological wall between content and commerce.
             </p>
           </article>
 
           <!-- Card 2: Distribution + View-to-Funnel -->
           <article class="what-card">
-            <span class="card-kicker">02 / Distribution</span>
-            <h3 class="card-heading">Distribution &amp; View-to-Funnel</h3>
+            <span class="card-kicker">Distribution Options</span>
+            <h3 class="card-heading">Two options for Distribution</h3>
             <p class="card-text">
-              We help strategise distribution and analytics for each micro-drama, wherever it needs to work hardest.
+              There are two options for distribution. The Brand can choose whichever creates maximum impact.
             </p>
             <div class="distribution-options">
               <div>
-                <h4 class="distribution-option-title">Brand Social Engine</h4>
-                <p class="distribution-option-copy">Strategise distribution and analytics for your brand’s own social channels.</p>
+                <h4 class="distribution-option-title">Brand’s Social Engine</h4>
+                <p class="distribution-option-copy">The micro-drama slots straight into the existing strategy for the Brand’s social handles, media plan etc. Fastest route to market and it compounds reach they’re already paying for.</p>
               </div>
               <div>
-                <h4 class="distribution-option-title">View-to-Funnel Integration</h4>
-                <p class="distribution-option-copy">Work with a third-party partner to turn a view into a funnel — outreach and transaction on one screen.</p>
+                <h4 class="distribution-option-title">Owned Video Platform</h4>
+                <p class="distribution-option-copy">The content can live on the brand's own app or website, enabled through third-party white-label video platforms. Engagement to commerce funnel ends up on a single destination.</p>
               </div>
             </div>
           </article>
@@ -3202,9 +3213,9 @@
       const unmutedIcon = document.getElementById('soundUnmutedIcon');
       const pills = document.querySelectorAll('.playlist-pill');
 
-      // Initialize Hero Video with AWS CloudFront
+      // Initialize hero montage
       if (video) {
-        playStream(video, 'https://d2j5x7i3l2mh2f.cloudfront.net/Journey%20to%20Bombay%20Ep%201.mp4', true);
+        playStream(video, 'BRIEF/LILA%20Videos/Video%20Montage.mp4', true);
       }
 
       if (soundBtn && video) {
