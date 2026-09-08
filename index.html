@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#08070b">
   <meta name="description" content="Lila Studios — Drama, generated. An AI-native studio that produces micro-dramas — vertical, phone-first, cliffhanger-driven short films, created entirely with generative AI.">
+  <link rel="preconnect" href="https://d2j5x7i3l2mh2f.cloudfront.net" crossorigin>
+  <link rel="dns-prefetch" href="https://d2j5x7i3l2mh2f.cloudfront.net">
   <title>Lila Studios — Drama, generated.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2428,8 +2430,8 @@
               </div>
 
               <!-- Main Video Element -->
-              <video class="iphone-video" id="heroPhoneVideo" playsinline autoplay muted loop preload="auto">
-                <source src="https://d2j5x7i3l2mh2f.cloudfront.net/Video%20Montage.mp4" type="video/mp4">
+              <video class="iphone-video" id="heroPhoneVideo" playsinline autoplay muted loop preload="auto" poster="assets/video-montage-poster.jpg">
+                <source src="https://d2j5x7i3l2mh2f.cloudfront.net/Video%20Montage%20HQ%20Web.mp4" type="video/mp4">
                 Your browser does not support HTML5 video.
               </video>
 
@@ -3215,7 +3217,7 @@
 
       // Initialize hero montage
       if (video) {
-        playStream(video, 'https://d2j5x7i3l2mh2f.cloudfront.net/Video%20Montage.mp4', true);
+        playStream(video, 'https://d2j5x7i3l2mh2f.cloudfront.net/Video%20Montage%20HQ%20Web.mp4', true);
       }
 
       if (soundBtn && video) {
