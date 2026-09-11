@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#08070b">
   <meta name="description" content="Lila Studios — Drama, generated. An AI-native studio that produces micro-dramas — vertical, phone-first, cliffhanger-driven short films, created entirely with generative AI.">
+  <link rel="icon" href="assets/favicon-32.png?v=2" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=2" sizes="180x180">
   <link rel="preconnect" href="https://video.lila.youkeostudios.com" crossorigin>
   <link rel="dns-prefetch" href="https://video.lila.youkeostudios.com">
   <title>Lila Studios — Drama, generated.</title>
@@ -339,6 +341,11 @@
       line-height: 0.96;
       letter-spacing: -0.05em;
       text-transform: uppercase;
+    }
+    .hero-copy-col .hero-logo {
+      display: block;
+      width: min(100%, 310px);
+      height: auto;
     }
     .hero-copy-col .hero-subheading {
       color: #ded8e2;
@@ -696,10 +703,10 @@
       margin: 0;
     }
 
-    /* --- OPTION 2: 3 Cards Architecture --- */
+    /* --- What We Do: service cards --- */
     .opt2-cards-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 24px;
       align-items: stretch;
     }
@@ -756,6 +763,27 @@
       line-height: 1.62;
       margin: 0;
       flex-grow: 1;
+    }
+    .distribution-options {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 24px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .distribution-option-title {
+      margin: 0 0 8px;
+      color: #ffffff;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+    }
+    .distribution-option-copy {
+      margin: 0;
+      color: #ded8e2;
+      font-size: 0.82rem;
+      line-height: 1.55;
     }
 
     /* =========================================================
@@ -952,7 +980,7 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: clamp(18px, 2.5vw, 28px);
-      margin-top: 34px;
+      margin: 34px 0 28px;
     }
 
     /* =========================================================
@@ -1389,6 +1417,30 @@
       align-items: center;
       justify-content: center;
     }
+    .team-avatar-image {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transform-origin: center;
+    }
+    .team-avatar-image--rajesh {
+      object-position: 50% 28%;
+      transform: translateY(5%) scale(1.2);
+    }
+    .team-avatar-image--rupak {
+      object-position: 50% 50%;
+      transform: translateY(20%) scale(1.7);
+    }
+    .team-avatar-image--siddharth {
+      object-position: 50% 50%;
+      transform: translateY(10%) scale(1.15);
+    }
+    .team-avatar-image--somya {
+      object-position: 50% 44%;
+      transform: scale(1.1);
+    }
     .team-avatar-initials {
       font-size: 2.2rem;
       font-weight: 800;
@@ -1758,6 +1810,26 @@
       transform: none;
       box-shadow: none;
     }
+    .form-submit-btn:disabled {
+      cursor: wait;
+      opacity: 0.7;
+    }
+    .form-status {
+      min-height: 1.4em;
+      margin: 10px 0 0;
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 0.82rem;
+      line-height: 1.4;
+    }
+    .form-status.is-success { color: #86efac; }
+    .form-status.is-error { color: #fca5a5; }
+    .form-honeypot {
+      position: absolute !important;
+      left: -10000px !important;
+      width: 1px !important;
+      height: 1px !important;
+      overflow: hidden !important;
+    }
 
     /* Modal Dialogs for Forms */
     .form-dialog {
@@ -1791,6 +1863,8 @@
       width: 100%;
       box-shadow: 0 35px 80px rgba(0, 0, 0, 0.9), 0 0 50px rgba(112, 38, 184, 0.3);
       position: relative;
+      max-height: calc(100vh - 48px);
+      overflow-y: auto;
     }
     .form-dialog-head {
       display: flex;
@@ -1842,26 +1916,6 @@
       line-height: 1.62;
       max-width: 320px;
       margin: 0;
-    }
-    .footer-launch-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 14px;
-      border-radius: 999px;
-      background: rgba(166, 83, 230, 0.1);
-      border: 1px solid rgba(213, 165, 255, 0.22);
-      color: var(--lilac);
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-    .footer-launch-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--lilac);
     }
     .footer-col-title {
       display: block;
@@ -2000,6 +2054,9 @@
     }
 
     @media (max-width: 768px) {
+      .hero-copy-col .hero-logo {
+        margin-inline: auto;
+      }
       .hero-grid {
         grid-template-columns: 1fr;
         text-align: center;
@@ -2056,7 +2113,15 @@
         grid-template-columns: 1fr;
         gap: 16px;
       }
+      .distribution-options {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
       .why-contrast-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .why-pillars-grid {
         grid-template-columns: 1fr;
         gap: 16px;
       }
@@ -2251,7 +2316,7 @@
        ========================================================= -->
   <nav class="navbar" aria-label="Primary navigation">
     <a class="brand" href="#home" aria-label="Lila Studios home">
-      <img src="assets/SVG/variants/lila-wordmark-color.svg" alt="Lila Studios">
+      <img src="assets/SVG/logo-lila.svg" alt="Lila Studios">
     </a>
 
     <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false">
@@ -2292,8 +2357,7 @@
         <div class="hero-copy-col">
           <p class="eyebrow">AI-Native Micro-Drama Studio</p>
           <h1>
-            Drama,<br>
-            <span class="gradient">Generated.</span>
+            <img class="hero-logo" src="assets/SVG/logo-full.svg" width="527" height="382" alt="Lila Studios — Drama, Generated.">
           </h1>
           <p class="hero-subheading">
             An AI-native studio that produces micro-dramas — vertical, phone-first, cliffhanger-driven short films, created entirely with generative AI.
@@ -2369,21 +2433,219 @@
               </div>
 
               <!-- Main Video Element -->
-              <video class="iphone-video" id="heroPhoneVideo" playsinline autoplay muted loop preload="auto">
+              <video class="iphone-video" id="heroPhoneVideo" playsinline autoplay muted loop preload="auto" poster="assets/video-montage-poster.jpg">
                 <source src="https://video.lila.youkeostudios.com/video-montage.mp4" type="video/mp4">
                 Your browser does not support HTML5 video.
               </video>
 
               <!-- Bottom Overlay -->
               <div class="iphone-overlay-bottom">
-                <div class="video-now-title" id="phoneVideoTitle">Journey to Bombay</div>
-                <div class="video-now-meta" id="phoneVideoMeta">Ep 01 · Branded Micro-Drama</div>
+                <div class="video-now-title" id="phoneVideoTitle">Lila Studios</div>
+                <div class="video-now-meta" id="phoneVideoMeta">Drama, Generated.</div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- =========================================================
+         SECTION 5: OUR WORK (OTT POSTER GRID + CINEMA LIGHTBOX)
+         ========================================================= -->
+    <section class="work-section-container" id="work">
+      <div class="page">
+        <!-- Section Header with Genre Filters -->
+        <div class="work-header-wrap">
+          <div class="what-head-left">
+            <p class="eyebrow">Work</p>
+            <h2 class="section-title">
+              Stories crafted for the<br>
+              <span class="gradient">vertical screen.</span>
+            </h2>
+          </div>
+
+          <!-- Slider Arrow Controls -->
+          <div class="slider-nav-group" aria-label="Slide series">
+            <button class="slider-arrow-btn" id="workPrevBtn" type="button" aria-label="Previous series">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <button class="slider-arrow-btn" id="workNextBtn" type="button" aria-label="Next series">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- 8-Poster Single-Row Slideable Track -->
+        <div class="work-slider-track" id="workSliderTrack">
+          <!-- 1. Journey to Bombay -->
+          <article class="poster-card" data-genre="drama" data-series-id="journey-to-bombay" role="button" tabindex="0" aria-haspopup="dialog">
+            <img class="poster-bg" src="assets/images/project-thumbnails/journey-to-bombay.jpg" alt="Journey to Bombay Poster" loading="lazy">
+            <video class="poster-hover-video" playsinline loop muted preload="none" data-src="https://video.lila.youkeostudios.com/journey-to-bombay-episode-1.mp4"></video>
+            <div class="poster-gradient"></div>
+            <span class="poster-badge">2 Episodes</span>
+            <div class="poster-play-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div class="poster-content">
+              <span class="poster-kicker">Branded Drama</span>
+              <h3 class="poster-title">Journey to Bombay</h3>
+              <p class="poster-synopsis">A young dreamer navigates ambition, grit, and unexpected encounters in the city of dreams.</p>
+            </div>
+          </article>
+
+          <!-- 2. Raksha Bandhan -->
+          <article class="poster-card" data-genre="drama" data-series-id="raksha-bandhan" role="button" tabindex="0" aria-haspopup="dialog">
+            <img class="poster-bg" src="assets/images/project-thumbnails/raksha-bandhan.jpg" alt="Raksha Bandhan Poster" loading="lazy">
+            <video class="poster-hover-video" playsinline loop muted preload="none" data-src="https://video.lila.youkeostudios.com/raksha-bandhan.mp4"></video>
+            <div class="poster-gradient"></div>
+            <span class="poster-badge">Short Film</span>
+            <div class="poster-play-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div class="poster-content">
+              <span class="poster-kicker">Emotional Drama</span>
+              <h3 class="poster-title">Raksha Bandhan</h3>
+              <p class="poster-synopsis">An intimate celebration of sibling bonds tested by distance, sacrifice, and modern crossroads.</p>
+            </div>
+          </article>
+
+          <!-- 3. Meera -->
+          <article class="poster-card" data-genre="romance" data-series-id="meera" role="button" tabindex="0" aria-haspopup="dialog">
+            <img class="poster-bg" src="assets/images/project-thumbnails/meera.jpg" alt="Meera Poster" loading="lazy">
+            <video class="poster-hover-video" playsinline loop muted preload="none" data-src="https://video.lila.youkeostudios.com/meera.mp4"></video>
+            <div class="poster-gradient"></div>
+            <span class="poster-badge">Short Film</span>
+            <div class="poster-play-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div class="poster-content">
+              <span class="poster-kicker">Romance & Suspense</span>
+              <h3 class="poster-title">Meera</h3>
+              <p class="poster-synopsis">Beneath the calm exterior of a modern romance lies a hidden revelation ready to unfold.</p>
+            </div>
+          </article>
+
+          <!-- 4. One Stitch at a Time -->
+          <article class="poster-card" data-genre="inspiring" data-series-id="one-stitch" role="button" tabindex="0" aria-haspopup="dialog">
+            <img class="poster-bg" src="assets/images/project-thumbnails/one-stitch-at-a-time.jpg" alt="One Stitch at a Time Poster" loading="lazy">
+            <video class="poster-hover-video" playsinline loop muted preload="none" data-src="https://video.lila.youkeostudios.com/one-stitch-at-a-time-episode-1.mp4"></video>
+            <div class="poster-gradient"></div>
+            <span class="poster-badge">2 Episodes</span>
+            <div class="poster-play-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div class="poster-content">
+              <span class="poster-kicker">Inspiring Drama</span>
+              <h3 class="poster-title">One Stitch at a Time</h3>
+              <p class="poster-synopsis">A courageous artisan defies generational norms to craft her own destiny and craft empire.</p>
+            </div>
+          </article>
+
+          <!-- 5. Do Dhadkanein -->
+          <article class="poster-card" data-genre="thriller" data-series-id="do-dhadkanein" role="button" tabindex="0" aria-haspopup="dialog">
+            <img class="poster-bg" src="assets/images/project-thumbnails/do-dhadkanein.jpg" alt="Do Dhadkanein Poster" loading="lazy">
+            <video class="poster-hover-video" playsinline loop muted preload="none" data-src="https://video.lila.youkeostudios.com/do-dhadkanein-episode-1.mp4"></video>
+            <div class="poster-gradient"></div>
+            <span class="poster-badge">2 Episodes</span>
+            <div class="poster-play-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div class="poster-content">
+              <span class="poster-kicker">Romantic Thriller</span>
+              <h3 class="poster-title">Do Dhadkanein</h3>
+              <p class="poster-synopsis">Two intertwined hearts trapped in a high-stakes web of deception and intense passion.</p>
+            </div>
+          </article>
+
+          <!-- 6. Missed Call -->
+          <article class="poster-card" data-genre="thriller" data-series-id="missed-call" role="button" tabindex="0" aria-haspopup="dialog">
+            <img class="poster-bg" src="assets/images/project-thumbnails/missed-call.jpg" alt="Missed Call Poster" loading="lazy">
+            <video class="poster-hover-video" playsinline loop muted preload="none" data-src="https://video.lila.youkeostudios.com/missed-call-episode-1.mp4"></video>
+            <div class="poster-gradient"></div>
+            <span class="poster-badge">2 Episodes</span>
+            <div class="poster-play-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div class="poster-content">
+              <span class="poster-kicker">Suspense Mystery</span>
+              <h3 class="poster-title">Missed Call</h3>
+              <p class="poster-synopsis">A single midnight phone call triggers a domino effect of secrets, suspicion, and survival.</p>
+            </div>
+          </article>
+
+          <!-- 7. Char Deewari -->
+          <article class="poster-card" data-genre="drama" data-series-id="char-deewari" role="button" tabindex="0" aria-haspopup="dialog">
+            <img class="poster-bg" src="assets/images/project-thumbnails/char-deewari.jpg" alt="Char Deewari Poster" loading="lazy">
+            <video class="poster-hover-video" playsinline loop muted preload="none" data-src="https://video.lila.youkeostudios.com/char-deewari.mp4"></video>
+            <div class="poster-gradient"></div>
+            <span class="poster-badge">Short Film</span>
+            <div class="poster-play-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div class="poster-content">
+              <span class="poster-kicker">Social Drama</span>
+              <h3 class="poster-title">Char Deewari</h3>
+              <p class="poster-synopsis">Behind closed doors, a household confronts unspoken truths and the courage to break free.</p>
+            </div>
+          </article>
+
+          <!-- 8. The Powerful Tractor -->
+          <article class="poster-card" data-genre="drama" data-series-id="the-powerful-tractor" role="button" tabindex="0" aria-haspopup="dialog">
+            <img class="poster-bg" src="assets/images/project-thumbnails/the-powerful-tractor.jpg" alt="The Powerful Tractor Poster" loading="lazy">
+            <video class="poster-hover-video" playsinline loop muted preload="none" data-src="https://video.lila.youkeostudios.com/the-powerful-tractor.mp4"></video>
+            <div class="poster-gradient"></div>
+            <span class="poster-badge">Original Series</span>
+            <div class="poster-play-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div class="poster-content">
+              <span class="poster-kicker">Rural Drama</span>
+              <h3 class="poster-title">The Powerful Tractor</h3>
+              <p class="poster-synopsis">An inspiring tale of grassroots ambition, agricultural heritage, and technological resilience.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         CINEMA LIGHTBOX MODAL DIALOG (VIDEO-FIRST OVERLAY)
+         ========================================================= -->
+    <!-- =========================================================
+         CINEMA LIGHTBOX MODAL DIALOG (VIDEO + BOTTOM DETAILS)
+         ========================================================= -->
+    <dialog class="cinema-dialog" id="cinemaDialog" aria-labelledby="modalSeriesTitle">
+      <div class="cinema-overlay-container">
+        <!-- Phone Video Stage -->
+        <div class="cinema-phone-stage">
+          <div class="mockup-island" style="top: 10px;" aria-hidden="true"></div>
+
+          <!-- Top Action Controls (Sound + Close) -->
+          <div class="cinema-stage-top-controls">
+            <button class="cinema-icon-btn" id="modalSoundBtn" type="button" aria-label="Toggle sound">
+              <svg id="modalMutedIcon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+              <svg id="modalUnmutedIcon" style="display: none;" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+            </button>
+            <button class="cinema-icon-btn" id="modalCloseBtn" type="button" aria-label="Close overlay">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+          </div>
+
+          <!-- Video Element -->
+          <video id="modalVideoPlayer" playsinline loop preload="metadata"></video>
+        </div>
+
+        <!-- Details & Content Underneath Video -->
+        <div class="cinema-bottom-info">
+          <span class="cinema-bottom-kicker" id="modalSeriesKicker">Branded Micro-Drama</span>
+          <h3 class="cinema-bottom-title" id="modalSeriesTitle">Journey to Bombay</h3>
+          <p class="cinema-bottom-synopsis" id="modalSeriesSynopsis">A young dreamer navigates ambition, grit, and unexpected encounters in the city of dreams.</p>
+          <div class="cinema-ep-bar-bottom" id="modalEpButtons">
+            <!-- Dynamically populated episode pills -->
+          </div>
+        </div>
+      </div>
+    </dialog>
 
     <!-- =========================================================
          SECTION 2: WHAT WE DO?
@@ -2407,29 +2669,30 @@
         <div class="opt2-cards-grid">
           <!-- Card 1 -->
           <article class="what-card">
-            <span class="card-kicker">01 / Story Series</span>
-            <h3 class="card-heading">Branded Micro-Dramas</h3>
+            <span class="card-kicker">Story Series</span>
+            <h3 class="card-heading">Branded Micro-Drama Series</h3>
             <p class="card-text">
-              Short vertical story series that put a brand inside something people actually want to watch.
+              A single ad can hint at a journey but cannot demonstrate it credibly. A micro-drama series uniquely enables distraction-free mobile viewing environments where branded content commands 30–50% higher CPM rates than standard influencer sponsorships because the narrative removes the psychological wall between content and commerce.
             </p>
           </article>
 
-          <!-- Card 2 -->
+          <!-- Card 2: Distribution + View-to-Funnel -->
           <article class="what-card">
-            <span class="card-kicker">02 / Distribution</span>
-            <h3 class="card-heading">Brand Social Engine</h3>
+            <span class="card-kicker">Distribution Options</span>
+            <h3 class="card-heading">Two options for Distribution</h3>
             <p class="card-text">
-              Strategized distribution and analytics engineered to slot seamlessly into your brand’s own social channels.
+              There are two options for distribution. The Brand can choose whichever creates maximum impact.
             </p>
-          </article>
-
-          <!-- Card 3 -->
-          <article class="what-card">
-            <span class="card-kicker">03 / Conversion & Funnel</span>
-            <h3 class="card-heading">View to Funnel Integration</h3>
-            <p class="card-text">
-              3rd-party OVP integration that turns micro-dramas from a view into a direct funnel — outreach and transaction on one screen.
-            </p>
+            <div class="distribution-options">
+              <div>
+                <h4 class="distribution-option-title">Brand’s Social Engine</h4>
+                <p class="distribution-option-copy">The micro-drama slots straight into the existing strategy for the Brand’s social handles, media plan etc. Fastest route to market and it compounds reach they’re already paying for.</p>
+              </div>
+              <div>
+                <h4 class="distribution-option-title">Owned Video Platform</h4>
+                <p class="distribution-option-copy">The content can live on the brand's own app or website, enabled through third-party white-label video platforms. Engagement to commerce funnel ends up on a single destination.</p>
+              </div>
+            </div>
           </article>
         </div>
       </div>
@@ -2516,236 +2779,44 @@
           </p>
         </div>
 
-        <!-- Contrast Grid: Traditional vs AI (Full Page Width) -->
-        <div class="why-contrast-grid">
-          <div class="why-contrast-card">
-            <span class="card-kicker">Traditional Production</span>
-            <div class="why-contrast-title">Magic Through Commitment</div>
+        <div class="why-pillars-grid">
+          <article class="what-card">
+            <span class="card-kicker">01 / Flexibility</span>
+            <h3 class="card-heading">The Power of Flexibility</h3>
             <p class="card-text">
-              Traditional production earns its magic through commitment. Plans locked, crews assembled, a hundred people moving toward one shared vision on one shared day. That discipline is what makes it great, and it will always have its place.
+              The storyteller can make any story, at any scale, in any language, the moment inspiration strikes.
             </p>
-          </div>
+          </article>
 
-          <div class="why-contrast-card why-contrast-highlight">
-            <span class="card-kicker">AI-Native Production</span>
-            <div class="why-contrast-title">The Power of Flexibility</div>
+          <article class="what-card">
+            <span class="card-kicker">02 / Cost Advantage</span>
+            <h3 class="card-heading">More worlds. One budget.</h3>
             <p class="card-text">
-              We work on the other side of that trade. With AI, there is flexibility. The storyteller can make any story, at any scale, in any language, the moment inspiration strikes.
+              Create multiple episodes, looks and locations without multiplying the budget.
             </p>
-          </div>
+          </article>
+
+          <article class="what-card">
+            <span class="card-kicker">03 / Test &amp; Optimise</span>
+            <h3 class="card-heading">Let the audience shape the story.</h3>
+            <p class="card-text">
+              Produce multiple hooks, thumbnails and story directions, then scale only what performs — creative decisions backed by data.
+            </p>
+          </article>
         </div>
 
         <!-- Creator Ecosystem Manifesto Box (Full Page Width) -->
         <div class="why-manifesto-card">
           <div class="manifesto-quote">
-            AI removes the industrial apparatus of production; it does not remove the storyteller. It puts them at the centre.
+            An AI-native micro-drama studio built around its creators, not instead of them.
           </div>
           <p class="manifesto-body">
-            But through the phases and right from day 1, we are building an AI-native eco-system that turns India's storytellers into working, credited, IP-owning filmmakers. An AI-native micro-drama studio built around its creators, not instead of them through a national network of AI-fluent storytellers whom we train, credit, pay through national brand work, and help to originate and own their own stories.
+            Right from day one, we are building an AI-native ecosystem that turns India's storytellers into working, credited, IP-owning filmmakers. Through a national network of AI-fluent storytellers, we train, credit and pay creators through national brand work, and help them originate and own their own stories.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- =========================================================
-         SECTION 5: OUR WORK (OTT POSTER GRID + CINEMA LIGHTBOX)
-         ========================================================= -->
-    <section class="work-section-container" id="work">
-      <div class="page">
-        <!-- Section Header with Genre Filters -->
-        <div class="work-header-wrap">
-          <div class="what-head-left">
-            <p class="eyebrow">Work</p>
-            <h2 class="section-title">
-              Stories crafted for the<br>
-              <span class="gradient">vertical screen.</span>
-            </h2>
-          </div>
-
-          <!-- Slider Arrow Controls -->
-          <div class="slider-nav-group" aria-label="Slide series">
-            <button class="slider-arrow-btn" id="workPrevBtn" type="button" aria-label="Previous series">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-            </button>
-            <button class="slider-arrow-btn" id="workNextBtn" type="button" aria-label="Next series">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-            </button>
-          </div>
-        </div>
-
-        <!-- 8-Poster Single-Row Slideable Track -->
-        <div class="work-slider-track" id="workSliderTrack">
-          <!-- 1. Journey to Bombay -->
-          <article class="poster-card" data-genre="drama" data-series-id="journey-to-bombay" role="button" tabindex="0" aria-haspopup="dialog">
-            <img class="poster-bg" src="BRIEF/LILA Videos/Journey to Bombay/Journey to Bombay_Thumbnail/Journey to Bombay Ep 1/01.jpg" alt="Journey to Bombay Poster" loading="lazy">
-            <video class="poster-hover-video" playsinline loop muted preload="none" data-src="https://video.lila.youkeostudios.com/journey-to-bombay-episode-1.mp4"></video>
-            <div class="poster-gradient"></div>
-            <span class="poster-badge">2 Episodes</span>
-            <div class="poster-play-icon" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-            </div>
-            <div class="poster-content">
-              <span class="poster-kicker">Branded Drama</span>
-              <h3 class="poster-title">Journey to Bombay</h3>
-              <p class="poster-synopsis">A young dreamer navigates ambition, grit, and unexpected encounters in the city of dreams.</p>
-            </div>
-          </article>
-
-          <!-- 2. Raksha Bandhan -->
-          <article class="poster-card" data-genre="drama" data-series-id="raksha-bandhan" role="button" tabindex="0" aria-haspopup="dialog">
-            <img class="poster-bg" src="BRIEF/LILA Videos/Raksha Bandhan/Raksha Bandhan_Thumbnail/01.jpg" alt="Raksha Bandhan Poster" loading="lazy">
-            <video class="poster-hover-video" playsinline loop muted preload="none" data-src="https://video.lila.youkeostudios.com/raksha-bandhan.mp4"></video>
-            <div class="poster-gradient"></div>
-            <span class="poster-badge">Short Film</span>
-            <div class="poster-play-icon" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-            </div>
-            <div class="poster-content">
-              <span class="poster-kicker">Emotional Drama</span>
-              <h3 class="poster-title">Raksha Bandhan</h3>
-              <p class="poster-synopsis">An intimate celebration of sibling bonds tested by distance, sacrifice, and modern crossroads.</p>
-            </div>
-          </article>
-
-          <!-- 3. Meera -->
-          <article class="poster-card" data-genre="romance" data-series-id="meera" role="button" tabindex="0" aria-haspopup="dialog">
-            <img class="poster-bg" src="BRIEF/LILA Videos/Meera/Meera_Thumbnail/01.jpg" alt="Meera Poster" loading="lazy">
-            <video class="poster-hover-video" playsinline loop muted preload="none" data-src="https://video.lila.youkeostudios.com/meera.mp4"></video>
-            <div class="poster-gradient"></div>
-            <span class="poster-badge">Short Film</span>
-            <div class="poster-play-icon" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-            </div>
-            <div class="poster-content">
-              <span class="poster-kicker">Romance & Suspense</span>
-              <h3 class="poster-title">Meera</h3>
-              <p class="poster-synopsis">Beneath the calm exterior of a modern romance lies a hidden revelation ready to unfold.</p>
-            </div>
-          </article>
-
-          <!-- 4. One Stitch at a Time -->
-          <article class="poster-card" data-genre="inspiring" data-series-id="one-stitch" role="button" tabindex="0" aria-haspopup="dialog">
-            <img class="poster-bg" src="BRIEF/LILA Videos/One Stitch at a Time/One Stitch at a Time_Thumbnail/One Stitch at a Time EP 1/01.jpg" alt="One Stitch at a Time Poster" loading="lazy">
-            <video class="poster-hover-video" playsinline loop muted preload="none" data-src="https://video.lila.youkeostudios.com/one-stitch-at-a-time-episode-1.mp4"></video>
-            <div class="poster-gradient"></div>
-            <span class="poster-badge">2 Episodes</span>
-            <div class="poster-play-icon" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-            </div>
-            <div class="poster-content">
-              <span class="poster-kicker">Inspiring Drama</span>
-              <h3 class="poster-title">One Stitch at a Time</h3>
-              <p class="poster-synopsis">A courageous artisan defies generational norms to craft her own destiny and craft empire.</p>
-            </div>
-          </article>
-
-          <!-- 5. Do Dhadkanein -->
-          <article class="poster-card" data-genre="thriller" data-series-id="do-dhadkanein" role="button" tabindex="0" aria-haspopup="dialog">
-            <img class="poster-bg" src="BRIEF/LILA Videos/Do Dhadkanein/Do Dhadkanein_Thumbnail/Do Dhadkanein EP 1/01.jpg" alt="Do Dhadkanein Poster" loading="lazy">
-            <video class="poster-hover-video" playsinline loop muted preload="none" data-src="https://video.lila.youkeostudios.com/do-dhadkanein-episode-1.mp4"></video>
-            <div class="poster-gradient"></div>
-            <span class="poster-badge">2 Episodes</span>
-            <div class="poster-play-icon" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-            </div>
-            <div class="poster-content">
-              <span class="poster-kicker">Romantic Thriller</span>
-              <h3 class="poster-title">Do Dhadkanein</h3>
-              <p class="poster-synopsis">Two intertwined hearts trapped in a high-stakes web of deception and intense passion.</p>
-            </div>
-          </article>
-
-          <!-- 6. Missed Call -->
-          <article class="poster-card" data-genre="thriller" data-series-id="missed-call" role="button" tabindex="0" aria-haspopup="dialog">
-            <img class="poster-bg" src="BRIEF/LILA Videos/Missed Call/Missed Call_Thumbnail/Missed Call EP 1/01.jpg" alt="Missed Call Poster" loading="lazy">
-            <video class="poster-hover-video" playsinline loop muted preload="none" data-src="https://video.lila.youkeostudios.com/missed-call-episode-1.mp4"></video>
-            <div class="poster-gradient"></div>
-            <span class="poster-badge">2 Episodes</span>
-            <div class="poster-play-icon" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-            </div>
-            <div class="poster-content">
-              <span class="poster-kicker">Suspense Mystery</span>
-              <h3 class="poster-title">Missed Call</h3>
-              <p class="poster-synopsis">A single midnight phone call triggers a domino effect of secrets, suspicion, and survival.</p>
-            </div>
-          </article>
-
-          <!-- 7. Char Deewari -->
-          <article class="poster-card" data-genre="drama" data-series-id="char-deewari" role="button" tabindex="0" aria-haspopup="dialog">
-            <img class="poster-bg" src="BRIEF/LILA Videos/Char Deewari/Char Deewari_Thumbnail/01.jpg" alt="Char Deewari Poster" loading="lazy">
-            <video class="poster-hover-video" playsinline loop muted preload="none" data-src="https://video.lila.youkeostudios.com/char-deewari.mp4"></video>
-            <div class="poster-gradient"></div>
-            <span class="poster-badge">Short Film</span>
-            <div class="poster-play-icon" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-            </div>
-            <div class="poster-content">
-              <span class="poster-kicker">Social Drama</span>
-              <h3 class="poster-title">Char Deewari</h3>
-              <p class="poster-synopsis">Behind closed doors, a household confronts unspoken truths and the courage to break free.</p>
-            </div>
-          </article>
-
-          <!-- 8. The Powerful Tractor -->
-          <article class="poster-card" data-genre="drama" data-series-id="the-powerful-tractor" role="button" tabindex="0" aria-haspopup="dialog">
-            <img class="poster-bg" src="BRIEF/LILA Videos/The Powerful Tractor/The Powerful Tractor_Thumbnail/01.jpg" alt="The Powerful Tractor Poster" loading="lazy">
-            <video class="poster-hover-video" playsinline loop muted preload="none" data-src="https://video.lila.youkeostudios.com/the-powerful-tractor.mp4"></video>
-            <div class="poster-gradient"></div>
-            <span class="poster-badge">Original Series</span>
-            <div class="poster-play-icon" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-            </div>
-            <div class="poster-content">
-              <span class="poster-kicker">Rural Drama</span>
-              <h3 class="poster-title">The Powerful Tractor</h3>
-              <p class="poster-synopsis">An inspiring tale of grassroots ambition, agricultural heritage, and technological resilience.</p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- =========================================================
-         CINEMA LIGHTBOX MODAL DIALOG (VIDEO-FIRST OVERLAY)
-         ========================================================= -->
-    <!-- =========================================================
-         CINEMA LIGHTBOX MODAL DIALOG (VIDEO + BOTTOM DETAILS)
-         ========================================================= -->
-    <dialog class="cinema-dialog" id="cinemaDialog" aria-labelledby="modalSeriesTitle">
-      <div class="cinema-overlay-container">
-        <!-- Phone Video Stage -->
-        <div class="cinema-phone-stage">
-          <div class="mockup-island" style="top: 10px;" aria-hidden="true"></div>
-
-          <!-- Top Action Controls (Sound + Close) -->
-          <div class="cinema-stage-top-controls">
-            <button class="cinema-icon-btn" id="modalSoundBtn" type="button" aria-label="Toggle sound">
-              <svg id="modalMutedIcon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-              <svg id="modalUnmutedIcon" style="display: none;" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
-            </button>
-            <button class="cinema-icon-btn" id="modalCloseBtn" type="button" aria-label="Close overlay">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-            </button>
-          </div>
-
-          <!-- Video Element -->
-          <video id="modalVideoPlayer" playsinline loop preload="metadata">
-            <source src="" type="video/mp4">
-          </video>
-        </div>
-
-        <!-- Details & Content Underneath Video -->
-        <div class="cinema-bottom-info">
-          <span class="cinema-bottom-kicker" id="modalSeriesKicker">Branded Micro-Drama</span>
-          <h3 class="cinema-bottom-title" id="modalSeriesTitle">Journey to Bombay</h3>
-          <p class="cinema-bottom-synopsis" id="modalSeriesSynopsis">A young dreamer navigates ambition, grit, and unexpected encounters in the city of dreams.</p>
-          <div class="cinema-ep-bar-bottom" id="modalEpButtons">
-            <!-- Dynamically populated episode pills -->
-          </div>
-        </div>
-      </div>
-    </dialog>
 
     <!-- =========================================================
          SECTION 6: THE TEAM (CORE LEADERSHIP & COLLECTIVE)
@@ -2767,45 +2838,45 @@
           <!-- Member 1 -->
           <article class="team-portrait-card">
             <div class="team-avatar-frame">
-              <span class="team-avatar-initials">VR</span>
+              <img class="team-avatar-image team-avatar-image--rajesh" src="team/rajesh-grover.jpeg" alt="Rajesh Grover">
               <span class="team-avatar-badge">Founder</span>
             </div>
-            <h3 class="team-name">Vikramaditya Roy</h3>
-            <p class="team-role">Founder & Creative Director</p>
-            <p class="team-bio">Directs overarching creative vision, brand storytelling philosophy, and the central studio craft standards.</p>
+            <h3 class="team-name">Rajesh Grover</h3>
+            <p class="team-role">Founder</p>
+            <p class="team-bio">Rajesh brings three decades in advertising and brand production to Lila. He sets the studio’s direction and holds the creative bar for every frame that leaves the building.</p>
           </article>
 
           <!-- Member 2 -->
           <article class="team-portrait-card">
             <div class="team-avatar-frame">
-              <span class="team-avatar-initials">AS</span>
-              <span class="team-avatar-badge">AI Pipeline</span>
+              <img class="team-avatar-image team-avatar-image--rupak" src="team/rupak-shah.jpeg" alt="Rupak Shah">
+              <span class="team-avatar-badge">Growth &amp; Ecosystem</span>
             </div>
-            <h3 class="team-name">Ananya Sharma</h3>
-            <p class="team-role">Head of AI Production & Pipeline</p>
-            <p class="team-bio">Architects the proprietary generative video pipelines, prompt architectures, and technical quality controls.</p>
+            <h3 class="team-name">Rupak Shah</h3>
+            <p class="team-role">Co-Founder &amp; Growth Hacker</p>
+            <p class="team-bio">Co-founder of AiVANTA Labs, Rupak leads growth, ecosystem strategy and the operating processes that let Lila’s distributed studio move at one speed.</p>
           </article>
 
           <!-- Member 3 -->
           <article class="team-portrait-card">
             <div class="team-avatar-frame">
-              <span class="team-avatar-initials">SM</span>
-              <span class="team-avatar-badge">Brands & Growth</span>
+              <img class="team-avatar-image team-avatar-image--siddharth" src="team/siddharth-singh.jpeg" alt="Siddharth Singh">
+              <span class="team-avatar-badge">Production &amp; Network</span>
             </div>
-            <h3 class="team-name">Siddharth Mehta</h3>
-            <p class="team-role">Head of Brand Partnerships</p>
-            <p class="team-bio">Leads brand relationships, content-to-commerce OVP integrations, and multi-channel distribution strategy.</p>
+            <h3 class="team-name">Siddharth Singh</h3>
+            <p class="team-role">Creative Director, Production &amp; Network</p>
+            <p class="team-bio">Siddharth directs Lila’s films, supervises scripts and coordinates the regional spokes, bringing every story in the network to one standard.</p>
           </article>
 
           <!-- Member 4 -->
           <article class="team-portrait-card">
             <div class="team-avatar-frame">
-              <span class="team-avatar-initials">PN</span>
-              <span class="team-avatar-badge">Spokes Network</span>
+              <img class="team-avatar-image team-avatar-image--somya" src="team/somya-jain.jpeg" alt="Somya Jain">
+              <span class="team-avatar-badge">Communications</span>
             </div>
-            <h3 class="team-name">Pooja Nambiar</h3>
-            <p class="team-role">Lead Story Architect & Network Director</p>
-            <p class="team-bio">Equips and guides regional AI-video creator spokes across India to produce regional stories to a national standard.</p>
+            <h3 class="team-name">Somya Jain</h3>
+            <p class="team-role">Communications Lead</p>
+            <p class="team-bio">Somya is responsible for Lila’s voice across LinkedIn and social, while contributing to content strategy, scriptwriting and the wider creative process.</p>
           </article>
         </div>
       </div>
@@ -2822,7 +2893,7 @@
             <p class="eyebrow">Connect</p>
             <h2 class="section-title">
               Bring the brief.<br>
-              <span class="gradient">Or bring the voice.</span>
+              <span class="gradient">Or bring the vision.</span>
             </h2>
           </div>
         </div>
@@ -2837,91 +2908,84 @@
             </div>
 
             <!-- Brand Form -->
-            <form id="directBrandForm" onsubmit="event.preventDefault(); alert('Thank you! Your brand brief has been submitted to Lila Studios. We will get back to you within 24 hours.'); this.reset();">
+            <form id="directBrandForm" data-lead-form data-form-type="brand">
+              <input class="form-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
               <div class="form-group">
-                <label class="form-label" for="brandNameInput">Your Name & Role</label>
-                <input class="form-input" id="brandNameInput" type="text" placeholder="e.g. Vikramaditya Sharma, CMO" required>
+                <label class="form-label" for="brandNameInput">Name</label>
+                <input class="form-input" id="brandNameInput" name="name" type="text" maxlength="120" autocomplete="name" placeholder="e.g. Vikramaditya Sharma" required>
               </div>
               <div class="form-group">
-                <label class="form-label" for="brandEmailInput">Work Email</label>
-                <input class="form-input" id="brandEmailInput" type="email" placeholder="name@company.com" required>
+                <label class="form-label" for="brandPositionInput">Position</label>
+                <input class="form-input" id="brandPositionInput" name="position" type="text" maxlength="120" autocomplete="organization-title" placeholder="e.g. CMO" required>
               </div>
               <div class="form-group">
-                <label class="form-label" for="brandTypeSelect">Project Scope</label>
-                <select class="form-select" id="brandTypeSelect">
-                  <option>Branded Micro-Drama Series (3-5 Episodes)</option>
-                  <option>Single Branded Short Film</option>
-                  <option>Content-to-Commerce OVP Integration</option>
-                  <option>Custom Pilot & Pitch</option>
-                </select>
+                <label class="form-label" for="brandEmailInput">Email</label>
+                <input class="form-input" id="brandEmailInput" name="email" type="email" maxlength="254" autocomplete="email" placeholder="name@company.com" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="brandPhoneInput">Phone No.</label>
+                <input class="form-input" id="brandPhoneInput" name="phone" type="tel" maxlength="20" autocomplete="tel" inputmode="tel" pattern="[0-9+() .-]{7,20}" title="Enter a valid phone number" placeholder="+91 98765 43210" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="brandProjectScopeInput">Project Scope</label>
+                <input class="form-input" id="brandProjectScopeInput" name="project_scope" type="text" maxlength="200" placeholder="Tell us what you would like to create" required>
               </div>
               <div class="form-group">
                 <label class="form-label" for="brandMessageInput">Brief Overview / Campaign Vision</label>
-                <textarea class="form-textarea" id="brandMessageInput" placeholder="Tell us about the narrative theme, target audience, or timeline..."></textarea>
+                <textarea class="form-textarea" id="brandMessageInput" name="brief" maxlength="2000" placeholder="Tell us about the narrative theme, target audience, or timeline..." required></textarea>
               </div>
               <button class="form-submit-btn" type="submit">
                 <span>Send Brand Brief</span>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </button>
+              <p class="form-status" role="status" aria-live="polite"></p>
             </form>
 
             <!-- Creator Form (Hidden by Default) -->
-            <form id="directCreatorForm" style="display: none;" onsubmit="event.preventDefault(); alert('Welcome! Your creator application has been received. Our team will review your portfolio and reach out.'); this.reset();">
+            <form id="directCreatorForm" data-lead-form data-form-type="creator" style="display: none;">
+              <input class="form-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
               <div class="form-group">
-                <label class="form-label" for="creatorNameInput">Full Name</label>
-                <input class="form-input" id="creatorNameInput" type="text" placeholder="e.g. Ananya Rao" required>
+                <label class="form-label" for="creatorNameInput">Name</label>
+                <input class="form-input" id="creatorNameInput" name="name" type="text" maxlength="120" autocomplete="name" placeholder="e.g. Ananya Rao" required>
               </div>
               <div class="form-group">
                 <label class="form-label" for="creatorEmailInput">Email Address</label>
-                <input class="form-input" id="creatorEmailInput" type="email" placeholder="ananya@gmail.com" required>
+                <input class="form-input" id="creatorEmailInput" name="email" type="email" maxlength="254" autocomplete="email" placeholder="ananya@gmail.com" required>
               </div>
               <div class="form-group">
-                <label class="form-label" for="creatorCityInput">Location / City in India</label>
-                <input class="form-input" id="creatorCityInput" type="text" placeholder="e.g. Bengaluru, Kochi, Jaipur, Delhi" required>
+                <label class="form-label" for="creatorPhoneInput">Phone No.</label>
+                <input class="form-input" id="creatorPhoneInput" name="phone" type="tel" maxlength="20" autocomplete="tel" inputmode="tel" pattern="[0-9+() .-]{7,20}" title="Enter a valid phone number" placeholder="+91 98765 43210" required>
               </div>
               <div class="form-group">
-                <label class="form-label" for="creatorLinkInput">Portfolio / Instagram / YouTube Link</label>
-                <input class="form-input" id="creatorLinkInput" type="url" placeholder="https://..." required>
+                <label class="form-label" for="creatorLocationInput">Location</label>
+                <input class="form-input" id="creatorLocationInput" name="location" type="text" maxlength="120" autocomplete="address-level2" placeholder="e.g. Bengaluru, Kochi, Jaipur, Delhi" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="creatorLinkInput">Portfolio Link</label>
+                <input class="form-input" id="creatorLinkInput" name="portfolio_link" type="url" maxlength="500" autocomplete="url" placeholder="https://..." required>
               </div>
               <div class="form-group">
                 <label class="form-label" for="creatorToolsInput">Primary AI Tools & Creative Skills</label>
-                <textarea class="form-textarea" id="creatorToolsInput" placeholder="e.g. Midjourney, Runway, Kling, Veo, Premiere, Scriptwriting in Hindi/Tamil..."></textarea>
+                <textarea class="form-textarea" id="creatorToolsInput" name="tools_skills" maxlength="2000" placeholder="e.g. Midjourney, Runway, Kling, Veo, Premiere, Scriptwriting in Hindi/Tamil..." required></textarea>
               </div>
               <button class="form-submit-btn" type="submit">
                 <span>Submit Creator Application</span>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </button>
+              <p class="form-status" role="status" aria-live="polite"></p>
             </form>
           </div>
 
           <!-- Editorial & Direct Contacts Column -->
           <div class="connect-editorial-col">
-            <div class="connect-editorial-box">
-              <span class="card-kicker">Launch: 15 August 2026</span>
-              <h3 class="portal-heading" style="font-size: 1.6rem; margin: 8px 0 12px;">Creative Independence</h3>
-              <p class="portal-text" style="margin-bottom: 0;">
-                Not the borrowed weight of the freedom struggle, but its spirit carried into creation — the storyteller and the brand, finally free to imagine beyond the reach of a physical camera.
-              </p>
-            </div>
-
             <div class="connect-direct-strip" style="flex-direction: column; align-items: flex-start;">
               <div class="direct-item">
                 <div class="direct-icon-box">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
                 </div>
                 <div>
-                  <div class="direct-label">Studio Email</div>
-                  <a class="direct-val" href="mailto:hello@lilastudios.in">hello@lilastudios.in</a>
-                </div>
-              </div>
-
-              <div class="direct-item">
-                <div class="direct-icon-box">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                </div>
-                <div>
-                  <div class="direct-label">Creator Admissions</div>
-                  <a class="direct-val" href="mailto:creators@lilastudios.in">creators@lilastudios.in</a>
+                  <div class="direct-label">Client &amp; Creator Enquiries</div>
+                  <a class="direct-val" href="mailto:connect@lilastudios.ai">connect@lilastudios.ai</a>
                 </div>
               </div>
 
@@ -2931,7 +2995,27 @@
                 </div>
                 <div>
                   <div class="direct-label">Headquarters</div>
-                  <div class="direct-val" style="color: #ffffff;">Mumbai, India · Pan-India Hub</div>
+                  <div class="direct-val" style="color: #ffffff;">Mumbai</div>
+                </div>
+              </div>
+
+              <div class="direct-item">
+                <div class="direct-icon-box">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+                </div>
+                <div>
+                  <div class="direct-label">Instagram</div>
+                  <a class="direct-val" href="https://www.instagram.com/lilastudios.ai" target="_blank" rel="noopener noreferrer">@lilastudios.ai</a>
+                </div>
+              </div>
+
+              <div class="direct-item">
+                <div class="direct-icon-box">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 10v7M8 7v.01M12 17v-7M12 13.5a3.5 3.5 0 0 1 7 0V17"/></svg>
+                </div>
+                <div>
+                  <div class="direct-label">LinkedIn</div>
+                  <a class="direct-val" href="https://www.linkedin.com/company/lila-studios/" target="_blank" rel="noopener noreferrer">Lila Studios</a>
                 </div>
               </div>
             </div>
@@ -2954,28 +3038,34 @@
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
           </button>
         </div>
-        <form onsubmit="event.preventDefault(); alert('Thank you! Your brand brief has been submitted. We will connect within 24 hours.'); document.getElementById('brandDialog').close();">
+        <form data-lead-form data-form-type="brand">
+          <input class="form-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
           <div class="form-group">
-            <label class="form-label">Name & Title</label>
-            <input class="form-input" type="text" placeholder="e.g. Priya Nair, Brand Lead" required>
+            <label class="form-label">Name</label>
+            <input class="form-input" name="name" type="text" maxlength="120" autocomplete="name" placeholder="e.g. Priya Nair" required>
           </div>
           <div class="form-group">
-            <label class="form-label">Work Email</label>
-            <input class="form-input" type="email" placeholder="priya@brand.com" required>
+            <label class="form-label">Position</label>
+            <input class="form-input" name="position" type="text" maxlength="120" autocomplete="organization-title" placeholder="e.g. Brand Lead" required>
           </div>
           <div class="form-group">
-            <label class="form-label">Series Type</label>
-            <select class="form-select">
-              <option>Branded Micro-Drama (Vertical Series)</option>
-              <option>Short Film & Performance Creative</option>
-              <option>Content-to-Commerce Integration</option>
-            </select>
+            <label class="form-label">Email</label>
+            <input class="form-input" name="email" type="email" maxlength="254" autocomplete="email" placeholder="priya@brand.com" required>
           </div>
           <div class="form-group">
-            <label class="form-label">Brief Details</label>
-            <textarea class="form-textarea" placeholder="Tell us about the narrative theme or campaign goals..."></textarea>
+            <label class="form-label">Phone No.</label>
+            <input class="form-input" name="phone" type="tel" maxlength="20" autocomplete="tel" inputmode="tel" pattern="[0-9+() .-]{7,20}" title="Enter a valid phone number" placeholder="+91 98765 43210" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Project Scope</label>
+            <input class="form-input" name="project_scope" type="text" maxlength="200" placeholder="Tell us what you would like to create" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Brief Overview / Campaign Vision</label>
+            <textarea class="form-textarea" name="brief" maxlength="2000" placeholder="Tell us about the narrative theme or campaign goals..." required></textarea>
           </div>
           <button class="form-submit-btn" type="submit">Submit Brief</button>
+          <p class="form-status" role="status" aria-live="polite"></p>
         </form>
       </div>
     </dialog>
@@ -2994,24 +3084,34 @@
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
           </button>
         </div>
-        <form onsubmit="event.preventDefault(); alert('Welcome! Your creator application has been submitted.'); document.getElementById('creatorDialog').close();">
+        <form data-lead-form data-form-type="creator">
+          <input class="form-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
           <div class="form-group">
-            <label class="form-label">Full Name</label>
-            <input class="form-input" type="text" placeholder="Your Name" required>
+            <label class="form-label">Name</label>
+            <input class="form-input" name="name" type="text" maxlength="120" autocomplete="name" placeholder="Your Name" required>
           </div>
           <div class="form-group">
             <label class="form-label">Email</label>
-            <input class="form-input" type="email" placeholder="name@domain.com" required>
+            <input class="form-input" name="email" type="email" maxlength="254" autocomplete="email" placeholder="name@domain.com" required>
           </div>
           <div class="form-group">
-            <label class="form-label">City / Region in India</label>
-            <input class="form-input" type="text" placeholder="e.g. Mumbai, Hyderabad, Kolkata" required>
+            <label class="form-label">Phone No.</label>
+            <input class="form-input" name="phone" type="tel" maxlength="20" autocomplete="tel" inputmode="tel" pattern="[0-9+() .-]{7,20}" title="Enter a valid phone number" placeholder="+91 98765 43210" required>
           </div>
           <div class="form-group">
-            <label class="form-label">Portfolio URL</label>
-            <input class="form-input" type="url" placeholder="https://instagram.com/... or Behance / YouTube" required>
+            <label class="form-label">Location</label>
+            <input class="form-input" name="location" type="text" maxlength="120" autocomplete="address-level2" placeholder="e.g. Mumbai, Hyderabad, Kolkata" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Portfolio Link</label>
+            <input class="form-input" name="portfolio_link" type="url" maxlength="500" autocomplete="url" placeholder="https://instagram.com/... or Behance / YouTube" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Primary AI Tools & Creative Skills</label>
+            <textarea class="form-textarea" name="tools_skills" maxlength="2000" placeholder="e.g. Midjourney, Runway, Kling, Veo, Premiere, Scriptwriting..." required></textarea>
           </div>
           <button class="form-submit-btn" type="submit">Submit Application</button>
+          <p class="form-status" role="status" aria-live="polite"></p>
         </form>
       </div>
     </dialog>
@@ -3026,15 +3126,11 @@
         <!-- Brand & Mission -->
         <div class="footer-brand-col">
           <a href="#top" class="brand" aria-label="Lila Studios Home">
-            <img src="assets/SVG/variants/lila-wordmark-color.svg" alt="Lila Studios" class="footer-brand-logo">
+            <img src="assets/SVG/logo-lila.svg" alt="Lila Studios" class="footer-brand-logo">
           </a>
           <p class="footer-tagline">
             India's AI-native micro-drama studio and creator ecosystem. Stories crafted for the vertical screen.
           </p>
-          <div class="footer-launch-badge">
-            <span class="footer-launch-dot"></span>
-            Launch · 15 August 2026
-          </div>
         </div>
 
         <!-- Navigation Links -->
@@ -3055,16 +3151,17 @@
           <span class="footer-col-title">Connect</span>
           <div class="footer-contact-list">
             <div class="footer-contact-item">
-              <span class="footer-contact-label">Brands & Studio</span>
-              <a href="mailto:hello@lilastudios.in" class="footer-contact-link">hello@lilastudios.in</a>
+              <span class="footer-contact-label">Client &amp; Creator Enquiries</span>
+              <a href="mailto:connect@lilastudios.ai" class="footer-contact-link">connect@lilastudios.ai</a>
             </div>
             <div class="footer-contact-item">
-              <span class="footer-contact-label">Creators & Storytellers</span>
-              <a href="mailto:creators@lilastudios.in" class="footer-contact-link">creators@lilastudios.in</a>
+              <span class="footer-contact-label">Headquarters</span>
+              <span style="color: #ded8e2; font-size: 0.88rem; font-weight: 550;">Mumbai</span>
             </div>
             <div class="footer-contact-item">
-              <span class="footer-contact-label">Hub Location</span>
-              <span style="color: #ded8e2; font-size: 0.88rem; font-weight: 550;">Mumbai, India · Pan-India Hub</span>
+              <span class="footer-contact-label">Social</span>
+              <a href="https://www.instagram.com/lilastudios.ai" class="footer-contact-link" target="_blank" rel="noopener noreferrer">Instagram</a>
+              <a href="https://www.linkedin.com/company/lila-studios/" class="footer-contact-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
             </div>
           </div>
         </div>
@@ -3084,7 +3181,7 @@
         <div class="footer-bottom-meta">
           <span>Creative Independence</span>
           <span>•</span>
-          <span>Mumbai · Pan-India Network</span>
+          <span>Mumbai</span>
         </div>
       </div>
     </div>
@@ -3125,7 +3222,7 @@
         });
       }
 
-      // Cloudflare R2 video delivery through custom domain
+      // Cloudflare R2 video delivery
       const CLOUDFLARE_R2_VIDEO_BASE = 'https://video.lila.youkeostudios.com';
 
       function r2Video(filename) {
@@ -3137,14 +3234,20 @@
         const finalUrl = videoSrc.startsWith('http://') || videoSrc.startsWith('https://')
           ? videoSrc
           : r2Video(videoSrc);
-
-        if (videoEl.src !== finalUrl) {
+        if (videoEl.getAttribute('src') !== finalUrl) {
           videoEl.src = finalUrl;
         }
         if (autoplay) {
-          const playPromise = videoEl.play();
-          if (playPromise) playPromise.catch(() => {});
+          const p = videoEl.play();
+          if (p) p.catch(() => {});
         }
+      }
+
+      function unloadVideo(videoEl) {
+        if (!videoEl) return;
+        videoEl.pause();
+        videoEl.removeAttribute('src');
+        videoEl.load();
       }
 
       // Phone Video Player and Playlist Switcher
@@ -3156,7 +3259,7 @@
       const unmutedIcon = document.getElementById('soundUnmutedIcon');
       const pills = document.querySelectorAll('.playlist-pill');
 
-      // Initialize hero montage from Cloudflare R2
+      // Initialize hero montage
       if (video) {
         playStream(video, 'video-montage.mp4', true);
       }
@@ -3356,37 +3459,45 @@
           modalUnmutedIcon.style.display = 'block';
         }
 
-        // Load first episode via Cloudflare R2 and open dialog
+        // Load the first local episode and open the dialog
         playStream(modalVideoPlayer, item.episodes[0].src, true);
         cinemaDialog.showModal();
       };
 
-      // Poster Card Hover Autoplay & Modal Open with Pre-warming
+      // Poster Card Hover Autoplay & Modal Open
       posterCards.forEach(card => {
         const hoverVideo = card.querySelector('.poster-hover-video');
+        let hoverTimer;
+
+        const stopHoverPreview = () => {
+          window.clearTimeout(hoverTimer);
+          card.classList.remove('is-playing');
+          unloadVideo(hoverVideo);
+        };
 
         if (hoverVideo) {
           card.addEventListener('mouseenter', () => {
-            if (!hoverVideo.src && hoverVideo.dataset.src) {
-              playStream(hoverVideo, hoverVideo.dataset.src, true);
-            } else if (hoverVideo.paused) {
-              hoverVideo.play().catch(() => {});
-            }
-            card.classList.add('is-playing');
+            window.clearTimeout(hoverTimer);
+            hoverTimer = window.setTimeout(() => {
+              if (!card.matches(':hover') || cinemaDialog?.open) return;
+              if (hoverVideo.dataset.src) {
+                playStream(hoverVideo, hoverVideo.dataset.src, true);
+                card.classList.add('is-playing');
+              }
+            }, 250);
           });
 
-          card.addEventListener('mouseleave', () => {
-            card.classList.remove('is-playing');
-            hoverVideo.pause();
-          });
+          card.addEventListener('mouseleave', stopHoverPreview);
         }
 
         card.addEventListener('click', () => {
+          stopHoverPreview();
           openCinemaModal(card.dataset.seriesId);
         });
         card.addEventListener('keydown', (e) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
+            stopHoverPreview();
             openCinemaModal(card.dataset.seriesId);
           }
         });
@@ -3406,7 +3517,7 @@
           }
         });
         cinemaDialog.addEventListener('close', () => {
-          if (modalVideoPlayer) modalVideoPlayer.pause();
+          unloadVideo(modalVideoPlayer);
         });
       }
 
@@ -3462,6 +3573,128 @@
           if (box && !box.contains(e.target)) creatorDialog.close();
         });
       }
+
+      // Google Sheets form submissions (Google Apps Script web app)
+      const GOOGLE_SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyrioVoAWDeJv15njtEK-PkIVG767_2G8MNOKWEGjQeC9i9JpQN6EDLMj-SYHEylgq3iw/exec';
+      const FORM_RESPONSE_SOURCE = 'lila-form-response';
+      const FORM_RESPONSE_TIMEOUT_MS = 20000;
+      const isTrustedGoogleScriptOrigin = (origin) => {
+        try {
+          const { protocol, hostname } = new URL(origin);
+
+          return protocol === 'https:' && (
+            hostname === 'script.google.com' ||
+            hostname === 'script.googleusercontent.com' ||
+            hostname.endsWith('-script.googleusercontent.com')
+          );
+        } catch {
+          return false;
+        }
+      };
+
+      const createSubmissionId = () => {
+        if (window.crypto && typeof window.crypto.randomUUID === 'function') {
+          return window.crypto.randomUUID();
+        }
+
+        return `submission-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+      };
+
+      const submitWithConfirmation = (formData) => new Promise((resolve, reject) => {
+        const submissionId = createSubmissionId();
+        const frameName = `lila-form-response-${submissionId}`;
+        const responseFrame = document.createElement('iframe');
+        const transportForm = document.createElement('form');
+        let timeoutId;
+
+        responseFrame.name = frameName;
+        responseFrame.title = 'Form submission response';
+        responseFrame.hidden = true;
+        responseFrame.setAttribute('aria-hidden', 'true');
+
+        transportForm.method = 'POST';
+        transportForm.action = GOOGLE_SHEETS_ENDPOINT;
+        transportForm.target = frameName;
+        transportForm.acceptCharset = 'UTF-8';
+        transportForm.hidden = true;
+
+        formData.set('submission_id', submissionId);
+        formData.forEach((value, key) => {
+          const input = document.createElement('input');
+          input.type = 'hidden';
+          input.name = key;
+          input.value = String(value);
+          transportForm.appendChild(input);
+        });
+
+        const cleanup = () => {
+          window.clearTimeout(timeoutId);
+          window.removeEventListener('message', handleResponse);
+          transportForm.remove();
+          responseFrame.remove();
+        };
+
+        const handleResponse = (event) => {
+          const data = event.data;
+
+          if (!isTrustedGoogleScriptOrigin(event.origin)) return;
+          if (!data || data.source !== FORM_RESPONSE_SOURCE) return;
+          if (data.submission_id !== submissionId) return;
+
+          cleanup();
+
+          if (data.success === true) {
+            resolve(data);
+          } else {
+            reject(new Error(data.message || 'Apps Script rejected the submission.'));
+          }
+        };
+
+        window.addEventListener('message', handleResponse);
+        document.body.append(responseFrame, transportForm);
+
+        timeoutId = window.setTimeout(() => {
+          cleanup();
+          reject(new Error('The submission confirmation timed out.'));
+        }, FORM_RESPONSE_TIMEOUT_MS);
+
+        transportForm.submit();
+      });
+
+      document.querySelectorAll('[data-lead-form]').forEach((form) => {
+        form.addEventListener('submit', async (event) => {
+          event.preventDefault();
+
+          if (!form.reportValidity()) return;
+
+          const submitButton = form.querySelector('button[type="submit"]');
+          const status = form.querySelector('.form-status');
+          const originalButtonContent = submitButton.innerHTML;
+          const formData = new FormData(form);
+
+          formData.set('form_type', form.dataset.formType);
+          status.textContent = 'Submitting your form…';
+          status.className = 'form-status';
+          submitButton.disabled = true;
+          submitButton.textContent = 'Submitting…';
+
+          try {
+            await submitWithConfirmation(formData);
+            form.reset();
+            status.textContent = form.dataset.formType === 'brand'
+              ? 'Thank you. Your brand brief has been submitted.'
+              : 'Thank you. Your creator application has been submitted.';
+            status.classList.add('is-success');
+          } catch (error) {
+            console.error('Form submission failed:', error);
+            status.textContent = 'We could not submit the form. Please try again or email connect@lilastudios.ai.';
+            status.classList.add('is-error');
+          } finally {
+            submitButton.disabled = false;
+            submitButton.innerHTML = originalButtonContent;
+          }
+        });
+      });
     })();
   </script>
 </body>
