@@ -1809,6 +1809,26 @@
       transform: none;
       box-shadow: none;
     }
+    .form-submit-btn:disabled {
+      cursor: wait;
+      opacity: 0.7;
+    }
+    .form-status {
+      min-height: 1.4em;
+      margin: 10px 0 0;
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 0.82rem;
+      line-height: 1.4;
+    }
+    .form-status.is-success { color: #86efac; }
+    .form-status.is-error { color: #fca5a5; }
+    .form-honeypot {
+      position: absolute !important;
+      left: -10000px !important;
+      width: 1px !important;
+      height: 1px !important;
+      overflow: hidden !important;
+    }
 
     /* Modal Dialogs for Forms */
     .form-dialog {
@@ -2887,18 +2907,19 @@
             </div>
 
             <!-- Brand Form -->
-            <form id="directBrandForm" onsubmit="event.preventDefault(); alert('Thank you! Your brand brief has been submitted to Lila Studios. We will get back to you within 24 hours.'); this.reset();">
+            <form id="directBrandForm" data-lead-form data-form-type="brand">
+              <input class="form-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
               <div class="form-group">
                 <label class="form-label" for="brandNameInput">Your Name & Role</label>
-                <input class="form-input" id="brandNameInput" type="text" placeholder="e.g. Vikramaditya Sharma, CMO" required>
+                <input class="form-input" id="brandNameInput" name="name_role" type="text" maxlength="120" placeholder="e.g. Vikramaditya Sharma, CMO" required>
               </div>
               <div class="form-group">
                 <label class="form-label" for="brandEmailInput">Work Email</label>
-                <input class="form-input" id="brandEmailInput" type="email" placeholder="name@company.com" required>
+                <input class="form-input" id="brandEmailInput" name="email" type="email" maxlength="254" placeholder="name@company.com" required>
               </div>
               <div class="form-group">
                 <label class="form-label" for="brandTypeSelect">Project Scope</label>
-                <select class="form-select" id="brandTypeSelect">
+                <select class="form-select" id="brandTypeSelect" name="project_scope" required>
                   <option>Branded Micro-Drama Series (3-5 Episodes)</option>
                   <option>Single Branded Short Film</option>
                   <option>Content-to-Commerce OVP Integration</option>
@@ -2907,40 +2928,43 @@
               </div>
               <div class="form-group">
                 <label class="form-label" for="brandMessageInput">Brief Overview / Campaign Vision</label>
-                <textarea class="form-textarea" id="brandMessageInput" placeholder="Tell us about the narrative theme, target audience, or timeline..."></textarea>
+                <textarea class="form-textarea" id="brandMessageInput" name="brief" maxlength="2000" placeholder="Tell us about the narrative theme, target audience, or timeline..."></textarea>
               </div>
               <button class="form-submit-btn" type="submit">
                 <span>Send Brand Brief</span>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </button>
+              <p class="form-status" role="status" aria-live="polite"></p>
             </form>
 
             <!-- Creator Form (Hidden by Default) -->
-            <form id="directCreatorForm" style="display: none;" onsubmit="event.preventDefault(); alert('Welcome! Your creator application has been received. Our team will review your portfolio and reach out.'); this.reset();">
+            <form id="directCreatorForm" data-lead-form data-form-type="creator" style="display: none;">
+              <input class="form-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
               <div class="form-group">
                 <label class="form-label" for="creatorNameInput">Full Name</label>
-                <input class="form-input" id="creatorNameInput" type="text" placeholder="e.g. Ananya Rao" required>
+                <input class="form-input" id="creatorNameInput" name="full_name" type="text" maxlength="120" placeholder="e.g. Ananya Rao" required>
               </div>
               <div class="form-group">
                 <label class="form-label" for="creatorEmailInput">Email Address</label>
-                <input class="form-input" id="creatorEmailInput" type="email" placeholder="ananya@gmail.com" required>
+                <input class="form-input" id="creatorEmailInput" name="email" type="email" maxlength="254" placeholder="ananya@gmail.com" required>
               </div>
               <div class="form-group">
                 <label class="form-label" for="creatorCityInput">Location / City in India</label>
-                <input class="form-input" id="creatorCityInput" type="text" placeholder="e.g. Bengaluru, Kochi, Jaipur, Delhi" required>
+                <input class="form-input" id="creatorCityInput" name="city" type="text" maxlength="100" placeholder="e.g. Bengaluru, Kochi, Jaipur, Delhi" required>
               </div>
               <div class="form-group">
                 <label class="form-label" for="creatorLinkInput">Portfolio / Instagram / YouTube Link</label>
-                <input class="form-input" id="creatorLinkInput" type="url" placeholder="https://..." required>
+                <input class="form-input" id="creatorLinkInput" name="portfolio_url" type="url" maxlength="500" placeholder="https://..." required>
               </div>
               <div class="form-group">
                 <label class="form-label" for="creatorToolsInput">Primary AI Tools & Creative Skills</label>
-                <textarea class="form-textarea" id="creatorToolsInput" placeholder="e.g. Midjourney, Runway, Kling, Veo, Premiere, Scriptwriting in Hindi/Tamil..."></textarea>
+                <textarea class="form-textarea" id="creatorToolsInput" name="tools_skills" maxlength="2000" placeholder="e.g. Midjourney, Runway, Kling, Veo, Premiere, Scriptwriting in Hindi/Tamil..."></textarea>
               </div>
               <button class="form-submit-btn" type="submit">
                 <span>Submit Creator Application</span>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </button>
+              <p class="form-status" role="status" aria-live="polite"></p>
             </form>
           </div>
 
@@ -3006,18 +3030,19 @@
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
           </button>
         </div>
-        <form onsubmit="event.preventDefault(); alert('Thank you! Your brand brief has been submitted. We will connect within 24 hours.'); document.getElementById('brandDialog').close();">
+        <form data-lead-form data-form-type="brand">
+          <input class="form-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
           <div class="form-group">
             <label class="form-label">Name & Title</label>
-            <input class="form-input" type="text" placeholder="e.g. Priya Nair, Brand Lead" required>
+            <input class="form-input" name="name_role" type="text" maxlength="120" placeholder="e.g. Priya Nair, Brand Lead" required>
           </div>
           <div class="form-group">
             <label class="form-label">Work Email</label>
-            <input class="form-input" type="email" placeholder="priya@brand.com" required>
+            <input class="form-input" name="email" type="email" maxlength="254" placeholder="priya@brand.com" required>
           </div>
           <div class="form-group">
             <label class="form-label">Series Type</label>
-            <select class="form-select">
+            <select class="form-select" name="project_scope" required>
               <option>Branded Micro-Drama (Vertical Series)</option>
               <option>Short Film & Performance Creative</option>
               <option>Content-to-Commerce Integration</option>
@@ -3025,9 +3050,10 @@
           </div>
           <div class="form-group">
             <label class="form-label">Brief Details</label>
-            <textarea class="form-textarea" placeholder="Tell us about the narrative theme or campaign goals..."></textarea>
+            <textarea class="form-textarea" name="brief" maxlength="2000" placeholder="Tell us about the narrative theme or campaign goals..."></textarea>
           </div>
           <button class="form-submit-btn" type="submit">Submit Brief</button>
+          <p class="form-status" role="status" aria-live="polite"></p>
         </form>
       </div>
     </dialog>
@@ -3046,24 +3072,26 @@
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
           </button>
         </div>
-        <form onsubmit="event.preventDefault(); alert('Welcome! Your creator application has been submitted.'); document.getElementById('creatorDialog').close();">
+        <form data-lead-form data-form-type="creator">
+          <input class="form-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
           <div class="form-group">
             <label class="form-label">Full Name</label>
-            <input class="form-input" type="text" placeholder="Your Name" required>
+            <input class="form-input" name="full_name" type="text" maxlength="120" placeholder="Your Name" required>
           </div>
           <div class="form-group">
             <label class="form-label">Email</label>
-            <input class="form-input" type="email" placeholder="name@domain.com" required>
+            <input class="form-input" name="email" type="email" maxlength="254" placeholder="name@domain.com" required>
           </div>
           <div class="form-group">
             <label class="form-label">City / Region in India</label>
-            <input class="form-input" type="text" placeholder="e.g. Mumbai, Hyderabad, Kolkata" required>
+            <input class="form-input" name="city" type="text" maxlength="100" placeholder="e.g. Mumbai, Hyderabad, Kolkata" required>
           </div>
           <div class="form-group">
             <label class="form-label">Portfolio URL</label>
-            <input class="form-input" type="url" placeholder="https://instagram.com/... or Behance / YouTube" required>
+            <input class="form-input" name="portfolio_url" type="url" maxlength="500" placeholder="https://instagram.com/... or Behance / YouTube" required>
           </div>
           <button class="form-submit-btn" type="submit">Submit Application</button>
+          <p class="form-status" role="status" aria-live="polite"></p>
         </form>
       </div>
     </dialog>
@@ -3506,6 +3534,52 @@
           if (box && !box.contains(e.target)) creatorDialog.close();
         });
       }
+
+      // Google Sheets form submissions (Google Apps Script web app)
+      const GOOGLE_SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyrioVoAWDeJv15njtEK-PkIVG767_2G8MNOKWEGjQeC9i9JpQN6EDLMj-SYHEylgq3iw/exec';
+
+      document.querySelectorAll('[data-lead-form]').forEach((form) => {
+        form.addEventListener('submit', async (event) => {
+          event.preventDefault();
+
+          if (!form.reportValidity()) return;
+
+          const submitButton = form.querySelector('button[type="submit"]');
+          const status = form.querySelector('.form-status');
+          const originalButtonContent = submitButton.innerHTML;
+          const formData = new FormData(form);
+
+          formData.set('form_type', form.dataset.formType);
+          status.textContent = '';
+          status.className = 'form-status';
+          submitButton.disabled = true;
+          submitButton.textContent = 'Submitting…';
+
+          try {
+            // no-cors is required for a browser POST to an Apps Script web app.
+            // The request is still delivered, but the redirected Google response
+            // is intentionally not exposed to page JavaScript.
+            await fetch(GOOGLE_SHEETS_ENDPOINT, {
+              method: 'POST',
+              mode: 'no-cors',
+              body: new URLSearchParams(formData)
+            });
+
+            form.reset();
+            status.textContent = form.dataset.formType === 'brand'
+              ? 'Thank you. Your brand brief has been submitted.'
+              : 'Thank you. Your creator application has been submitted.';
+            status.classList.add('is-success');
+          } catch (error) {
+            console.error('Form submission failed:', error);
+            status.textContent = 'We could not submit the form. Please try again or email connect@lilastudios.ai.';
+            status.classList.add('is-error');
+          } finally {
+            submitButton.disabled = false;
+            submitButton.innerHTML = originalButtonContent;
+          }
+        });
+      });
     })();
   </script>
 </body>
