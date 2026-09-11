@@ -1,7 +1,9 @@
 .DS_Store
 Thumbs.db
+_archive/
 tmp/
 .vscode/
 .idea/
 *.mp4
+!assets/montage.mp4
 BRIEF/LILA Videos/**/*.mp4
