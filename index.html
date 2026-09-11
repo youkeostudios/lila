@@ -5,13 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#08070b">
   <meta name="description" content="Lila Studios — Drama, generated. An AI-native studio that produces micro-dramas — vertical, phone-first, cliffhanger-driven short films, created entirely with generative AI.">
-  <link rel="preconnect" href="https://d2j5x7i3l2mh2f.cloudfront.net" crossorigin>
-  <link rel="dns-prefetch" href="https://d2j5x7i3l2mh2f.cloudfront.net">
+  <link rel="icon" href="assets/favicon-32.png?v=2" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=2" sizes="180x180">
+  <link rel="preconnect" href="https://d2j5x7i3l2mh2f.cloudfront.net/compressed" crossorigin>
+  <link rel="dns-prefetch" href="https://d2j5x7i3l2mh2f.cloudfront.net/compressed">
   <title>Lila Studios — Drama, generated.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
   <style>
     :root {
       color-scheme: dark;
@@ -1862,6 +1863,8 @@
       width: 100%;
       box-shadow: 0 35px 80px rgba(0, 0, 0, 0.9), 0 0 50px rgba(112, 38, 184, 0.3);
       position: relative;
+      max-height: calc(100vh - 48px);
+      overflow-y: auto;
     }
     .form-dialog-head {
       display: flex;
@@ -2629,9 +2632,7 @@
           </div>
 
           <!-- Video Element -->
-          <video id="modalVideoPlayer" playsinline loop preload="metadata">
-            <source src="" type="video/mp4">
-          </video>
+          <video id="modalVideoPlayer" playsinline loop preload="metadata"></video>
         </div>
 
         <!-- Details & Content Underneath Video -->
@@ -2910,25 +2911,28 @@
             <form id="directBrandForm" data-lead-form data-form-type="brand">
               <input class="form-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
               <div class="form-group">
-                <label class="form-label" for="brandNameInput">Your Name & Role</label>
-                <input class="form-input" id="brandNameInput" name="name_role" type="text" maxlength="120" placeholder="e.g. Vikramaditya Sharma, CMO" required>
+                <label class="form-label" for="brandNameInput">Name</label>
+                <input class="form-input" id="brandNameInput" name="name" type="text" maxlength="120" autocomplete="name" placeholder="e.g. Vikramaditya Sharma" required>
               </div>
               <div class="form-group">
-                <label class="form-label" for="brandEmailInput">Work Email</label>
-                <input class="form-input" id="brandEmailInput" name="email" type="email" maxlength="254" placeholder="name@company.com" required>
+                <label class="form-label" for="brandPositionInput">Position</label>
+                <input class="form-input" id="brandPositionInput" name="position" type="text" maxlength="120" autocomplete="organization-title" placeholder="e.g. CMO" required>
               </div>
               <div class="form-group">
-                <label class="form-label" for="brandTypeSelect">Project Scope</label>
-                <select class="form-select" id="brandTypeSelect" name="project_scope" required>
-                  <option>Branded Micro-Drama Series (3-5 Episodes)</option>
-                  <option>Single Branded Short Film</option>
-                  <option>Content-to-Commerce OVP Integration</option>
-                  <option>Custom Pilot & Pitch</option>
-                </select>
+                <label class="form-label" for="brandEmailInput">Email</label>
+                <input class="form-input" id="brandEmailInput" name="email" type="email" maxlength="254" autocomplete="email" placeholder="name@company.com" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="brandPhoneInput">Phone No.</label>
+                <input class="form-input" id="brandPhoneInput" name="phone" type="tel" maxlength="20" autocomplete="tel" inputmode="tel" pattern="[0-9+() .-]{7,20}" title="Enter a valid phone number" placeholder="+91 98765 43210" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="brandProjectScopeInput">Project Scope</label>
+                <input class="form-input" id="brandProjectScopeInput" name="project_scope" type="text" maxlength="200" placeholder="Tell us what you would like to create" required>
               </div>
               <div class="form-group">
                 <label class="form-label" for="brandMessageInput">Brief Overview / Campaign Vision</label>
-                <textarea class="form-textarea" id="brandMessageInput" name="brief" maxlength="2000" placeholder="Tell us about the narrative theme, target audience, or timeline..."></textarea>
+                <textarea class="form-textarea" id="brandMessageInput" name="brief" maxlength="2000" placeholder="Tell us about the narrative theme, target audience, or timeline..." required></textarea>
               </div>
               <button class="form-submit-btn" type="submit">
                 <span>Send Brand Brief</span>
@@ -2941,24 +2945,28 @@
             <form id="directCreatorForm" data-lead-form data-form-type="creator" style="display: none;">
               <input class="form-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
               <div class="form-group">
-                <label class="form-label" for="creatorNameInput">Full Name</label>
-                <input class="form-input" id="creatorNameInput" name="full_name" type="text" maxlength="120" placeholder="e.g. Ananya Rao" required>
+                <label class="form-label" for="creatorNameInput">Name</label>
+                <input class="form-input" id="creatorNameInput" name="name" type="text" maxlength="120" autocomplete="name" placeholder="e.g. Ananya Rao" required>
               </div>
               <div class="form-group">
                 <label class="form-label" for="creatorEmailInput">Email Address</label>
-                <input class="form-input" id="creatorEmailInput" name="email" type="email" maxlength="254" placeholder="ananya@gmail.com" required>
+                <input class="form-input" id="creatorEmailInput" name="email" type="email" maxlength="254" autocomplete="email" placeholder="ananya@gmail.com" required>
               </div>
               <div class="form-group">
-                <label class="form-label" for="creatorCityInput">Location / City in India</label>
-                <input class="form-input" id="creatorCityInput" name="city" type="text" maxlength="100" placeholder="e.g. Bengaluru, Kochi, Jaipur, Delhi" required>
+                <label class="form-label" for="creatorPhoneInput">Phone No.</label>
+                <input class="form-input" id="creatorPhoneInput" name="phone" type="tel" maxlength="20" autocomplete="tel" inputmode="tel" pattern="[0-9+() .-]{7,20}" title="Enter a valid phone number" placeholder="+91 98765 43210" required>
               </div>
               <div class="form-group">
-                <label class="form-label" for="creatorLinkInput">Portfolio / Instagram / YouTube Link</label>
-                <input class="form-input" id="creatorLinkInput" name="portfolio_url" type="url" maxlength="500" placeholder="https://..." required>
+                <label class="form-label" for="creatorLocationInput">Location</label>
+                <input class="form-input" id="creatorLocationInput" name="location" type="text" maxlength="120" autocomplete="address-level2" placeholder="e.g. Bengaluru, Kochi, Jaipur, Delhi" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="creatorLinkInput">Portfolio Link</label>
+                <input class="form-input" id="creatorLinkInput" name="portfolio_link" type="url" maxlength="500" autocomplete="url" placeholder="https://..." required>
               </div>
               <div class="form-group">
                 <label class="form-label" for="creatorToolsInput">Primary AI Tools & Creative Skills</label>
-                <textarea class="form-textarea" id="creatorToolsInput" name="tools_skills" maxlength="2000" placeholder="e.g. Midjourney, Runway, Kling, Veo, Premiere, Scriptwriting in Hindi/Tamil..."></textarea>
+                <textarea class="form-textarea" id="creatorToolsInput" name="tools_skills" maxlength="2000" placeholder="e.g. Midjourney, Runway, Kling, Veo, Premiere, Scriptwriting in Hindi/Tamil..." required></textarea>
               </div>
               <button class="form-submit-btn" type="submit">
                 <span>Submit Creator Application</span>
@@ -3033,24 +3041,28 @@
         <form data-lead-form data-form-type="brand">
           <input class="form-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
           <div class="form-group">
-            <label class="form-label">Name & Title</label>
-            <input class="form-input" name="name_role" type="text" maxlength="120" placeholder="e.g. Priya Nair, Brand Lead" required>
+            <label class="form-label">Name</label>
+            <input class="form-input" name="name" type="text" maxlength="120" autocomplete="name" placeholder="e.g. Priya Nair" required>
           </div>
           <div class="form-group">
-            <label class="form-label">Work Email</label>
-            <input class="form-input" name="email" type="email" maxlength="254" placeholder="priya@brand.com" required>
+            <label class="form-label">Position</label>
+            <input class="form-input" name="position" type="text" maxlength="120" autocomplete="organization-title" placeholder="e.g. Brand Lead" required>
           </div>
           <div class="form-group">
-            <label class="form-label">Series Type</label>
-            <select class="form-select" name="project_scope" required>
-              <option>Branded Micro-Drama (Vertical Series)</option>
-              <option>Short Film & Performance Creative</option>
-              <option>Content-to-Commerce Integration</option>
-            </select>
+            <label class="form-label">Email</label>
+            <input class="form-input" name="email" type="email" maxlength="254" autocomplete="email" placeholder="priya@brand.com" required>
           </div>
           <div class="form-group">
-            <label class="form-label">Brief Details</label>
-            <textarea class="form-textarea" name="brief" maxlength="2000" placeholder="Tell us about the narrative theme or campaign goals..."></textarea>
+            <label class="form-label">Phone No.</label>
+            <input class="form-input" name="phone" type="tel" maxlength="20" autocomplete="tel" inputmode="tel" pattern="[0-9+() .-]{7,20}" title="Enter a valid phone number" placeholder="+91 98765 43210" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Project Scope</label>
+            <input class="form-input" name="project_scope" type="text" maxlength="200" placeholder="Tell us what you would like to create" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Brief Overview / Campaign Vision</label>
+            <textarea class="form-textarea" name="brief" maxlength="2000" placeholder="Tell us about the narrative theme or campaign goals..." required></textarea>
           </div>
           <button class="form-submit-btn" type="submit">Submit Brief</button>
           <p class="form-status" role="status" aria-live="polite"></p>
@@ -3075,20 +3087,28 @@
         <form data-lead-form data-form-type="creator">
           <input class="form-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
           <div class="form-group">
-            <label class="form-label">Full Name</label>
-            <input class="form-input" name="full_name" type="text" maxlength="120" placeholder="Your Name" required>
+            <label class="form-label">Name</label>
+            <input class="form-input" name="name" type="text" maxlength="120" autocomplete="name" placeholder="Your Name" required>
           </div>
           <div class="form-group">
             <label class="form-label">Email</label>
-            <input class="form-input" name="email" type="email" maxlength="254" placeholder="name@domain.com" required>
+            <input class="form-input" name="email" type="email" maxlength="254" autocomplete="email" placeholder="name@domain.com" required>
           </div>
           <div class="form-group">
-            <label class="form-label">City / Region in India</label>
-            <input class="form-input" name="city" type="text" maxlength="100" placeholder="e.g. Mumbai, Hyderabad, Kolkata" required>
+            <label class="form-label">Phone No.</label>
+            <input class="form-input" name="phone" type="tel" maxlength="20" autocomplete="tel" inputmode="tel" pattern="[0-9+() .-]{7,20}" title="Enter a valid phone number" placeholder="+91 98765 43210" required>
           </div>
           <div class="form-group">
-            <label class="form-label">Portfolio URL</label>
-            <input class="form-input" name="portfolio_url" type="url" maxlength="500" placeholder="https://instagram.com/... or Behance / YouTube" required>
+            <label class="form-label">Location</label>
+            <input class="form-input" name="location" type="text" maxlength="120" autocomplete="address-level2" placeholder="e.g. Mumbai, Hyderabad, Kolkata" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Portfolio Link</label>
+            <input class="form-input" name="portfolio_link" type="url" maxlength="500" autocomplete="url" placeholder="https://instagram.com/... or Behance / YouTube" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Primary AI Tools & Creative Skills</label>
+            <textarea class="form-textarea" name="tools_skills" maxlength="2000" placeholder="e.g. Midjourney, Runway, Kling, Veo, Premiere, Scriptwriting..." required></textarea>
           </div>
           <button class="form-submit-btn" type="submit">Submit Application</button>
           <p class="form-status" role="status" aria-live="polite"></p>
@@ -3202,7 +3222,7 @@
         });
       }
 
-      // AWS CloudFront Video Pipeline Configuration
+      // AWS CloudFront video delivery
       const AWS_CLOUDFRONT_VIDEO_BASE = 'https://d2j5x7i3l2mh2f.cloudfront.net/compressed';
 
       function cloudFrontVideo(filename) {
@@ -3214,14 +3234,20 @@
         const finalUrl = videoSrc.startsWith('http://') || videoSrc.startsWith('https://')
           ? videoSrc
           : cloudFrontVideo(videoSrc);
-
-        if (videoEl.src !== finalUrl) {
+        if (videoEl.getAttribute('src') !== finalUrl) {
           videoEl.src = finalUrl;
         }
         if (autoplay) {
           const p = videoEl.play();
           if (p) p.catch(() => {});
         }
+      }
+
+      function unloadVideo(videoEl) {
+        if (!videoEl) return;
+        videoEl.pause();
+        videoEl.removeAttribute('src');
+        videoEl.load();
       }
 
       // Phone Video Player and Playlist Switcher
@@ -3433,37 +3459,45 @@
           modalUnmutedIcon.style.display = 'block';
         }
 
-        // Load first episode via Cloudflare Stream and open dialog
+        // Load the first local episode and open the dialog
         playStream(modalVideoPlayer, item.episodes[0].src, true);
         cinemaDialog.showModal();
       };
 
-      // Poster Card Hover Autoplay & Modal Open with Pre-warming
+      // Poster Card Hover Autoplay & Modal Open
       posterCards.forEach(card => {
         const hoverVideo = card.querySelector('.poster-hover-video');
+        let hoverTimer;
+
+        const stopHoverPreview = () => {
+          window.clearTimeout(hoverTimer);
+          card.classList.remove('is-playing');
+          unloadVideo(hoverVideo);
+        };
 
         if (hoverVideo) {
           card.addEventListener('mouseenter', () => {
-            if (!hoverVideo.src && hoverVideo.dataset.src) {
-              playStream(hoverVideo, hoverVideo.dataset.src, true);
-            } else if (hoverVideo.paused) {
-              hoverVideo.play().catch(() => {});
-            }
-            card.classList.add('is-playing');
+            window.clearTimeout(hoverTimer);
+            hoverTimer = window.setTimeout(() => {
+              if (!card.matches(':hover') || cinemaDialog?.open) return;
+              if (hoverVideo.dataset.src) {
+                playStream(hoverVideo, hoverVideo.dataset.src, true);
+                card.classList.add('is-playing');
+              }
+            }, 250);
           });
 
-          card.addEventListener('mouseleave', () => {
-            card.classList.remove('is-playing');
-            hoverVideo.pause();
-          });
+          card.addEventListener('mouseleave', stopHoverPreview);
         }
 
         card.addEventListener('click', () => {
+          stopHoverPreview();
           openCinemaModal(card.dataset.seriesId);
         });
         card.addEventListener('keydown', (e) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
+            stopHoverPreview();
             openCinemaModal(card.dataset.seriesId);
           }
         });
@@ -3483,7 +3517,7 @@
           }
         });
         cinemaDialog.addEventListener('close', () => {
-          if (modalVideoPlayer) modalVideoPlayer.pause();
+          unloadVideo(modalVideoPlayer);
         });
       }
 
@@ -3542,6 +3576,90 @@
 
       // Google Sheets form submissions (Google Apps Script web app)
       const GOOGLE_SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyrioVoAWDeJv15njtEK-PkIVG767_2G8MNOKWEGjQeC9i9JpQN6EDLMj-SYHEylgq3iw/exec';
+      const FORM_RESPONSE_SOURCE = 'lila-form-response';
+      const FORM_RESPONSE_TIMEOUT_MS = 20000;
+      const isTrustedGoogleScriptOrigin = (origin) => {
+        try {
+          const { protocol, hostname } = new URL(origin);
+
+          return protocol === 'https:' && (
+            hostname === 'script.google.com' ||
+            hostname === 'script.googleusercontent.com' ||
+            hostname.endsWith('-script.googleusercontent.com')
+          );
+        } catch {
+          return false;
+        }
+      };
+
+      const createSubmissionId = () => {
+        if (window.crypto && typeof window.crypto.randomUUID === 'function') {
+          return window.crypto.randomUUID();
+        }
+
+        return `submission-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+      };
+
+      const submitWithConfirmation = (formData) => new Promise((resolve, reject) => {
+        const submissionId = createSubmissionId();
+        const frameName = `lila-form-response-${submissionId}`;
+        const responseFrame = document.createElement('iframe');
+        const transportForm = document.createElement('form');
+        let timeoutId;
+
+        responseFrame.name = frameName;
+        responseFrame.title = 'Form submission response';
+        responseFrame.hidden = true;
+        responseFrame.setAttribute('aria-hidden', 'true');
+
+        transportForm.method = 'POST';
+        transportForm.action = GOOGLE_SHEETS_ENDPOINT;
+        transportForm.target = frameName;
+        transportForm.acceptCharset = 'UTF-8';
+        transportForm.hidden = true;
+
+        formData.set('submission_id', submissionId);
+        formData.forEach((value, key) => {
+          const input = document.createElement('input');
+          input.type = 'hidden';
+          input.name = key;
+          input.value = String(value);
+          transportForm.appendChild(input);
+        });
+
+        const cleanup = () => {
+          window.clearTimeout(timeoutId);
+          window.removeEventListener('message', handleResponse);
+          transportForm.remove();
+          responseFrame.remove();
+        };
+
+        const handleResponse = (event) => {
+          const data = event.data;
+
+          if (!isTrustedGoogleScriptOrigin(event.origin)) return;
+          if (!data || data.source !== FORM_RESPONSE_SOURCE) return;
+          if (data.submission_id !== submissionId) return;
+
+          cleanup();
+
+          if (data.success === true) {
+            resolve(data);
+          } else {
+            reject(new Error(data.message || 'Apps Script rejected the submission.'));
+          }
+        };
+
+        window.addEventListener('message', handleResponse);
+        document.body.append(responseFrame, transportForm);
+
+        timeoutId = window.setTimeout(() => {
+          cleanup();
+          reject(new Error('The submission confirmation timed out.'));
+        }, FORM_RESPONSE_TIMEOUT_MS);
+
+        transportForm.submit();
+      });
 
       document.querySelectorAll('[data-lead-form]').forEach((form) => {
         form.addEventListener('submit', async (event) => {
@@ -3555,21 +3673,13 @@
           const formData = new FormData(form);
 
           formData.set('form_type', form.dataset.formType);
-          status.textContent = '';
+          status.textContent = 'Submitting your form…';
           status.className = 'form-status';
           submitButton.disabled = true;
           submitButton.textContent = 'Submitting…';
 
           try {
-            // no-cors is required for a browser POST to an Apps Script web app.
-            // The request is still delivered, but the redirected Google response
-            // is intentionally not exposed to page JavaScript.
-            await fetch(GOOGLE_SHEETS_ENDPOINT, {
-              method: 'POST',
-              mode: 'no-cors',
-              body: new URLSearchParams(formData)
-            });
-
+            await submitWithConfirmation(formData);
             form.reset();
             status.textContent = form.dataset.formType === 'brand'
               ? 'Thank you. Your brand brief has been submitted.'
